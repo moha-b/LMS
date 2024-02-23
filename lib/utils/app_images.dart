@@ -6,4 +6,5 @@ class AppImages {
   static const instructor = "assets/images/instructor.png";
   static const loginShape = "assets/images/login_shape.svg";
   static const splashShape = "assets/images/splash_shape.svg";
+  static const courseVideo = "assets/images/video_course.jfif";
 }
