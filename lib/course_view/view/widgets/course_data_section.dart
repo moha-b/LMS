@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/course_view/data/models/course/course_status_model.dart';
 import 'package:lms/course_view/view/widgets/course_details.dart';
 import 'package:lms/utils/app_colors.dart';
 import 'package:lms/utils/app_icons.dart';
@@ -10,56 +11,22 @@ class CourseDataSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<IconData> iconList = [
-      AppIcons.note_1,
-      AppIcons.user,
-      AppIcons.clock,
-      AppIcons.document_text,
-    ];
-    List<String> titleList = [
-      'Release Date',
-      'Students',
-      'Duration',
-      'Lectures',
-    ];
-    List<String> descriptionList = [
-      'Oct, 2021',
-      '130',
-      '8 hours',
-      '15',
-    ];
     return Padding(
       padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                'Self Learning',
-                style: TextStyle(
-                  color: AppColors.gray400,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(width: 5.w),
-              CircleAvatar(
-                backgroundColor: AppColors.gray400,
-                radius: 2.sp,
-              ),
-              SizedBox(width: 5.w),
-              Text(
-                'Maintenance Track',
-                style: TextStyle(
-                  color: AppColors.gray400,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
+          Text(
+            'Self Learning • Maintenance Track',
+            style: TextStyle(
+              color: AppColors.gray400,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           SizedBox(height: 12.h),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 flex: 3,
@@ -73,15 +40,12 @@ class CourseDataSection extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Padding(
-                padding: EdgeInsets.only(bottom: 25.w),
-                child: GestureDetector(
-                  onTap: () => print('Export'),
-                  child: Icon(
-                    AppIcons.export_1,
-                    size: 24.sp,
-                    color: AppColors.primary,
-                  ),
+              GestureDetector(
+                onTap: () => print('Export'),
+                child: Icon(
+                  AppIcons.export_1,
+                  size: 24.sp,
+                  color: AppColors.primary,
                 ),
               ),
             ],
@@ -112,11 +76,8 @@ class CourseDataSection extends StatelessWidget {
             height: 38.h,
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => CourseDetails(
-                      icon: iconList[index],
-                      title: titleList[index],
-                      description: descriptionList[index],
-                    ),
+                itemBuilder: (context, index) =>
+                    CourseDetails(model: courses[index]),
                 separatorBuilder: (context, index) => SizedBox(width: 16.sp),
                 itemCount: 4),
           ),

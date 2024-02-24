@@ -17,7 +17,7 @@ class AppColors {
   static const error50 = Color(0xffFCECEC);
 
   // Blue
-  static const violet50 = Color(0xffF5F7FF);
+  static const violet50 = Color(0xffF3F4FF);
   static const blue100 = Color(0xffB1BBFF);
   static const blue200 = Color(0xff8B9BFF);
   static const blue300 = Color(0xff556DFF);

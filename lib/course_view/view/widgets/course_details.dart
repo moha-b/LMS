@@ -2,18 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/course_view/data/models/course/course_status_model.dart';
 import 'package:lms/utils/app_colors.dart';
 
 class CourseDetails extends StatelessWidget {
-  CourseDetails(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.description});
+  CourseDetails({super.key, required this.model});
 
-  IconData icon;
-  String title;
-  String description;
+  CourseStatusModel model;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,9 +18,9 @@ class CourseDetails extends StatelessWidget {
           height: 38.h,
           decoration: BoxDecoration(
               color: AppColors.violet50,
-              borderRadius: BorderRadius.circular(12)),
+              borderRadius: BorderRadius.circular(12.r)),
           child: Icon(
-            icon,
+            model.icon,
             size: 20.sp,
             color: AppColors.primary,
           ),
@@ -36,7 +31,7 @@ class CourseDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                model.title,
                 style: TextStyle(
                   fontSize: 10.sp,
                   color: AppColors.gray400,
@@ -44,7 +39,7 @@ class CourseDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                description,
+                model.description,
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: AppColors.gray800,

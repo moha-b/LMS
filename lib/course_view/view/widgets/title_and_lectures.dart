@@ -80,13 +80,12 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
               ),
             ],
           ),
-          SizedBox(height: 24.h),
           Container(
             height: 1.h,
+            margin: EdgeInsets.symmetric(vertical: 24.h),
             width: 327.w,
             color: AppColors.gray200,
           ),
-          SizedBox(height: 24.h),
           Column(
             children: [
               Row(
@@ -103,13 +102,10 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                   IconButton(
                     onPressed: _toggleExpandedLectures,
                     icon: _isExpandedLectures
-                        ? Transform.rotate(
-                            angle: 3.14,
-                            child: Icon(
-                              AppIcons.arrow_down_1,
-                              size: 20.sp,
-                              color: AppColors.gray900,
-                            ),
+                        ? Icon(
+                            AppIcons.arrow_right_3,
+                            size: 20.sp,
+                            color: AppColors.gray900,
                           )
                         : Icon(
                             AppIcons.arrow_down_1,
@@ -125,7 +121,7 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                   width: 327.w,
                   height: 200.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     color: AppColors.gray50,
                   ),
                   child: ListView.separated(
@@ -152,14 +148,12 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                                     ? AppIcons.minus
                                     : AppIcons.add,
                                 size: 20.sp,
-                                color: AppColors.gray900,
+                                color: AppColors.primary,
                               ),
                             ),
                           ],
                         ),
-                        _isExpandedList[index]
-                            ? const LecturesDetails()
-                            : const SizedBox(),
+                        if (_isExpandedList[index]) const LecturesDetails(),
                       ],
                     ),
                     separatorBuilder: (context, index) =>
@@ -169,9 +163,9 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                 ),
             ],
           ),
-          SizedBox(height: 24.h),
           Container(
             height: 1.h,
+            margin: EdgeInsets.symmetric(vertical: 24.h),
             width: 327.w,
             color: AppColors.gray200,
           ),

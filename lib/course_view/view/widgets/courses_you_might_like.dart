@@ -31,34 +31,31 @@ class CoursesYouMightLike extends StatelessWidget {
                       padding: EdgeInsets.only(left: 7.w),
                       child: Column(
                         children: [
-                          Stack(
-                            children: [
-                              Container(
-                                width: 207.w,
-                                height: 122.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                      AppImages.dummyImage1,
-                                    ),
-                                    fit: BoxFit.fill,
-                                  ),
+                          Container(
+                            width: 207.w,
+                            height: 122.h,
+                            alignment: Alignment.topLeft,
+                            padding: EdgeInsets.only(top: 12.h, left: 12.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.r),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                  AppImages.dummyImage1,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor: AppColors.white,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  size: 20.sp,
+                                  AppIcons.heart,
+                                  color: AppColors.secondary,
                                 ),
                               ),
-                              Positioned(
-                                top: 12.h,
-                                left: 12.w,
-                                child: CircleAvatar(
-                                  backgroundColor: AppColors.white,
-                                  child: Icon(
-                                    size: 20.sp,
-                                    AppIcons.heart,
-                                    color: AppColors.secondary,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
