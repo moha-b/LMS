@@ -109,14 +109,14 @@ class CoursesYouMightLike extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                              padding: EdgeInsets.symmetric(vertical: 8.h),
                               child: Row(
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: const AssetImage(
                                       AppImages.instructor,
                                     ),
-                                    radius: 10.sp,
+                                    radius: 10.r,
                                   ),
                                   SizedBox(width: 4.w),
                                   Text(
