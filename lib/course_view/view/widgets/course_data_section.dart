@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/course_view/data/models/course/course_status_model.dart';
 import 'package:lms/course_view/view/widgets/course_details.dart';
+import 'package:lms/course_view/view/widgets/line_separated.dart';
 import 'package:lms/utils/app_colors.dart';
 import 'package:lms/utils/app_icons.dart';
 import 'package:lms/utils/app_images.dart';
@@ -57,9 +58,9 @@ class CourseDataSection extends StatelessWidget {
                 backgroundImage: const AssetImage(
                   AppImages.instructor,
                 ),
-                radius: 10.sp,
+                radius: 10.r,
               ),
-              SizedBox(width: 4.sp),
+              SizedBox(width: 4.w),
               Text(
                 'Heba Abd Elsahafi',
                 style: TextStyle(
@@ -78,11 +79,12 @@ class CourseDataSection extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) =>
                     CourseDetails(model: courses[index]),
-                separatorBuilder: (context, index) => SizedBox(width: 16.sp),
+                separatorBuilder: (context, index) => SizedBox(width: 16.w),
                 itemCount: 4),
           ),
           SizedBox(height: 24.h),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 r'$198',
@@ -92,20 +94,21 @@ class CourseDataSection extends StatelessWidget {
                   fontSize: 24.sp,
                 ),
               ),
-              SizedBox(width: 8.sp),
+              SizedBox(width: 8.w),
               Text.rich(
+                style: TextStyle(
+                  color: AppColors.gray500,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                ),
                 TextSpan(
                   text: 'Disc. ',
-                  style: TextStyle(
-                    color: AppColors.gray500,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.sp,
-                  ),
-                  children: const [
+                  children: [
                     TextSpan(
                       text: r'$500',
                       style: TextStyle(
                         decoration: TextDecoration.lineThrough,
+                        height: 1.4.h,
                       ),
                     ),
                   ],
@@ -129,11 +132,7 @@ class CourseDataSection extends StatelessWidget {
           SizedBox(
             height: 24.h,
           ),
-          Container(
-            height: 1.h,
-            width: 327.w,
-            color: AppColors.gray200,
-          ),
+          const LineSeparated(),
         ],
       ),
     );

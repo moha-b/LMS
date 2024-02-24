@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/course_view/view/widgets/bottomSheet.dart';
 import 'package:lms/course_view/view/widgets/lectures_details.dart';
+import 'package:lms/course_view/view/widgets/line_separated.dart';
 import 'package:lms/utils/app_colors.dart';
 import 'package:lms/utils/app_icons.dart';
 
@@ -80,12 +81,7 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
               ),
             ],
           ),
-          Container(
-            height: 1.h,
-            margin: EdgeInsets.symmetric(vertical: 24.h),
-            width: 327.w,
-            color: AppColors.gray200,
-          ),
+          const LineSeparated(),
           Column(
             children: [
               Row(
@@ -163,12 +159,7 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                 ),
             ],
           ),
-          Container(
-            height: 1.h,
-            margin: EdgeInsets.symmetric(vertical: 24.h),
-            width: 327.w,
-            color: AppColors.gray200,
-          ),
+          const LineSeparated(),
         ],
       ),
     );

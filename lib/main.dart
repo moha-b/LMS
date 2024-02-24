@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/course_view/view/course_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const Dummy(), // TODO: replace with your widget,
+      child: const CourseView(), // TODO: replace with your widget,
     );
   }
 }

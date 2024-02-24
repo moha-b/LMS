@@ -115,7 +115,7 @@ class CoursesYouMightLike extends StatelessWidget {
                                       ),
                                       radius: 10.sp,
                                     ),
-                                    SizedBox(width: 4.sp),
+                                    SizedBox(width: 4.w),
                                     Text(
                                       'Heba Abd Elsahafi',
                                       style: TextStyle(
