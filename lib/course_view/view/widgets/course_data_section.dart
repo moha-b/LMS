@@ -129,9 +129,6 @@ class CourseDataSection extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 24.h,
-          ),
           const LineSeparated(),
         ],
       ),
