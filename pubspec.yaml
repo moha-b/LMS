@@ -18,6 +18,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

@@ -24,7 +24,6 @@ class NetworkHelper {
         responseHeader: true,
       ));
     }
-
     return dio;
   }
 
@@ -34,7 +33,7 @@ class NetworkHelper {
     bool withToken = true,
   }) async {
     var response = await _dio.get(endPoint,
-        queryParameters: params, options: _configureOptions(withToken));
+        queryParameters: params, options: await _configureOptions(withToken));
     return response;
   }
 
@@ -47,13 +46,14 @@ class NetworkHelper {
     var response = await _dio.post(endPoint,
         data: data,
         queryParameters: params,
-        options: _configureOptions(withToken));
+        options: await _configureOptions(withToken));
     return response;
   }
 
-  Options _configureOptions(bool withToken) {
+  Future<Options> _configureOptions(bool withToken) async {
     Options options = Options();
     if (withToken) {
+      var token = await SharedHelper.instance!.readString(CachingKey.TOKEN);
       options.headers = {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
