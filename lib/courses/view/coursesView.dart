@@ -40,7 +40,8 @@ class CoursesView extends StatelessWidget {
               color: Colors.grey[200],
             ),
           ),
-          CourseList(),
+          CourseList(sectionTitle: 'Self Learning'),
+          CourseList(sectionTitle: 'Interactive online courses'),
         ],
       ),
     );
