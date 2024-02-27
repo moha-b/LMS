@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import 'courseName.dart';
@@ -68,7 +67,7 @@ class CourseWidget extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

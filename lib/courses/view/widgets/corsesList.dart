@@ -9,8 +9,9 @@ import 'courseWidget.dart';
 
 
 class CourseList extends StatelessWidget {
-  const CourseList({super.key, required this.sectionTitle});
+  const CourseList({super.key, required this.sectionTitle, required this.onViewAllClicked});
   final String sectionTitle;
+  final Function() onViewAllClicked;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -36,7 +37,7 @@ class CourseList extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: onViewAllClicked,
                     child: Text(
                       'View all',
                       style: TextStyle(
