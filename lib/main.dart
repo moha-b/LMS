@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             home: child,
           );
         },
-        child: const CoursesView(), // TODO: replace with your widget,
+        child: const Dummy(), // TODO: replace with your widget,
         );
   }
 }
