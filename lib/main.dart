@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'courses/view/coursesView.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
             home: child,
           );
         },
-        child: const Dummy() // TODO: replace with your widget,
+        child: const CoursesView(), // TODO: replace with your widget,
         );
   }
 }
