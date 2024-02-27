@@ -1,11 +1,11 @@
 part of 'network.dart';
 
-String BASE_URL = "";
+String BASE_URL = "https://api.engineering-tracks.com/api";
 
 class EndPoints {
-  static const HOMECOURSES = "/homeCourses";
-  static const TOPRATEDCOURSES = "/top-ratted-courses";
-  static const GETAPPTRACKS = "/homePackages";
+  static const HOME_COURSES = "/homeCourses";
+  static const TOP_RATED_COURSES = "/top-ratted-courses";
+  static const GET_APP_TRACKS = "/homePackages";
   static const LOGIN = "/auth/login";
 
   static String courseDetails(courseId) =>
