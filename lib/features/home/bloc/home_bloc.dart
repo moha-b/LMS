@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lms/features/home/data/model/data.dart';
+import 'package:lms/features/home/data/model/course_model.dart';
 
 import '../data/repo/home_repo.dart';
 

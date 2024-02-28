@@ -8,7 +8,7 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class HomeSuccess extends HomeState {
-  final Data data;
+  final CoursesModel data;
 
   const HomeSuccess(this.data);
 }
