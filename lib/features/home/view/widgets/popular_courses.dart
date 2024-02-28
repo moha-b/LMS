@@ -1,8 +1,8 @@
 part of 'widgets.dart';
 
 class PopularCourses extends StatelessWidget {
-  const PopularCourses({super.key});
-
+  const PopularCourses({super.key, required this.list});
+  final List<Course> list;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,10 +56,8 @@ class PopularCourses extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(12.r),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                  AppImages.dummyImage1,
-                                ),
+                              image: DecorationImage(
+                                image: NetworkImage(list[index].image),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -87,7 +85,7 @@ class PopularCourses extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'Power BI advanced data analysis',
+                                      list[index].title,
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         color: AppColors.gray900,
@@ -112,7 +110,7 @@ class PopularCourses extends StatelessWidget {
                                           width: 4.w,
                                         ),
                                         Text(
-                                          '5.5',
+                                          list[index].rate.toString(),
                                           style: TextStyle(
                                             fontSize: 11.sp,
                                             color: AppColors.black,
@@ -130,14 +128,14 @@ class PopularCourses extends StatelessWidget {
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: const AssetImage(
-                                      AppImages.instructor,
+                                    backgroundImage: NetworkImage(
+                                      list[index].instructors[0].image,
                                     ),
                                     radius: 10.r,
                                   ),
                                   SizedBox(width: 4.w),
                                   Text(
-                                    'Heba Abd Elsahafi',
+                                    list[index].instructors[0].name,
                                     style: TextStyle(
                                       color: AppColors.gray600,
                                       fontSize: 11.sp,
@@ -148,7 +146,7 @@ class PopularCourses extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              r'$2500',
+                              '\$${list[index].price}',
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 14.sp,
@@ -159,10 +157,8 @@ class PopularCourses extends StatelessWidget {
                         ),
                       ],
                     ),
-                separatorBuilder: (context, index) => SizedBox(
-                      width: 12.w,
-                    ),
-                itemCount: 3),
+                separatorBuilder: (context, index) => SizedBox(width: 12.w),
+                itemCount: list.length),
           ),
         ],
       ),

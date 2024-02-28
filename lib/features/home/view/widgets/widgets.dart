@@ -7,6 +7,7 @@ import 'package:lms/core/utils/app_routes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../core/utils/app_images.dart';
+import '../../data/model/course_model.dart';
 
 part 'bottom_nav_bar.dart';
 part 'main_tracks.dart';

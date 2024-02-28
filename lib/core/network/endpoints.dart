@@ -5,6 +5,8 @@ String BASE_URL = "https://api.engineering-tracks.com/api";
 class EndPoints {
   static const HOME_COURSES = "/homeCourses";
   static const TOP_RATED_COURSES = "/top-ratted-courses";
+  static const GET_ALL_TRACKS = "/homePackages";
+  static const HOME_ADS = "/homeAds";
   static const GET_APP_TRACKS = "/homePackages";
   static const LOGIN = "/auth/login";
 
