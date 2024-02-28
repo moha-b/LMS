@@ -3,3 +3,9 @@ abstract class Enum<T> {
   const Enum(this._value);
   T get value => _value;
 }
+
+enum RequestState {
+  loading,
+  loaded,
+  error,
+}

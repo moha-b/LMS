@@ -1,20 +1,13 @@
 part of 'widgets.dart';
 
 class HomeAds extends StatefulWidget {
-  const HomeAds({super.key});
-
+  const HomeAds({super.key, required this.adsModel});
+  final AdsModel? adsModel;
   @override
   State<HomeAds> createState() => _SliderState();
 }
 
 class _SliderState extends State<HomeAds> {
-  List images = [
-    AppImages.banner,
-    AppImages.banner,
-    AppImages.banner,
-    AppImages.banner,
-  ];
-
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
@@ -31,13 +24,13 @@ class _SliderState extends State<HomeAds> {
             ),
             child: PageView.builder(
               controller: _pageController,
-              itemCount: images.length,
+              itemCount: widget.adsModel?.data.length ?? 1,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(right: 8.w),
-                  child: Image.asset(
-                    images[index],
+                  child: CachedNetworkImage(
                     fit: BoxFit.fill,
+                    imageUrl: widget.adsModel!.data[index].image,
                   ),
                 );
               },
@@ -52,7 +45,7 @@ class _SliderState extends State<HomeAds> {
         SizedBox(height: 8.h),
         SmoothPageIndicator(
           controller: _pageController,
-          count: images.length,
+          count: widget.adsModel?.data.length ?? 1,
           effect: ExpandingDotsEffect(
             activeDotColor: AppColors.primary,
             dotWidth: 8.w,

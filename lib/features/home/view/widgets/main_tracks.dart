@@ -1,21 +1,28 @@
 part of 'widgets.dart';
 
 class MainTracks extends StatefulWidget {
-  const MainTracks({Key? key}) : super(key: key);
+  const MainTracks({super.key, required this.list});
+  final AllTracksModel? list;
 
   @override
   State<MainTracks> createState() => _MainTracksState();
 }
 
 class _MainTracksState extends State<MainTracks> {
-  List<dynamic> items = [
-    'Soft Skills',
-    'Maintenance Track',
-    'Physical Courses',
-    'Oil & Gas Training',
-    'Civil Self Learning',
-    'Management Training '
-  ];
+  var firstHalfList;
+  var secondHalfList;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.list != null) {
+      final tracks = widget.list!.tracks;
+      final halfLength = tracks.length ~/ 2;
+      firstHalfList = tracks.sublist(0, halfLength);
+      secondHalfList = tracks.sublist(halfLength);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,9 +48,9 @@ class _MainTracksState extends State<MainTracks> {
               ],
             ),
           ),
-          MainTracksList(tracks: items),
+          MainTracksList(tracks: firstHalfList),
           SizedBox(height: 8.h),
-          MainTracksList(tracks: items),
+          MainTracksList(tracks: secondHalfList),
         ],
       ),
     );

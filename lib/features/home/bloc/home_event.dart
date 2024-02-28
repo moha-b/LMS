@@ -7,3 +7,7 @@ abstract class HomeEvent extends Equatable {
 }
 
 class FetchCourses extends HomeEvent {}
+
+class FetchAds extends HomeEvent {}
+
+class FetchAllTracks extends HomeEvent {}

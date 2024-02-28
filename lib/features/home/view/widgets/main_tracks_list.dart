@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class MainTracksList extends StatelessWidget {
   MainTracksList({super.key, required this.tracks});
 
-  List<dynamic> tracks;
+  List<CourseItem> tracks;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,7 +22,7 @@ class MainTracksList extends StatelessWidget {
               color: AppColors.gray100,
             ),
             child: Text(
-              tracks[index],
+              tracks[index].title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12.sp,

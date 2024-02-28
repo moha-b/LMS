@@ -5,9 +5,8 @@ class AdsModel {
 
   factory AdsModel.fromJson(Map<String, dynamic> json) {
     return AdsModel(
-      data: (json['data'] as List<dynamic>)
-          .map((item) => DataItem.fromJson(item))
-          .toList(),
+      data: List<DataItem>.from(
+          json['data'].map((ads) => DataItem.fromJson(ads))),
     );
   }
 }
