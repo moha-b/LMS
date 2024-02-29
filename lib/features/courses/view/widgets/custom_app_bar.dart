@@ -28,7 +28,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(
             AppIcons.arrow_left,
           ),
-          onPressed: () {},
+          onPressed: () {
+            NavigationHelper.goBack();
+          },
         ),
       ),
     );
