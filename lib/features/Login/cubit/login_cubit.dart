@@ -1,9 +1,8 @@
-
-
-
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lms/core/base/validator.dart';
+
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -15,16 +14,22 @@ class LoginCubit extends Cubit<LoginStates> {
     emailController = StreamController<String>();
 
     // Connect the emailValidator to your email stream
-    validatedEmailStream = emailController.stream.transform(Validator().emailValidator);
+    validatedEmailStream =
+        emailController.stream.transform(Validator().emailValidator);
   }
-  bool visibility=true;
+  bool visibility = true;
 
   void changePasswordVisibility() {
     visibility = !visibility;
     emit(ChangeVisibilityState());
   }
 
+  bool check = true;
 
+  void changeCheck() {
+    check = !check;
+    emit(ChangeCheckState());
+  }
 
   // Method to check if an email is valid
   Future<bool> isValidEmail(String email) async {
@@ -44,5 +49,3 @@ class LoginCubit extends Cubit<LoginStates> {
     return isValid;
   }
 }
-
-
