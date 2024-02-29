@@ -24,13 +24,18 @@ class HomeView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                WelcomeText(),
+                const WelcomeText(),
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
-                    if (state.coursesState == RequestState.loaded) {
-                      return HomeAds(adsModel: state.ads);
-                    } else {
-                      return const SizedBox.shrink();
+                    switch (state.adsState) {
+                      case RequestState.loading:
+                        return const SizedBox.shrink();
+                      case RequestState.loaded:
+                        return state.ads!.data.isNotEmpty
+                            ? HomeAds(adsModel: state.ads)
+                            : const Center(child: Text('Not Found'));
+                      case RequestState.error:
+                        return const Center(child: Text('Error'));
                     }
                   },
                 ),
@@ -45,10 +50,15 @@ class HomeView extends StatelessWidget {
                 ),
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
-                    if (state.coursesState == RequestState.loaded) {
-                      return MainTracks(list: state.allTracks);
-                    } else {
-                      return const SizedBox.shrink();
+                    switch (state.allTracksState) {
+                      case RequestState.loading:
+                        return const Center(child: CircularProgressIndicator());
+                      case RequestState.loaded:
+                        return state.allTracks!.tracks.isNotEmpty
+                            ? MainTracks(list: state.allTracks)
+                            : const Center(child: Text('Not Found'));
+                      case RequestState.error:
+                        return const Center(child: Text('Error'));
                     }
                   },
                 ),
@@ -56,7 +66,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBarSection(),
+        bottomNavigationBar: const BottomNavigationBarSection(),
       ),
     );
   }
