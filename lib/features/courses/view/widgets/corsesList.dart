@@ -47,7 +47,7 @@ class CourseList extends StatelessWidget {
               child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  itemBuilder: (context, index) => CourseWidget(),
+                  itemBuilder: (context, index) => const CourseWidget(),
                   separatorBuilder: (context, index) => SizedBox(width: 12.w),
                   itemCount: 3),
             ),
