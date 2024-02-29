@@ -1,8 +1,8 @@
 part of 'widgets.dart';
 
 class LecturesDetails extends StatelessWidget {
-  const LecturesDetails({super.key});
-
+  LecturesDetails({super.key, required this.data});
+  List<dynamic> data;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +15,7 @@ class LecturesDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '1',
+                (index + 1).toString(),
                 style: TextStyle(
                   fontSize: 11.sp,
                   color: Colors.black,
@@ -29,9 +29,10 @@ class LecturesDetails extends StatelessWidget {
                   width: 234.w,
                   height: 60.h,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sales dashboard: Introduction to income statement ',
+                        data[index].title,
                         style: TextStyle(
                           height: 1.5.h,
                           color: AppColors.gray900,
@@ -54,15 +55,16 @@ class LecturesDetails extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 11.sp,
                                 ),
-                                children: const [
+                                children: [
                                   TextSpan(
-                                    text: 'Video - 30:24 - ',
-                                    style: TextStyle(
+                                    text:
+                                        'Video - ${data[index].totalMinutes} - ',
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.gray400,
                                     ),
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: 'Free',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
@@ -82,7 +84,7 @@ class LecturesDetails extends StatelessWidget {
             ],
           ),
           separatorBuilder: (context, index) => SizedBox(height: 12.h),
-          itemCount: 2,
+          itemCount: data.length,
         ),
       ),
     );

@@ -1,8 +1,9 @@
 part of 'widgets.dart';
 
 class CourseDataSection extends StatelessWidget {
-  const CourseDataSection({super.key});
+  const CourseDataSection({super.key, required this.data});
 
+  final Course data;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +26,7 @@ class CourseDataSection extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  'Power BI advanced Data Analysis',
+                  data.title,
                   style: TextStyle(
                     color: AppColors.gray900,
                     fontSize: 24.sp,
@@ -48,14 +49,14 @@ class CourseDataSection extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: const AssetImage(
-                  AppImages.instructor,
+                backgroundImage: NetworkImage(
+                  data.instructors[0].image,
                 ),
                 radius: 10.r,
               ),
               SizedBox(width: 4.w),
               Text(
-                'Heba Abd Elsahafi',
+                data.instructors[0].name,
                 style: TextStyle(
                   color: AppColors.gray600,
                   fontSize: 11.sp,
@@ -65,22 +66,20 @@ class CourseDataSection extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
-          SizedBox(
-            width: 411.w,
-            height: 38.h,
-            child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    CourseDetails(model: courses[index]),
-                separatorBuilder: (context, index) => SizedBox(width: 16.w),
-                itemCount: 4),
+          CourseDetails(
+            descriptionList: [
+              DateFormat('yyyy-MM-dd').format(data.created),
+              data.studentsCount.toString(),
+              data.duration.toString(),
+              data.totalMinutes.toString(),
+            ],
           ),
           SizedBox(height: 24.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                r'$198',
+                '\$${data.price}',
                 style: TextStyle(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w700,
