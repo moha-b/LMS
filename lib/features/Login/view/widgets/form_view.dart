@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
+import 'package:lms/features/Login/cubit/login_cubit.dart';
 import 'package:lms/features/Login/cubit/login_state.dart';
-import '../../../../core/utils/app_colors.dart';
-import '../../cubit/login_cubit.dart';
-import 'CustomTextFormField.dart';
+import 'package:lms/features/Login/view/widgets/CustomTextFormField.dart';
 
 class FormView extends StatelessWidget {
   const FormView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _formSignInKey = GlobalKey<FormState>();
-    final bool rememberPassword = false;
+    final formSignInKey = GlobalKey<FormState>();
+    bool rememberPassword = false;
     final TextEditingController email = TextEditingController(),
         password = TextEditingController();
 
@@ -21,90 +21,117 @@ class FormView extends StatelessWidget {
       create: (context) => LoginCubit(),
       child: BlocBuilder<LoginCubit, LoginStates>(builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.only(top: 155.h),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 700.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.h),
-                    topRight: Radius.circular(25.h)),
-                color: AppColors.white,
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(12.h),
-                child: Form(
-                  key: _formSignInKey,
+          padding: EdgeInsets.only(top: 175.h),
+          child: Container(
+            height: 733.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.r),
+                  topRight: Radius.circular(25.r)),
+              color: AppColors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 0),
+              child: Form(
+                key: formSignInKey,
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-
                       CustomTextForm(
-                          controller: email,
-                          label: 'Email',
-                          hint: 'Enter Email',
-                          obscure: false,
-                          validatorText: 'Please Enter Email'),
-                      SizedBox(
-                        height: 25.h,
+                        controller: email,
+                        label: 'Email',
+                        hint: 'Enter Email Address',
+                        obscure: false,
+                        validatorText: 'Please Enter Email',
+                        textAuth: 'Email Address',
                       ),
-
-                      CustomTextForm(
-                        controller: password,
-                        label: 'Password',
-                        hint: 'Enter Password',
-                        obscure: context.read<LoginCubit>().visibility,
-                        validatorText: 'Please enter Password',
-                        icon: context.read<LoginCubit>().visibility
-                            ? AppIcons.eye
-                            : AppIcons.eye_slash,
-                        OnPressed: () => {
-                          context.read<LoginCubit>().changePasswordVisibility()
-                        },
-                      ),
-
-                      SizedBox(
-                        height: 25.h,
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        child: CustomTextForm(
+                          controller: password,
+                          label: 'Password',
+                          hint: 'Enter Password',
+                          obscure: context.read<LoginCubit>().visibility,
+                          validatorText: 'Please enter Password',
+                          icon: context.read<LoginCubit>().visibility
+                              ? AppIcons.eye
+                              : AppIcons.eye_slash,
+                          onPressed: () => {
+                            context
+                                .read<LoginCubit>()
+                                .changePasswordVisibility()
+                          },
+                          textAuth: 'Password',
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Checkbox(
-                                value: rememberPassword,
-                                onChanged: (bool? value) {},
-                                activeColor: AppColors.primary,
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<LoginCubit>().changeCheck();
+                                },
+                                child: SizedBox(
+                                  width: 20.w,
+                                  height: 20.h,
+                                  child: Center(
+                                    child: context.watch<LoginCubit>().check
+                                        ? Checkbox(
+                                            value: context
+                                                .watch<LoginCubit>()
+                                                .check,
+                                            onChanged: (value) {
+                                              context
+                                                  .read<LoginCubit>()
+                                                  .changeCheck();
+                                            },
+                                            activeColor: AppColors.primary,
+                                            checkColor: Colors.white,
+                                          )
+                                        : Container(
+                                            width: 20.w,
+                                            height: 20.h,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.r),
+                                              border: Border.all(
+                                                color: AppColors.gray200,
+                                              ),
+                                            ),
+                                          ),
+                                  ),
+                                ),
                               ),
-                              const Text(
+                              SizedBox(width: 8.w),
+                              Text(
                                 'Remember me',
                                 style: TextStyle(
-                                  color: Colors.black45,
+                                  color: AppColors.black800,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
                           ),
                           GestureDetector(
                             child: Text(
-                              'Forget password?',
+                              'Forget Password?',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
                                 color: AppColors.primary,
                               ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formSignInKey.currentState!.validate()) {
+                      Padding(
+                        padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
+                        child: GestureDetector(
+                          onTap: () {
+                            if (formSignInKey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Processing Data'),
@@ -112,29 +139,35 @@ class FormView extends StatelessWidget {
                               );
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary),
-                          child: const Text(
-                            'Sign up',
-                            style: TextStyle(
-                                color: AppColors.black,
-                                fontWeight: FontWeight.bold),
+                          child: Container(
+                            width: 327.w,
+                            height: 56.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.r),
+                              color: AppColors.primary,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-
-                      SizedBox(
-                        height: 25.h,
-                      ),
-
-                      // don't have an account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             'New on our platform? ',
                             style: TextStyle(
-                              color: Colors.black45,
+                              color: AppColors.gray600,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.sp,
                             ),
                           ),
                           GestureDetector(
@@ -142,15 +175,13 @@ class FormView extends StatelessWidget {
                             child: Text(
                               'Create an account',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
                                 color: AppColors.primary,
                               ),
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
                       ),
                     ],
                   ),

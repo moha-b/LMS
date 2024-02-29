@@ -1,67 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/utils/app_colors.dart';
+import 'package:lms/core/utils/app_colors.dart';
 
 class CustomTextForm extends StatelessWidget {
-  CustomTextForm(
-      {super.key,
-      required this.label,
-      required this.hint,
-      required this.obscure,
-      required this.validatorText,
-      required this.controller,
-      this.icon=null,
-        this.OnPressed
-      });
+  const CustomTextForm({
+    super.key,
+    required this.label,
+    required this.hint,
+    required this.obscure,
+    required this.validatorText,
+    required this.controller,
+    this.icon,
+    this.onPressed,
+    required this.textAuth,
+  });
 
   final String label, hint, validatorText;
   final bool obscure;
   final TextEditingController controller;
   final IconData? icon;
-  final  VoidCallback? OnPressed;
+  final VoidCallback? onPressed;
+  final String textAuth;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-
-      controller: controller,
-      obscureText: obscure,
-      obscuringCharacter: '*',
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return validatorText;
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        label: Text(
-          label,
-          style: TextStyle(color: AppColors.primary),
-
-        ),
-        suffixIcon:IconButton(icon:Icon(icon),onPressed: OnPressed),
-        hintText: hint,
-        hintStyle: const TextStyle(
-          color: AppColors.gray300,
-        ),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: AppColors.black, // Default border color
-          ),
-          borderRadius: BorderRadius.circular(10.h),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: AppColors.primary, // Default border color
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          textAuth,
+          style: TextStyle(
+            color: AppColors.gray900,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: AppColors.black, // Default border color
+        SizedBox(height: 8.h),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          obscureText: obscure,
+          obscuringCharacter: '*',
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return validatorText;
+            }
+            return null;
+          },
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(
+                icon,
+                size: 20.sp,
+                color: AppColors.gray400,
+              ),
+              onPressed: onPressed,
+            ),
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: AppColors.gray300,
+              fontWeight: FontWeight.w400,
+              fontSize: 14.sp,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: AppColors.primary,
+              ),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: AppColors.primary,
+              ),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: AppColors.gray200,
+              ),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
           ),
-          borderRadius: BorderRadius.circular(10.h),
         ),
-      ),
+      ],
     );
   }
 }

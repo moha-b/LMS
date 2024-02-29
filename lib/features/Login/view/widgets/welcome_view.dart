@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 
@@ -10,12 +11,12 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      height: 199.h,
+      width: 375.w,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF000000),
+            Color(0xFF000C67),
             Color(0xFF0225FF),
           ],
           begin: Alignment.topLeft,
@@ -25,28 +26,34 @@ class WelcomeView extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-              right: 0,
-              child: SvgPicture.asset(
-                AppImages.loginShape,
-                colorFilter: ColorFilter.mode(
-                    AppColors.primary.withOpacity(0.1), BlendMode.srcIn),
-              )),
+            right: 0,
+            child: SvgPicture.asset(
+              AppImages.loginShape,
+              colorFilter: ColorFilter.mode(
+                  AppColors.primary.withOpacity(0.5), BlendMode.srcIn),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(top: 80.0, left: 30.0),
+            padding: EdgeInsets.only(top: 99.h, left: 24.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Welcome Onboard 🤩',
                   style: TextStyle(
-                      fontSize: 23.h,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.white),
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.white,
+                  ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 8.h),
                 Text(
                   'We’re Glad to have you!',
-                  style: TextStyle(fontSize: 16.h, color: AppColors.white),
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.white,
+                  ),
                 ),
               ],
             ),
