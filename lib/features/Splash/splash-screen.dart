@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lms/utils/app_colors.dart';
-import 'package:lms/utils/app_images.dart';
+import 'package:lms/core/helpers/navigation_helper.dart';
+import 'package:lms/core/utils/app_colors.dart';
+import 'package:lms/core/utils/app_routes.dart';
 
+
+import '../../core/utils/app_images.dart';
 import '../../main.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashView> {
   void initState(){
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Dummy()));
+      NavigationHelper.navigateToReplacement(AppRoute.LOGIN);
     });
     super.initState();
   }
@@ -24,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.gray,
+      backgroundColor: AppColors.gray300,
       // Use Color constructor for color values
       body: Padding(
         padding: EdgeInsets.only(bottom: 20.h),
