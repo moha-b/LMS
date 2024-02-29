@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/core/utils/app_images.dart';
+import 'package:lms/features/course_view/cubit/course_view_related_cubit.dart';
+import 'package:lms/features/course_view/data/model/course_model.dart';
+import 'package:number_to_words_english/number_to_words_english.dart';
 
 import '../../data/models/course/course_status_model.dart';
 

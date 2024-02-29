@@ -1,8 +1,9 @@
 part of 'widgets.dart';
 
 class BottomSheetComponent extends StatelessWidget {
-  const BottomSheetComponent({super.key});
+  BottomSheetComponent({super.key, required this.data});
 
+  List<dynamic> data;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -47,8 +48,8 @@ class BottomSheetComponent extends StatelessWidget {
                     itemBuilder: (context, index) => Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: const AssetImage(
-                            AppImages.instructor,
+                          backgroundImage: NetworkImage(
+                            data[index].image,
                           ),
                           radius: 20.sp,
                         ),
@@ -57,7 +58,7 @@ class BottomSheetComponent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Heba Abd Elsahafi',
+                              data[index].name,
                               style: TextStyle(
                                 color: AppColors.gray900,
                                 fontSize: 14.sp,
@@ -66,7 +67,7 @@ class BottomSheetComponent extends StatelessWidget {
                             ),
                             SizedBox(height: 4.h),
                             Text(
-                              '10 courses',
+                              '${data[index].coursesCount} courses',
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 12.sp,
@@ -88,7 +89,7 @@ class BottomSheetComponent extends StatelessWidget {
                     ),
                     separatorBuilder: (context, index) =>
                         SizedBox(height: 24.h),
-                    itemCount: 4,
+                    itemCount: data.length,
                   ),
                 ),
               )

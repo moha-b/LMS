@@ -127,21 +127,23 @@ class PopularCourses extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 8.h),
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      list[index].instructors[0].image,
+                                  if (list[index].instructors.isNotEmpty)
+                                    CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        list[index].instructors[0].image,
+                                      ),
+                                      radius: 10.r,
                                     ),
-                                    radius: 10.r,
-                                  ),
                                   SizedBox(width: 4.w),
-                                  Text(
-                                    list[index].instructors[0].name,
-                                    style: TextStyle(
-                                      color: AppColors.gray600,
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.w400,
+                                  if (list[index].instructors.isNotEmpty)
+                                    Text(
+                                      list[index].instructors[0].name,
+                                      style: TextStyle(
+                                        color: AppColors.gray600,
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),

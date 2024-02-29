@@ -1,15 +1,16 @@
 part of 'widgets.dart';
 
 class TitleAndLectures extends StatefulWidget {
-  const TitleAndLectures({Key? key}) : super(key: key);
+  TitleAndLectures({super.key, required this.data});
 
+  final Course data;
   @override
   _TitleAndLecturesState createState() => _TitleAndLecturesState();
 }
 
 class _TitleAndLecturesState extends State<TitleAndLectures> {
   bool _isExpandedLectures = false;
-  final List<bool> _isExpandedList = List.filled(5, false);
+  final List<bool> _isExpandedList = List.filled(10, false);
 
   void _toggleExpandedLecturesDetails(int index) {
     setState(() {
@@ -29,6 +30,11 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
     'three',
     'four',
     'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
   ];
 
   @override
@@ -39,7 +45,7 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Learn exactly how to become a wedding photographer, start a photo business of your own, and shoot better wedding photos.',
+            widget.data.description,
             style: TextStyle(
               color: AppColors.gray800,
               fontSize: 14.sp,
@@ -63,7 +69,8 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                   showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
-                      return const BottomSheetComponent();
+                      return BottomSheetComponent(
+                          data: widget.data.instructors);
                     },
                   );
                 },
@@ -121,7 +128,7 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                         Row(
                           children: [
                             Text(
-                              'Chapter ${chapterList[index]}',
+                              'Chapter ${NumberToWordsEnglish.convert(index + 1)}',
                               style: TextStyle(
                                 color: AppColors.gray900,
                                 fontSize: 14.sp,
@@ -143,12 +150,14 @@ class _TitleAndLecturesState extends State<TitleAndLectures> {
                             ),
                           ],
                         ),
-                        if (_isExpandedList[index]) const LecturesDetails(),
+                        if (_isExpandedList[index])
+                          LecturesDetails(
+                              data: widget.data.chapters[index].lessons),
                       ],
                     ),
                     separatorBuilder: (context, index) =>
                         SizedBox(height: 12.h),
-                    itemCount: 5,
+                    itemCount: widget.data.chapters.length,
                   ),
                 ),
             ],
