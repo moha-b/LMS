@@ -19,7 +19,7 @@ class TitleAndLectures extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data.description,
+                  '${data.description.split('.').first}.',
                   style: TextStyle(
                     color: AppColors.gray800,
                     fontSize: 14.sp,
@@ -40,12 +40,14 @@ class TitleAndLectures extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return BottomSheetComponent(data: data.instructors);
-                          },
-                        );
+                        // NavigationHelper.navigateTo(AppRoute.FULL_DESCRIPTION,
+                        //     arguments: data.description);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FullDescription(
+                                      description: data.description,
+                                    )));
                       },
                       icon: const Icon(
                         Icons.keyboard_arrow_right_rounded,

@@ -9,14 +9,28 @@ class CourseViewCubit extends Cubit<CourseViewState> {
   CourseViewCubit() : super(CourseViewInitial());
 
   Future<Map<String, Course>?> fetchCoursesDetails() async {
+    emit(CourseViewLoadingState());
     try {
       var result = await NetworkHelper.instance
           .get(endPoint: EndPoints.courseDetails(5));
-      print(result);
       emit(CourseViewSuccessState(Course.fromJson(result.data)));
     } catch (e) {
-      print(e);
       emit(CourseViewFailedState(e.toString()));
     }
+    return null;
+  }
+
+  Future<Map<String, Course>?> fetchRelatedCoursesDetails() async {
+    emit(CourseViewRelatedLoadingState());
+
+    try {
+      var result = await NetworkHelper.instance
+          .get(endPoint: EndPoints.relatedCourses(5));
+      emit(CourseViewRelatedSuccessState(Course.fromJson(result.data)));
+    } catch (e) {
+      print(e);
+      emit(CourseViewRelatedFailedState(e.toString()));
+    }
+    return null;
   }
 }

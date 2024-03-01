@@ -4,8 +4,17 @@ class CourseDataSection extends StatelessWidget {
   const CourseDataSection({super.key, required this.data});
 
   final Course data;
+
   @override
   Widget build(BuildContext context) {
+    List<Instructors> instructors = [
+      Instructors(name: 'John Doe', image: AppImages.instructor),
+      Instructors(name: 'Jane Smith', image: AppImages.instructor),
+      Instructors(name: 'Jane Smith', image: AppImages.instructor),
+      Instructors(name: 'Jane Smith', image: AppImages.instructor),
+      Instructors(name: 'Jane Smith', image: AppImages.instructor),
+      Instructors(name: 'Jane Smith', image: AppImages.instructor),
+    ];
     return Padding(
       padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
       child: Column(
@@ -46,34 +55,80 @@ class CourseDataSection extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  data.instructors[0].image,
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return BottomSheetComponent(
+                    data: data.instructors,
+                  );
+                },
+              );
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (int i = 0; i < data.instructors.length; i++)
+                  Align(
+                    widthFactor: 0.6,
+                    child: CircleAvatar(
+                      radius: 10.r,
+                      backgroundImage: NetworkImage(data.instructors[i].image),
+                    ),
+                  ),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: SizedBox(
+                    width: 153.w,
+                    height: 20.h,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: data.instructors.length,
+                      itemBuilder: (context, index) {
+                        final lastName = data.instructors[index].name
+                            .toString()
+                            .split(' ')
+                            .last;
+                        if (!lastName.isNotEmpty) {
+                          return Text(
+                            data.instructors[index].name,
+                            style: TextStyle(
+                              color: AppColors.gray600,
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          );
+                        } else {
+                          if (index < data.instructors.length - 1) {
+                            return Text(
+                              '$lastName, ',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          } else {
+                            return Text(
+                              data.instructors[index].name,
+                              style: TextStyle(
+                                color: AppColors.gray600,
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            );
+                          }
+                        }
+                      },
+                    ),
+                  ),
                 ),
-                radius: 10.r,
-              ),
-              SizedBox(width: 4.w),
-              Text(
-                data.instructors[0].name,
-                style: TextStyle(
-                  color: AppColors.gray600,
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 16.h),
-          CourseDetails(
-            descriptionList: [
-              DateFormat('yyyy-MM-dd').format(data.created),
-              data.studentsCount.toString(),
-              data.duration.toString(),
-              data.totalMinutes.toString(),
-            ],
-          ),
+          CourseDetails(model: data),
           SizedBox(height: 24.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

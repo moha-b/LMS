@@ -6,11 +6,10 @@ class CoursesYouMightLike extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CourseViewRelatedCubit()..fetchRelatedCoursesDetails(),
-      child: BlocBuilder<CourseViewRelatedCubit, CourseViewRelatedState>(
+      create: (context) => CourseViewCubit()..fetchRelatedCoursesDetails(),
+      child: BlocBuilder<CourseViewCubit, CourseViewState>(
         builder: (context, state) {
-          if (state is CourseViewRelatedSuccessState) {
+          if (state is CourseViewSuccessState) {
             return Padding(
               padding: EdgeInsets.fromLTRB(0.w, 24.h, 0, 50.h),
               child: Column(
@@ -154,7 +153,7 @@ class CoursesYouMightLike extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state is CourseViewRelatedInitial) {
+          } else if (state is CourseViewRelatedLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );

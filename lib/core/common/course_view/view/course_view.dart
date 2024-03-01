@@ -50,7 +50,7 @@ class _CourseDetailsViewState extends State<CourseDetailsView> {
                   ),
                 ],
               );
-            } else if (state is CourseViewInitial) {
+            } else if (state is CourseViewLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
