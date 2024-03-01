@@ -10,12 +10,10 @@ class SharedHelper {
 
   SharedHelper._();
 
-  factory SharedHelper() {
-    instance ??= SharedHelper._();
-    return instance!;
-  }
+
 
   static Future<void> init() async {
+    instance ??= SharedHelper._();
     instance!.preferences = await SharedPreferences.getInstance();
   }
 

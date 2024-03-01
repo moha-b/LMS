@@ -23,10 +23,7 @@ class FormView extends StatelessWidget {
     final formSignInKey = GlobalKey<FormState>();
     final TextEditingController email = TextEditingController(),
         password = TextEditingController();
-
-      // email.text = SharedHelper.instance!.readString(CachingKey.USER_EMAIL);
-      // password.text =
-      //     SharedHelper.instance!.readString(CachingKey.USER_PASSWORD);
+    _setDataFromSharedHelper(email, password);
 
     return BlocProvider(
       create: (context) => LoginCubit(),
@@ -79,14 +76,11 @@ class FormView extends StatelessWidget {
                           if (await cubit.sgin_In(
                               email.value.text, password.value.text)) {
                             if (cubit.check) {
-                              // SharedHelper.instance!.writeData(
-                              //     CachingKey.USER_EMAIL, email.value.text);
-                              // SharedHelper.instance!.writeData(
-                              //     CachingKey.USER_PASSWORD,
-                              //     password.value.text);
+                              _setDataInSharedHelper(
+                                  email.value.text, email.value.text);
                             }
-                            // NavigationHelper.navigateToReplacement(
-                            //     AppRoute.HOME);
+                            NavigationHelper.navigateToReplacement(
+                                AppRoute.HOME);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -106,5 +100,16 @@ class FormView extends StatelessWidget {
         );
       }),
     );
+  }
+
+  void _setDataFromSharedHelper(
+      TextEditingController email, TextEditingController password) {
+    email.text = SharedHelper.instance!.readString(CachingKey.USER_EMAIL);
+    password.text = SharedHelper.instance!.readString(CachingKey.USER_PASSWORD);
+  }
+
+  void _setDataInSharedHelper(String email, String password) {
+    SharedHelper.instance!.writeData(CachingKey.USER_EMAIL, email);
+    SharedHelper.instance!.writeData(CachingKey.USER_PASSWORD, password);
   }
 }

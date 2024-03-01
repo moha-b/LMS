@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/caching/shared_helper.dart';
 import 'package:lms/core/helpers/navigation_helper.dart';
 import 'package:lms/core/theme/theme.dart';
 import 'package:lms/core/utils/app_routes.dart';
 
-void main() => runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+    // SharedHelper();
+  await SharedHelper.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
