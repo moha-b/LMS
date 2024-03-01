@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: NavigationHelper.navigatorKey,
           onGenerateRoute: NavigationHelper.generateRoute,
-          initialRoute: AppRoute.SPLASH,
+          initialRoute: AppRoute.LOGIN,
           theme: AppTheme.light,
           home: child,
         );

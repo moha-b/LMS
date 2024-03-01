@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/caching/caching_key.dart';
+import 'package:lms/core/helpers/navigation_helper.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
+import 'package:lms/core/utils/app_routes.dart';
 import 'package:lms/features/Login/cubit/login_cubit.dart';
 import 'package:lms/features/Login/cubit/login_state.dart';
 import 'package:lms/features/Login/view/widgets/CustomTextFormField.dart';
+import 'package:lms/features/Login/view/widgets/row_remember_and_froget.dart';
+import 'package:lms/features/Login/view/widgets/row_create_account.dart';
+import 'package:lms/features/Login/view/widgets/sign_in_button.dart';
+
+import '../../../../core/caching/shared_helper.dart';
 
 class FormView extends StatelessWidget {
   const FormView({super.key});
@@ -13,13 +21,17 @@ class FormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formSignInKey = GlobalKey<FormState>();
-    bool rememberPassword = false;
     final TextEditingController email = TextEditingController(),
         password = TextEditingController();
+
+      // email.text = SharedHelper.instance!.readString(CachingKey.USER_EMAIL);
+      // password.text =
+      //     SharedHelper.instance!.readString(CachingKey.USER_PASSWORD);
 
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocBuilder<LoginCubit, LoginStates>(builder: (context, state) {
+        var cubit = context.read<LoginCubit>();
         return Padding(
           padding: EdgeInsets.only(top: 175.h),
           child: Container(
@@ -39,7 +51,6 @@ class FormView extends StatelessWidget {
                     children: [
                       CustomTextForm(
                         controller: email,
-                        label: 'Email',
                         hint: 'Enter Email Address',
                         obscure: false,
                         validatorText: 'Please Enter Email',
@@ -49,140 +60,43 @@ class FormView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 16.h),
                         child: CustomTextForm(
                           controller: password,
-                          label: 'Password',
                           hint: 'Enter Password',
-                          obscure: context.read<LoginCubit>().visibility,
+                          obscure: cubit.visibility,
                           validatorText: 'Please enter Password',
-                          icon: context.read<LoginCubit>().visibility
+                          icon: cubit.visibility
                               ? AppIcons.eye
                               : AppIcons.eye_slash,
-                          onPressed: () => {
-                            context
-                                .read<LoginCubit>()
-                                .changePasswordVisibility()
-                          },
+                          onPressed: () => {cubit.changePasswordVisibility()},
                           textAuth: 'Password',
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  context.read<LoginCubit>().changeCheck();
-                                },
-                                child: SizedBox(
-                                  width: 20.w,
-                                  height: 20.h,
-                                  child: Center(
-                                    child: context.watch<LoginCubit>().check
-                                        ? Checkbox(
-                                            value: context
-                                                .watch<LoginCubit>()
-                                                .check,
-                                            onChanged: (value) {
-                                              context
-                                                  .read<LoginCubit>()
-                                                  .changeCheck();
-                                            },
-                                            activeColor: AppColors.primary,
-                                            checkColor: Colors.white,
-                                          )
-                                        : Container(
-                                            width: 20.w,
-                                            height: 20.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.r),
-                                              border: Border.all(
-                                                color: AppColors.gray200,
-                                              ),
-                                            ),
-                                          ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 8.w),
-                              Text(
-                                'Remember me',
-                                style: TextStyle(
-                                  color: AppColors.black800,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            child: Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.sp,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ),
-                        ],
+                      RememberAndForget(
+                        check: cubit.check,
+                        onTap: () => cubit.changeCheck(),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (formSignInKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processing Data'),
-                                ),
-                              );
+                      SignInButton(onTap: () async {
+                        if (formSignInKey.currentState!.validate()) {
+                          if (await cubit.sgin_In(
+                              email.value.text, password.value.text)) {
+                            if (cubit.check) {
+                              // SharedHelper.instance!.writeData(
+                              //     CachingKey.USER_EMAIL, email.value.text);
+                              // SharedHelper.instance!.writeData(
+                              //     CachingKey.USER_PASSWORD,
+                              //     password.value.text);
                             }
-                          },
-                          child: Container(
-                            width: 327.w,
-                            height: 56.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.r),
-                              color: AppColors.primary,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
-                                ),
+                            // NavigationHelper.navigateToReplacement(
+                            //     AppRoute.HOME);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('"Invalid credentials'),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'New on our platform? ',
-                            style: TextStyle(
-                              color: AppColors.gray600,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              'Create an account',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                            );
+                          }
+                        }
+                      }),
+                      const RowCreateAccount()
                     ],
                   ),
                 ),

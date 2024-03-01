@@ -5,7 +5,6 @@ import 'package:lms/core/utils/app_colors.dart';
 class CustomTextForm extends StatelessWidget {
   const CustomTextForm({
     super.key,
-    required this.label,
     required this.hint,
     required this.obscure,
     required this.validatorText,
@@ -15,7 +14,7 @@ class CustomTextForm extends StatelessWidget {
     required this.textAuth,
   });
 
-  final String label, hint, validatorText;
+  final String hint, validatorText;
   final bool obscure;
   final TextEditingController controller;
   final IconData? icon;
@@ -40,7 +39,9 @@ class CustomTextForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
           obscureText: obscure,
+
           obscuringCharacter: '*',
+
           validator: (value) {
             if (value == null || value.isEmpty) {
               return validatorText;
