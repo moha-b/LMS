@@ -6,6 +6,7 @@ import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/core/utils/app_images.dart';
 import 'package:lms/features/course_view/cubit/course_view_related_cubit.dart';
+import 'package:lms/features/course_view/cubit/lectures_expansion_cubit.dart';
 import 'package:lms/features/course_view/data/model/course_model.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
 
