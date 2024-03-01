@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/course_view/view/widgets/widgets.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_images.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
@@ -11,69 +12,79 @@ class ViewAllCoursesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "title"),
+      appBar: const CustomAppBar(title: "Self Learning"),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: LineSeparated()),
           const SliverToBoxAdapter(child: Categories()),
           const SliverToBoxAdapter(child: TrackTitleWidget()),
           SliverFillRemaining(
             child: ListView.separated(
               padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 12.h),
-              itemBuilder: (context, index) => Container(
+              itemBuilder: (context, index) => SizedBox(
                 width: 328.w,
-                height: 205.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12.r),
-                    topRight: Radius.circular(12.r),
-                  ),
-                ),
+                height: 200.h,
                 child: Column(
                   children: [
                     Container(
                       alignment: Alignment.topCenter,
                       height: 95.h,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      width: 328.w,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(AppImages.dummyImage1),
+                          image: AssetImage(AppImages.dummyImage2),
                           fit: BoxFit.fill,
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            style: IconButton.styleFrom(
-                              backgroundColor: AppColors.white,
-                            ),
-                            icon: Icon(
-                              size: 20.sp,
-                              AppIcons.heart,
-                              color: AppColors.secondary,
-                            ),
-                          ),
-                          Container(
-                            width: 62.w,
-                            height: 20.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(40.r),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Soft Skills',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 10.sp,
-                                  color: AppColors.primary,
-                                ),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(top: 8.h, left: 16.w, right: 16.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              style: IconButton.styleFrom(
+                                backgroundColor: AppColors.white,
+                              ),
+                              icon: Icon(
+                                size: 20.sp,
+                                AppIcons.heart,
+                                color: AppColors.secondary,
                               ),
                             ),
-                          ),
-                        ],
+                            Container(
+                              width: 44.w,
+                              height: 20.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius: BorderRadius.circular(40.r),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    AppIcons.star1,
+                                    size: 12.sp,
+                                    color: AppColors.orange300,
+                                    fill: 1,
+                                  ),
+                                  SizedBox(
+                                    width: 4.w,
+                                  ),
+                                  Text(
+                                    '5.5',
+                                    style: TextStyle(
+                                      fontSize: 11.sp,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -93,30 +104,6 @@ class ViewAllCoursesView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: 15.w,
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    AppIcons.star1,
-                                    color: AppColors.orange600,
-                                  ),
-                                  SizedBox(width: 3.w),
-                                  Text(
-                                    "5.5",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 11.sp,
-                                      color: AppColors.black,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -126,7 +113,8 @@ class ViewAllCoursesView extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 10.r,
-                            backgroundImage: AssetImage(AppImages.instructor),
+                            backgroundImage:
+                                const AssetImage(AppImages.instructor),
                           ),
                           SizedBox(width: 4.w),
                           Text(

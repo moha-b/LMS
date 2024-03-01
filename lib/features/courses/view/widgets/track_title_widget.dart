@@ -8,8 +8,12 @@ class TrackTitleWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 24.w, top: 27.h, bottom: 18.h),
       child: Text(
-        'Dummy',
-        style: TextStyle(color: AppColors.blue800, fontSize: 16.sp),
+        'Soft Skills Track',
+        style: TextStyle(
+          color: AppColors.gray900,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
