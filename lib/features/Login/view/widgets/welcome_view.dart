@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 
@@ -16,8 +15,8 @@ class WelcomeView extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF000C67),
-            Color(0xFF0225FF),
+            AppColors.blue900,
+            AppColors.blue600,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
