@@ -4,17 +4,8 @@ class CourseDataSection extends StatelessWidget {
   const CourseDataSection({super.key, required this.data});
 
   final Course data;
-
   @override
   Widget build(BuildContext context) {
-    List<Instructors> instructors = [
-      Instructors(name: 'John Doe', image: AppImages.instructor),
-      Instructors(name: 'Jane Smith', image: AppImages.instructor),
-      Instructors(name: 'Jane Smith', image: AppImages.instructor),
-      Instructors(name: 'Jane Smith', image: AppImages.instructor),
-      Instructors(name: 'Jane Smith', image: AppImages.instructor),
-      Instructors(name: 'Jane Smith', image: AppImages.instructor),
-    ];
     return Padding(
       padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
       child: Column(
