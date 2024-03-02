@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lms/core/common/course_view/cubit/course_view_cubit.dart';
+import 'package:lms/core/common/course_view/cubit/lectures_expansion_cubit.dart';
+import 'package:lms/core/common/course_view/data/models/course_model.dart';
 import 'package:lms/core/helpers/navigation_helper.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/core/utils/app_images.dart';
 import 'package:lms/core/utils/app_routes.dart';
-import 'package:lms/features/course_view/cubit/course_view_cubit.dart';
-import 'package:lms/features/course_view/cubit/lectures_expansion_cubit.dart';
-import 'package:lms/features/course_view/data/model/course_model.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
 

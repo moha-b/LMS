@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:lms/core/common/course_view/data/models/course_model.dart';
 import 'package:lms/core/network/network.dart';
-import 'package:lms/features/course_view/data/model/course_model.dart';
 import 'package:meta/meta.dart';
 
 part 'course_view_state.dart';

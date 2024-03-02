@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/course_view/cubit/lectures_expansion_cubit.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
-import 'package:lms/features/course_view/cubit/lectures_expansion_cubit.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/lectures_details.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/line_separated.dart';
 
