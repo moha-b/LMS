@@ -1,5 +1,11 @@
 part of 'home_bloc.dart';
 
+enum RequestState {
+  loading,
+  loaded,
+  error,
+}
+
 class HomeState extends Equatable {
   final CoursesModel? courses;
   final AdsModel? ads;

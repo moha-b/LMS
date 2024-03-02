@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lms/core/helpers/navigation_helper.dart';
+import 'package:lms/core/navigation/navigation_helper.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/app_icons.dart';

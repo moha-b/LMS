@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lms/core/helpers/navigation_helper.dart';
-import 'package:lms/core/utils/app_routes.dart';
+import 'package:lms/core/navigation/app_routes.dart';
+import 'package:lms/core/navigation/navigation_helper.dart';
 import 'package:lms/features/Login/cubit/login_state.dart';
 import 'package:rxdart/rxdart.dart';
 

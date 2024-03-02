@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lms/core/helpers/navigation_helper.dart';
+import 'package:lms/core/navigation/app_routes.dart';
+import 'package:lms/core/navigation/navigation_helper.dart';
 import 'package:lms/core/utils/app_colors.dart';
-import 'package:lms/core/utils/app_routes.dart';
-
 
 import '../../core/utils/app_images.dart';
 import '../../main.dart';
@@ -17,8 +16,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashView> {
-  void initState(){
-    Future.delayed(Duration(seconds: 3),(){
+  void initState() {
+    Future.delayed(Duration(seconds: 3), () {
       NavigationHelper.navigateToReplacement(AppRoute.LOGIN);
     });
     super.initState();

@@ -19,7 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var result = await repository.fetchCourses();
         result.fold(
-          (l) => emit(state.copyWith(coursesState: RequestState.error)),
+          (failure) => emit(state.copyWith(
+              coursesState: RequestState.error,
+              coursesMessage: failure?.message)),
           (data) => emit(
               state.copyWith(coursesState: RequestState.loaded, courses: data)),
         );
@@ -34,7 +36,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var result = await repository.fetchAds();
         result.fold(
-          (l) => emit(state.copyWith(adsState: RequestState.error)),
+          (failure) => emit(state.copyWith(
+              adsState: RequestState.error, adsMessage: failure?.message)),
           (data) =>
               emit(state.copyWith(adsState: RequestState.loaded, ads: data)),
         );
@@ -49,7 +52,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var result = await repository.fetchAllTracks();
         result.fold(
-          (l) => emit(state.copyWith(allTracksState: RequestState.error)),
+          (failure) => emit(state.copyWith(
+            allTracksState: RequestState.error,
+            allTracksMessage: failure?.message,
+          )),
           (data) => emit(state.copyWith(
               allTracksState: RequestState.loaded, allTracks: data)),
         );
