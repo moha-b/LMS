@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/caching/shared_helper.dart';
 import 'package:lms/core/theme/theme.dart';
+import 'package:lms/features/resoursesAndInfo/resourseAndInfo.dart';
 
 import 'core/navigation/navigation.dart';
 import 'features/Login/cubit/login_cubit.dart';
@@ -30,9 +31,9 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationHelper.navigatorKey,
             onGenerateRoute: NavigationHelper.generateRoute,
-            initialRoute: AppRoute.LOGIN,
+            // initialRoute: AppRoute.LOGIN,
             theme: AppTheme.light,
-            home: child,
+            home: ResoursesAndInfo(),
           );
         },
       ),
