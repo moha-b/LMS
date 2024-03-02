@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/course_view/view/widgets/widgets.dart';
-import 'package:lms/core/helpers/navigation_helper.dart';
-import 'package:lms/core/utils/app_routes.dart';
 import 'package:lms/features/courses/view/view_all_courses.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
+
+import '../../../core/navigation/navigation.dart';
 
 class CoursesView extends StatelessWidget {
   const CoursesView({super.key});

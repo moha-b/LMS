@@ -1,3 +1,5 @@
+part of 'navigation.dart';
+
 class AppRoute {
   static const String SPLASH = "SPLASH";
   static const String LOGIN = "LOGIN";

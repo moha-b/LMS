@@ -8,35 +8,35 @@ import '../../../../core/network/network.dart';
 
 class HomeRepoImpl extends HomeRepository {
   @override
-  Future<Either<String, CoursesModel>> fetchCourses() async {
+  Future<Either<Failure?, CoursesModel>> fetchCourses() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.HOME_COURSES);
       return Right(CoursesModel.fromJson(result.data));
     } catch (e) {
-      return Left(e.toString());
+      return Left(ErrorHandler.handle(e).failure);
     }
   }
 
   @override
-  Future<Either<String, AdsModel>> fetchAds() async {
+  Future<Either<Failure?, AdsModel>> fetchAds() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.HOME_ADS);
       return Right(AdsModel.fromJson(result.data));
     } catch (e) {
-      return Left(e.toString());
+      return Left(ErrorHandler.handle(e).failure);
     }
   }
 
   @override
-  Future<Either<String, AllTracksModel>> fetchAllTracks() async {
+  Future<Either<Failure?, AllTracksModel>> fetchAllTracks() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.GET_ALL_TRACKS);
       return Right(AllTracksModel.fromJson(result.data));
     } catch (e) {
-      return Left(e.toString());
+      return Left(ErrorHandler.handle(e).failure);
     }
   }
 }
