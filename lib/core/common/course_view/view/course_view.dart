@@ -7,8 +7,8 @@ import 'package:lms/features/course_view/cubit/course_view_cubit.dart';
 import '../../../utils/app_colors.dart';
 
 class CourseDetailsView extends StatefulWidget {
-  const CourseDetailsView({super.key});
-
+  const CourseDetailsView({super.key, required this.id});
+  final num id;
   @override
   State<CourseDetailsView> createState() => _CourseDetailsViewState();
 }
@@ -17,7 +17,7 @@ class _CourseDetailsViewState extends State<CourseDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CourseViewCubit()..fetchCoursesDetails(),
+      create: (context) => CourseViewCubit()..fetchCoursesDetails(widget.id),
       child: Scaffold(
         appBar: AppBar(
           title: Text(

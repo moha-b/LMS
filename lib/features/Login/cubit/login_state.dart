@@ -1,13 +1,7 @@
 abstract class LoginStates {}
 
-class InitialLoginState extends LoginStates {}
+class Unauthenticated extends LoginStates {}
 
-class ChangeVisibilityState extends LoginStates {}
+class Authenticated extends LoginStates {}
 
-class ChangeCheckState extends LoginStates {}
-
-class LoginLoadingState extends LoginStates {}
-
-class LoginSuccessState extends LoginStates {}
-
-class LoginErrorState extends LoginStates {}
+class AuthenticationFailed extends LoginStates {}

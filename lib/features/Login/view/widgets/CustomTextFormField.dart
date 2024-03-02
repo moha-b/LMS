@@ -6,21 +6,25 @@ class CustomTextForm extends StatelessWidget {
   const CustomTextForm({
     super.key,
     required this.hint,
-    required this.obscure,
-    required this.validatorText,
-    required this.controller,
+    this.obscure = false,
+    this.controller,
     this.icon,
     this.onPressed,
     required this.textAuth,
+    this.validator,
+    this.onChanged,
+    this.keyboardType,
   });
 
-  final String hint, validatorText;
+  final String hint;
   final bool obscure;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final IconData? icon;
   final VoidCallback? onPressed;
   final String textAuth;
-
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,15 +43,12 @@ class CustomTextForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
           obscureText: obscure,
-
           obscuringCharacter: '*',
-
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return validatorText;
-            }
-            return null;
-          },
+          validator: validator,
+          onChanged: onChanged,
+          keyboardType: keyboardType,
+          onTapOutside: (event) =>
+              FocusManager.instance.primaryFocus?.unfocus(),
           decoration: InputDecoration(
             suffixIcon: IconButton(
               icon: Icon(

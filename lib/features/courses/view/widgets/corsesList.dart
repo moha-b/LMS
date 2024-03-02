@@ -9,7 +9,7 @@ class CourseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 288.h,
+        height: 300.h,
         child: Column(
           children: [
             Padding(

@@ -13,24 +13,26 @@ class MainTracksList extends StatelessWidget {
         itemCount: tracks.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Container(
-            height: 38.h,
-            padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 12.h),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.r),
-              color: AppColors.gray100,
-            ),
-            child: Text(
-              tracks[index].title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-                color: AppColors.gray700,
+          if (tracks[index]?.title != null) {
+            return Container(
+              height: 38.h,
+              padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 12.h),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.gray100,
               ),
-            ),
-          );
+              child: Text(
+                tracks[index].title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.gray700,
+                ),
+              ),
+            );
+          }
         },
         separatorBuilder: (BuildContext context, int index) => SizedBox(
           width: 8.w,

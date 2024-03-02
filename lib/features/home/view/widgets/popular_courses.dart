@@ -47,7 +47,8 @@ class PopularCourses extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () => NavigationHelper.navigateTo(
-                              AppRoute.COURSE_DETAILS),
+                              AppRoute.COURSE_DETAILS,
+                              arguments: list[index].id),
                           child: Container(
                             width: 207.w,
                             height: 122.h,

@@ -35,7 +35,8 @@ class NavigationHelper {
       case AppRoute.COURSES:
         return MaterialPageRoute(builder: (_) => const CoursesView());
       case AppRoute.COURSE_DETAILS:
-        return MaterialPageRoute(builder: (_) => const CourseDetailsView());
+        return MaterialPageRoute(
+            builder: (_) => CourseDetailsView(id: settings.arguments as num));
       case AppRoute.VIEW_ALL_COURSES:
         return MaterialPageRoute(builder: (_) => const ViewAllCoursesView());
       case AppRoute.SPLASH:

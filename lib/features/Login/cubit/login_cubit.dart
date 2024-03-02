@@ -1,77 +1,86 @@
-import 'dart:async';
-import 'dart:collection';
+import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lms/core/base/validator.dart';
-import 'package:lms/core/network/network.dart';
+import 'package:lms/core/helpers/navigation_helper.dart';
+import 'package:lms/core/utils/app_routes.dart';
+import 'package:lms/features/Login/cubit/login_state.dart';
+import 'package:rxdart/rxdart.dart';
 
-import '../data/model/user.dart';
-import 'login_state.dart';
+import '../../../core/caching/caching_key.dart';
+import '../../../core/caching/shared_helper.dart';
+import '../data/repo/login_repo.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
-  late StreamController<String> emailController;
-  late Stream<String> validatedEmailStream;
+  final email = BehaviorSubject<String?>();
+  final password = BehaviorSubject<String?>();
   bool visibility = true;
   bool check = true;
+  static LoginCubit get instance =>
+      BlocProvider.of(NavigationHelper.navigatorKey.currentContext!);
 
-  LoginCubit() : super(InitialLoginState()) {
-    // Initialize the email controller
-    emailController = StreamController<String>();
+  LoginCubit() : super(Unauthenticated());
 
-    // Connect the emailValidator to your email stream
-    validatedEmailStream =
-        emailController.stream.transform(Validator().emailValidator);
-  }
+  Function(String?) get updateEmail => email.sink.add;
 
-  void changeCheck() {
-    check = !check;
+  Function(String?) get updatePassword => password.sink.add;
 
-    emit(ChangeCheckState());
-  }
+  Stream<String?> get emailStream => email.stream.asBroadcastStream();
+
+  Stream<String?> get passwordStream => password.stream.asBroadcastStream();
 
   void changePasswordVisibility() {
     visibility = !visibility;
-    emit(ChangeVisibilityState());
+    emit(Unauthenticated());
   }
 
-  // Method to check if an email is valid
-  Future<bool> isValidEmail(String email) async {
-    // Add the email to the stream
-    emailController.add(email);
-
-    // Listen for validation result
-    bool isValid = false;
-    await validatedEmailStream.firstWhere((result) {
-      // Handle the result
-      isValid = true; // or false based on validation
-      return true; // Stop listening after the first result
-    }).catchError((error) {
-      // Handle errors if any
-      isValid = false;
-    });
-    return isValid;
+  void changeCheck(bool? value) {
+    check = value!;
+    emit(Unauthenticated());
   }
 
-  Future<bool> sgin_In(String email, String password) async {
-    bool flag = false;
+  clear() {
+    updateEmail(null);
+    updatePassword(null);
+  }
+
+  @override
+  Future<void> close() {
+    email.close();
+    password.close();
+    return super.close();
+  }
+
+  void login() async {
+    emit(Unauthenticated());
+    if (await email.isEmpty) {
+      return;
+    }
     try {
-      Response response = await NetworkHelper.instance.post(
-        endPoint: EndPoints.LOGIN,
-        params: {
-          "email": email,
-          "password": password,
-        },
+      var user = await LoginRepo.login(
+        password: password.valueOrNull,
+        username: email.valueOrNull,
       );
-
-      if (response.statusCode == 200) {
-        User.fromJson(response.data);
-        flag = true;
+      if (user.accessToken != null) {
+        SharedHelper.instance!.writeData(
+          CachingKey.TOKEN,
+          user.accessToken,
+        );
+        SharedHelper.instance!.writeData(CachingKey.IS_LOGIN, true);
+        SharedHelper.instance!.writeData(
+          CachingKey.USER,
+          json.encode(user.toJson()),
+        );
+        print(user.accessToken);
+        NavigationHelper.navigateToReplacement(AppRoute.HOME);
+        clear();
+        emit(Authenticated());
+      } else {
+        // tell the user there is something wrong
+        emit(Unauthenticated());
       }
     } catch (e) {
-      print(e);
+      // tell the user the authentication failed
+      emit(AuthenticationFailed());
     }
-
-    return flag;
   }
 }

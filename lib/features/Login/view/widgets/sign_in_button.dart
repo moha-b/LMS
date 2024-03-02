@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../core/utils/app_colors.dart';
 
 class SignInButton extends StatelessWidget {
-  SignInButton({super.key, required this.onTap});
+  const SignInButton({super.key, required this.onTap});
 
-  Function onTap;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
-      child: GestureDetector(
-        onTap: () async {
-          onTap();
-        },
+      child: InkWell(
+        onTap: () async => onTap(),
         child: Container(
           width: 327.w,
           height: 56.h,

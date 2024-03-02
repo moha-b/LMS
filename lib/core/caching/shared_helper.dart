@@ -2,55 +2,51 @@ import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'caching_key.dart';
-
 class SharedHelper {
   static SharedHelper? instance;
   late SharedPreferences preferences;
 
   SharedHelper._();
 
-
-
   static Future<void> init() async {
     instance ??= SharedHelper._();
     instance!.preferences = await SharedPreferences.getInstance();
   }
 
-  void writeData(CachingKey key, dynamic value) {
-    log("Saving => $value, with key ${key.value}");
+  void writeData(String key, dynamic value) {
+    log("Saving => $value, with key $key");
     if (value is String) {
-      preferences.setString(key.value, value);
+      preferences.setString(key, value);
     } else if (value is int) {
-      preferences.setInt(key.value, value);
+      preferences.setInt(key, value);
     } else if (value is bool) {
-      preferences.setBool(key.value, value);
+      preferences.setBool(key, value);
     } else if (value is double) {
-      preferences.setDouble(key.value, value);
+      preferences.setDouble(key, value);
     }
   }
 
-  bool readBoolean(CachingKey key) {
-    return preferences.getBool(key.value) ?? false;
+  bool readBoolean(String key) {
+    return preferences.getBool(key) ?? false;
   }
 
-  double readDouble(CachingKey key) {
-    return preferences.getDouble(key.value) ?? 0.0;
+  double readDouble(String key) {
+    return preferences.getDouble(key) ?? 0.0;
   }
 
-  int readInteger(CachingKey key) {
-    return preferences.getInt(key.value) ?? 0;
+  int readInteger(String key) {
+    return preferences.getInt(key) ?? 0;
   }
 
-  String readString(CachingKey key) {
-    return preferences.getString(key.value) ?? "";
+  String readString(String key) {
+    return preferences.getString(key) ?? "";
   }
 
   void clear() {
     preferences.clear();
   }
 
-  void removeData(CachingKey key) {
-    preferences.remove(key.value);
+  void removeData(String key) {
+    preferences.remove(key);
   }
 }

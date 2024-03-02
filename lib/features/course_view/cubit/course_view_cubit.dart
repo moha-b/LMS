@@ -8,10 +8,10 @@ part 'course_view_state.dart';
 class CourseViewCubit extends Cubit<CourseViewState> {
   CourseViewCubit() : super(CourseViewInitial());
 
-  Future<Map<String, Course>?> fetchCoursesDetails() async {
+  Future<Map<String, Course>?> fetchCoursesDetails(num id) async {
     try {
       var result = await NetworkHelper.instance
-          .get(endPoint: EndPoints.courseDetails(5));
+          .get(endPoint: EndPoints.courseDetails(id));
       print(result);
       emit(CourseViewSuccessState(Course.fromJson(result.data)));
     } catch (e) {
