@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lms/features/home/data/repo/home_repo.dart';
 
-import '../../../core/base/enums.dart';
 import '../data/model/ads_model.dart';
 import '../data/model/all_tracks_model.dart';
 import '../data/model/course_model.dart';

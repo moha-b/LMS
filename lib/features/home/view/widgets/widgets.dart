@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lms/core/navigation/app_routes.dart';
-import 'package:lms/core/navigation/navigation_helper.dart';
+import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/features/home/data/model/ads_model.dart';
