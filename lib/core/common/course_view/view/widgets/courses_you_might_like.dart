@@ -1,16 +1,16 @@
 part of 'widgets.dart';
 
 class CoursesYouMightLike extends StatelessWidget {
-  const CoursesYouMightLike({super.key});
+  const CoursesYouMightLike({super.key, required this.id});
 
+  final num id;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CourseViewRelatedCubit()..fetchRelatedCoursesDetails(),
-      child: BlocBuilder<CourseViewRelatedCubit, CourseViewRelatedState>(
+      create: (context) => CourseViewCubit()..fetchRelatedCoursesDetails(id),
+      child: BlocBuilder<CourseViewCubit, CourseViewState>(
         builder: (context, state) {
-          if (state is CourseViewRelatedSuccessState) {
+          if (state is CourseViewSuccessState) {
             return Padding(
               padding: EdgeInsets.fromLTRB(0.w, 24.h, 0, 50.h),
               child: Column(
@@ -154,7 +154,7 @@ class CoursesYouMightLike extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state is CourseViewRelatedInitial) {
+          } else if (state is CourseViewInitial) {
             return const Center(
               child: CircularProgressIndicator(),
             );

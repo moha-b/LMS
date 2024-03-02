@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lms/core/common/course_view/view/course_view.dart';
+import 'package:lms/core/common/course_view/view/widgets/widgets.dart';
 import 'package:lms/features/Login/view/login-screen.dart';
 import 'package:lms/features/Splash/splash-screen.dart';
 import 'package:lms/features/courses/view/coursesView.dart';
 import 'package:lms/features/courses/view/view_all_courses.dart';
 import 'package:lms/features/home/view/home_view.dart';
+import 'package:lms/features/lessons_details_view/views/lessons_details_view.dart';
 import 'package:lms/main.dart';
 
 import '../utils/app_routes.dart';
@@ -39,6 +41,13 @@ class NavigationHelper {
             builder: (_) => CourseDetailsView(id: settings.arguments as num));
       case AppRoute.VIEW_ALL_COURSES:
         return MaterialPageRoute(builder: (_) => const ViewAllCoursesView());
+      case AppRoute.FULL_DESCRIPTION:
+        return MaterialPageRoute(
+            builder: (_) => FullDescription(
+                  description: settings.arguments as String,
+                ));
+      case AppRoute.LESSON_DETAILS:
+        return MaterialPageRoute(builder: (_) => const LessonsDetailsView());
       case AppRoute.SPLASH:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case AppRoute.LOGIN:

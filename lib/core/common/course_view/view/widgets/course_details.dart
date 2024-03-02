@@ -1,28 +1,27 @@
 part of 'widgets.dart';
 
 class CourseDetails extends StatelessWidget {
-  CourseDetails({super.key, required this.descriptionList});
+  CourseDetails({super.key, required this.model});
 
-  List<String> descriptionList = [];
-
+  Course model;
   @override
   Widget build(BuildContext context) {
     List<CourseStatusModel> courses = [
       CourseStatusModel(
           title: 'Release Date',
-          description: descriptionList[0],
+          description: DateFormat('yyyy-MM-dd').format(model.created),
           icon: AppIcons.note_1),
       CourseStatusModel(
           title: 'Students',
-          description: descriptionList[1],
+          description: model.studentsCount.toString(),
           icon: AppIcons.user),
       CourseStatusModel(
           title: 'Duration',
-          description: descriptionList[2],
+          description: '${model.duration} h',
           icon: AppIcons.clock),
       CourseStatusModel(
           title: 'Lectures',
-          description: descriptionList[3],
+          description: calculateTotalLessonsCount().toString(),
           icon: AppIcons.document_text),
     ];
     return SizedBox(
@@ -58,7 +57,7 @@ class CourseDetails extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${courses[index].description} h',
+                    '${courses[index].description}',
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.gray800,
@@ -74,5 +73,13 @@ class CourseDetails extends StatelessWidget {
         itemCount: 4,
       ),
     );
+  }
+
+  int calculateTotalLessonsCount() {
+    int totalLessons = 0;
+    for (var chapter in model.chapters) {
+      totalLessons += chapter.lessons.length;
+    }
+    return totalLessons;
   }
 }
