@@ -13,7 +13,9 @@ import 'package:lms/features/Login/view/widgets/sign_in_button.dart';
 
 class FormView extends StatelessWidget {
   FormView({super.key});
+
   final formSignInKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -70,9 +72,13 @@ class FormView extends StatelessWidget {
                         onChanged: LoginCubit.instance.changeCheck,
                       ),
                       SignInButton(
-                        onTap: () {
+                        onTap: () async {
                           if (formSignInKey.currentState!.validate()) {
-                            LoginCubit.instance.login();
+                            if (!(await LoginCubit.instance.login())) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Invalid credentials')));
+                            }
                           }
                         },
                       ),
