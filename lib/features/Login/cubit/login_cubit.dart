@@ -14,6 +14,7 @@ class LoginCubit extends Cubit<LoginStates> {
   final password = BehaviorSubject<String?>();
   bool visibility = true;
   bool check = true;
+
   static LoginCubit get instance =>
       BlocProvider.of(NavigationHelper.navigatorKey.currentContext!);
 
@@ -49,10 +50,10 @@ class LoginCubit extends Cubit<LoginStates> {
     return super.close();
   }
 
-  void login() async {
+  Future<bool> login() async {
     emit(Unauthenticated());
     if (await email.isEmpty) {
-      return;
+      return false;
     }
     try {
       var user = await LoginRepo.login(
@@ -76,10 +77,13 @@ class LoginCubit extends Cubit<LoginStates> {
       } else {
         // tell the user there is something wrong
         emit(Unauthenticated());
+        return false;
       }
     } catch (e) {
       // tell the user the authentication failed
       emit(AuthenticationFailed());
+      return false;
     }
+    return true;
   }
 }
