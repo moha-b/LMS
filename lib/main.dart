@@ -7,6 +7,7 @@ import 'package:lms/features/resoursesAndInfo/resourseAndInfo.dart';
 
 import 'core/navigation/navigation.dart';
 import 'features/Login/cubit/login_cubit.dart';
+import 'features/resoursesAndInfo/widgets/bottomSheet.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: NavigationHelper.generateRoute,
             // initialRoute: AppRoute.LOGIN,
             theme: AppTheme.light,
-            home: ResoursesAndInfo(),
+            home: LectureAbout(),
           );
         },
       ),
