@@ -74,11 +74,7 @@ class FormView extends StatelessWidget {
                       SignInButton(
                         onTap: () async {
                           if (formSignInKey.currentState!.validate()) {
-                            if (!(await LoginCubit.instance.login())) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Invalid credentials')));
-                            }
+                            LoginCubit.instance.login();
                           }
                         },
                       ),
