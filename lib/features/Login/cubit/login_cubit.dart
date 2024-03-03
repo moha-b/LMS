@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lms/features/Login/cubit/login_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,6 +15,7 @@ class LoginCubit extends Cubit<LoginStates> {
   final password = BehaviorSubject<String?>();
   bool visibility = true;
   bool check = true;
+
   static LoginCubit get instance =>
       BlocProvider.of(NavigationHelper.navigatorKey.currentContext!);
 
@@ -52,7 +54,7 @@ class LoginCubit extends Cubit<LoginStates> {
   void login() async {
     emit(Unauthenticated());
     if (await email.isEmpty) {
-      return;
+      return null;
     }
     try {
       var user = await LoginRepo.login(
@@ -74,11 +76,11 @@ class LoginCubit extends Cubit<LoginStates> {
         clear();
         emit(Authenticated());
       } else {
-        // tell the user there is something wrong
         emit(Unauthenticated());
       }
     } catch (e) {
-      // tell the user the authentication failed
+      ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+          .showSnackBar(const SnackBar(content: Text('Invalid credentials')));
       emit(AuthenticationFailed());
     }
   }
