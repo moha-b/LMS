@@ -72,7 +72,7 @@ class FormView extends StatelessWidget {
                         onChanged: LoginCubit.instance.changeCheck,
                       ),
                       SignInButton(
-                        onTap: () async {
+                        onTap: () {
                           if (formSignInKey.currentState!.validate()) {
                             LoginCubit.instance.login();
                           }
