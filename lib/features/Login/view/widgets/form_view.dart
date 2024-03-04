@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/primary_button.dart';
 import 'package:lms/core/helpers/validation_helper.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
@@ -9,7 +10,6 @@ import 'package:lms/features/Login/cubit/login_state.dart';
 import 'package:lms/features/Login/view/widgets/CustomTextFormField.dart';
 import 'package:lms/features/Login/view/widgets/row_create_account.dart';
 import 'package:lms/features/Login/view/widgets/row_remember_and_froget.dart';
-import 'package:lms/features/Login/view/widgets/sign_in_button.dart';
 
 class FormView extends StatelessWidget {
   FormView({super.key});
@@ -71,12 +71,17 @@ class FormView extends StatelessWidget {
                         check: LoginCubit.instance.check,
                         onChanged: LoginCubit.instance.changeCheck,
                       ),
-                      SignInButton(
-                        onTap: () async {
+                      PrimaryButton(
+                        onTap: () {
                           if (formSignInKey.currentState!.validate()) {
                             LoginCubit.instance.login();
                           }
                         },
+                        text: 'Sign In',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14.sp,
+                        width: 327.w,
+                        height: 56.h,
                       ),
                       const RowCreateAccount()
                     ],

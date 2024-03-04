@@ -4,6 +4,7 @@ import 'package:lms/core/common/course_view/view/widgets/widgets.dart';
 import 'package:lms/features/courses/view/view_all_courses.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
 
+import '../../../core/common/custom_app_bar.dart';
 import '../../../core/navigation/navigation.dart';
 
 class CoursesView extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/primary_button.dart';
 import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
@@ -97,32 +98,19 @@ class BottomSheetRating extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                PrimaryButton(
+                  onTap: () {
+                    //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  text: 'Send',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
                   width: 327.w,
                   height: 56.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    color: AppColors.primary,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        AppIcons.send_25,
-                        color: AppColors.white,
-                        size: 24.sp,
-                      ),
-                      SizedBox(width: 16.w),
-                      Text(
-                        'Send',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                          color: AppColors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+                  haveIcon: true,
+                  icon: AppIcons.send_25,
+                  iconSize: 24.sp,
+                  sizeBetweenIconAndText: 16.w,
                 ),
               ],
             ),

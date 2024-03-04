@@ -5,6 +5,7 @@ import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_images.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
 
+import '../../../core/common/custom_app_bar.dart';
 import '../../../core/utils/app_icons.dart';
 
 class ViewAllCoursesView extends StatelessWidget {
