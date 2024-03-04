@@ -6,7 +6,7 @@ import 'package:lms/features/home/data/model/all_tracks_model.dart';
 import '../model/course_model.dart';
 
 abstract class HomeRepository {
-  Future<Either<Failure?, CoursesModel>> fetchCourses();
-  Future<Either<Failure?, AdsModel>> fetchAds();
-  Future<Either<Failure?, AllTracksModel>> fetchAllTracks();
+  Future<Either<Failure?, List<CourseModel>>> fetchCourses();
+  Future<Either<Failure?, DartModel>> fetchAds();
+  Future<Either<Failure?, AllTrack>> fetchAllTracks();
 }

@@ -1,18 +1,18 @@
-class CourseItem {
+class AllTracksModel {
   int id;
   String title;
   String typeName;
   String image;
 
-  CourseItem({
+  AllTracksModel({
     required this.id,
     required this.title,
     required this.typeName,
     required this.image,
   });
 
-  factory CourseItem.fromJson(Map<String, dynamic> json) {
-    return CourseItem(
+  factory AllTracksModel.fromJson(Map<String, dynamic> json) {
+    return AllTracksModel(
       id: json['id'],
       title: json['title'],
       typeName: json['type_name'],
@@ -21,15 +21,15 @@ class CourseItem {
   }
 }
 
-class AllTracksModel {
-  List<CourseItem> tracks;
+class AllTrack {
+  List<AllTracksModel> tracks;
 
-  AllTracksModel({required this.tracks});
+  AllTrack({required this.tracks});
 
-  factory AllTracksModel.fromJson(Map<String, dynamic> json) {
-    return AllTracksModel(
+  factory AllTrack.fromJson(Map<String, dynamic> json) {
+    return AllTrack(
       tracks: (json['data'] as List<dynamic>)
-          .map((item) => CourseItem.fromJson(item))
+          .map((item) => AllTracksModel.fromJson(item))
           .toList(),
     );
   }

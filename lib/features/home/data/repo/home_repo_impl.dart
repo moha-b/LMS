@@ -8,33 +8,37 @@ import '../../../../core/network/network.dart';
 
 class HomeRepoImpl extends HomeRepository {
   @override
-  Future<Either<Failure?, CoursesModel>> fetchCourses() async {
+  Future<Either<Failure?, List<CourseModel>>> fetchCourses() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.HOME_COURSES);
-      return Right(CoursesModel.fromJson(result.data));
+      var json = result.data as List;
+      var data = json
+          .map<CourseModel>((courseJson) => CourseModel.fromJson(courseJson))
+          .toList();
+      return Right(data);
     } catch (e) {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
 
   @override
-  Future<Either<Failure?, AdsModel>> fetchAds() async {
+  Future<Either<Failure?, DartModel>> fetchAds() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.HOME_ADS);
-      return Right(AdsModel.fromJson(result.data));
+      return Right(DartModel.fromJson(result.data));
     } catch (e) {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
 
   @override
-  Future<Either<Failure?, AllTracksModel>> fetchAllTracks() async {
+  Future<Either<Failure?, AllTrack>> fetchAllTracks() async {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.GET_ALL_TRACKS);
-      return Right(AllTracksModel.fromJson(result.data));
+      return Right(AllTrack.fromJson(result.data));
     } catch (e) {
       return Left(ErrorHandler.handle(e).failure);
     }

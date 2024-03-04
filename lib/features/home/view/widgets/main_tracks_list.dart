@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class MainTracksList extends StatelessWidget {
   MainTracksList({super.key, required this.tracks});
 
-  List<CourseItem> tracks;
+  List<AllTracksModel> tracks;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

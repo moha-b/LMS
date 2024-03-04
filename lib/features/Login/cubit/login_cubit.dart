@@ -71,7 +71,6 @@ class LoginCubit extends Cubit<LoginStates> {
           CachingKey.USER,
           json.encode(user.toJson()),
         );
-        print(user.accessToken);
         NavigationHelper.navigateToReplacement(AppRoute.HOME);
         clear();
         emit(Authenticated());

@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class MainTracks extends StatefulWidget {
   const MainTracks({super.key, required this.list});
-  final AllTracksModel? list;
+  final AllTrack? list;
 
   @override
   State<MainTracks> createState() => _MainTracksState();

@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class HomeAds extends StatefulWidget {
   const HomeAds({super.key, required this.adsModel});
-  final AdsModel? adsModel;
+  final DartModel? adsModel;
   @override
   State<HomeAds> createState() => _SliderState();
 }

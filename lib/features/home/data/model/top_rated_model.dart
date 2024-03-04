@@ -1,4 +1,4 @@
-class Data {
+class TopRatedCoursesModel {
   int id;
   String title;
   String courseCategory;
@@ -7,7 +7,7 @@ class Data {
   double rate;
   int chaptersCount;
 
-  Data({
+  TopRatedCoursesModel({
     required this.id,
     required this.title,
     required this.courseCategory,
@@ -17,8 +17,8 @@ class Data {
     required this.chaptersCount,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory TopRatedCoursesModel.fromJson(Map<String, dynamic> json) {
+    return TopRatedCoursesModel(
       id: json['id'],
       title: json['title'],
       courseCategory: json['course_category'],
@@ -30,15 +30,15 @@ class Data {
   }
 }
 
-class TopRatedCoursesModel {
-  List<Data> courses;
+class TopRatedCourses {
+  List<TopRatedCoursesModel> courses;
 
-  TopRatedCoursesModel({required this.courses});
+  TopRatedCourses({required this.courses});
 
-  factory TopRatedCoursesModel.fromJson(Map<String, dynamic> json) {
-    return TopRatedCoursesModel(
+  factory TopRatedCourses.fromJson(Map<String, dynamic> json) {
+    return TopRatedCourses(
       courses: (json['data'] as List<dynamic>)
-          .map((item) => Data.fromJson(item))
+          .map((item) => TopRatedCoursesModel.fromJson(item))
           .toList(),
     );
   }

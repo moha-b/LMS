@@ -1,82 +1,68 @@
-class CoursesModel {
-  final List<Course> courses;
+class CourseModel {
+  num? id;
+  String? title;
+  num? price;
+  String? image;
+  num? rate;
+  num? rateCount;
+  num? inWishlist;
+  String? type;
+  List<InstructorModel>? instructors;
 
-  CoursesModel({
-    required this.courses,
+  CourseModel({
+    this.id,
+    this.title,
+    this.price,
+    this.image,
+    this.rate,
+    this.rateCount,
+    this.inWishlist,
+    this.type,
+    this.instructors,
   });
 
-  factory CoursesModel.fromJson(Map<String, dynamic> json) {
-    return CoursesModel(
-      courses: List<Course>.from(
-          json['data'].map((course) => Course.fromJson(course))),
-    );
-  }
-}
-
-class Course {
-  final int id;
-  final String title;
-  final double price;
-  final String image;
-  final double rate;
-  final int rateCount;
-  final int inWishlist;
-  final String type;
-  final List<Instructor> instructors;
-
-  Course({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.image,
-    required this.rate,
-    required this.rateCount,
-    required this.inWishlist,
-    required this.type,
-    required this.instructors,
-  });
-
-  factory Course.fromJson(Map<String, dynamic> json) {
-    return Course(
-      id: json['id'],
-      title: json['title'],
-      price: json['price'].toDouble(),
-      image: json['image'],
-      rate: json['rate'].toDouble(),
-      rateCount: json['rate_count'],
-      inWishlist: json['in_wishlist'],
-      type: json['type'],
-      instructors: json['instructors'] != null
-          ? List<Instructor>.from(json['instructors']
-              .map((instructor) => Instructor.fromJson(instructor)))
+  factory CourseModel.fromJson(Map<String, dynamic> json) {
+    return CourseModel(
+      id: json['data']['id'],
+      title: json['data']['title'],
+      price: json['data']['price'],
+      image: json['data']['image'],
+      rate: json['data']['rate'],
+      rateCount: json['data']['rate_count'],
+      inWishlist: json['data']['in_wishlist'],
+      type: json['data']['type'],
+      instructors: json['data']['instructors'] != null
+          ? List<InstructorModel>.from(json['data']['instructors'].map(
+              (instructor) => InstructorModel.fromJson(instructor),
+            ))
           : [],
     );
   }
 }
 
-class Instructor {
-  final int id;
-  final String name;
-  final String? lastName;
-  final String image;
-  final String? bio;
-  final int studentCount;
-  final List<Course> courses;
-  final int coursesCount;
+class InstructorModel {
+  num? id;
+  String? name;
+  String? lastName;
+  String? image;
+  String? bio;
+  num? studentCount;
+  List<CourseModel>? courses;
+  num? coursesCount;
 
-  Instructor({
-    required this.id,
-    required this.name,
-    required this.lastName,
-    required this.image,
-    required this.bio,
-    required this.studentCount,
-    required this.courses,
-    required this.coursesCount,
+  InstructorModel({
+    this.id,
+    this.name,
+    this.lastName,
+    this.image,
+    this.bio,
+    this.studentCount,
+    this.courses,
+    this.coursesCount,
   });
 
-  factory Instructor.fromJson(Map<String, dynamic> json) {
-    return Instructor(
+  factory InstructorModel.fromJson(Map<String, dynamic> json) {
+    return InstructorModel(
       id: json['id'],
       name: json['name'],
       lastName: json['last_name'],
@@ -84,8 +70,8 @@ class Instructor {
       bio: json['bio'],
       studentCount: json['student_count'],
       courses: json['courses'] != null
-          ? List<Course>.from(
-              json['courses'].map((course) => Course.fromJson(course)))
+          ? List<CourseModel>.from(
+              json['courses'].map((course) => CourseModel.fromJson(course)))
           : [],
       coursesCount: json['courses_count'],
     );

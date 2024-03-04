@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
                     if (state.coursesState == RequestState.loaded) {
-                      return PopularCourses(list: state.courses!.courses);
+                      return PopularCourses(list: state.courses!);
                     } else {
                       return const SizedBox.shrink();
                     }

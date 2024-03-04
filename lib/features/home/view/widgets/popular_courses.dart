@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class PopularCourses extends StatelessWidget {
   const PopularCourses({super.key, required this.list});
-  final List<Course> list;
+  final List<CourseModel> list;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,7 +58,7 @@ class PopularCourses extends StatelessWidget {
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(12.r),
                               image: DecorationImage(
-                                image: NetworkImage(list[index].image),
+                                image: NetworkImage(list[index].image!),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -86,7 +86,7 @@ class PopularCourses extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      list[index].title,
+                                      list[index].title!,
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         color: AppColors.gray900,
@@ -128,17 +128,17 @@ class PopularCourses extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 8.h),
                               child: Row(
                                 children: [
-                                  if (list[index].instructors.isNotEmpty)
+                                  if (list[index].instructors!.isNotEmpty)
                                     CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                        list[index].instructors[0].image,
+                                        list[index].instructors![0].image!,
                                       ),
                                       radius: 10.r,
                                     ),
                                   SizedBox(width: 4.w),
-                                  if (list[index].instructors.isNotEmpty)
+                                  if (list[index].instructors!.isNotEmpty)
                                     Text(
-                                      list[index].instructors[0].name,
+                                      list[index].instructors![0].name!,
                                       style: TextStyle(
                                         color: AppColors.gray600,
                                         fontSize: 11.sp,
