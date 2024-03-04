@@ -30,6 +30,13 @@ class NavigationHelper {
             builder: (_) => CourseDetailsView(id: settings.arguments as num));
       case AppRoute.VIEW_ALL_COURSES:
         return MaterialPageRoute(builder: (_) => const ViewAllCoursesView());
+      // Quiz
+      case AppRoute.QUIZ_INFO:
+        return MaterialPageRoute(builder: (_) => const QuizInfoView());
+      case AppRoute.QUIZ:
+        return MaterialPageRoute(builder: (_) => const QuizView());
+      case AppRoute.QUIZ_REPORT:
+        return MaterialPageRoute(builder: (_) => const QuizReportView());
       case AppRoute.FULL_DESCRIPTION:
         return MaterialPageRoute(
             builder: (_) => FullDescription(
