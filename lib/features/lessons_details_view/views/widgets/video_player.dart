@@ -1,39 +1,56 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lms/features/lessons_details_view/cubit/video_controls_cubit.dart';
+import 'package:lms/features/lessons_details_view/views/widgets/custom_controls.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerWidget extends StatefulWidget {
+class VideoPlayerWidget extends StatelessWidget {
+  const VideoPlayerWidget({super.key, required this.videoUrl});
   final String videoUrl;
-
-  const VideoPlayerWidget({Key? key, required this.videoUrl}) : super(key: key);
-
-  @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _videoPlayerController;
-  late ChewieController _chewieController;
-
-  @override
-  void initState() {
-    super.initState();
-    _videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Chewie(controller: _chewieController);
-  }
+    return BlocProvider(
+      create: (context) => VideoControlsCubit()..initializeController(videoUrl),
+      child: BlocBuilder<VideoControlsCubit, VideoPlayerController?>(
+        builder: (context, videoPlayerController) {
+          if (videoPlayerController != null) {
+            final chewieController = ChewieController(
+              videoPlayerController: videoPlayerController,
+              autoInitialize: true,
+              aspectRatio: 16 / 9,
+              allowFullScreen: true,
+              customControls: CustomControls(
+                isFullScreen: context.read<VideoControlsCubit>().isFullScreen,
+                videoPlayerController: videoPlayerController,
+                isPlayingNotifier:
+                    context.read<VideoControlsCubit>().isPlayingNotifier,
+                onRewind: () {
+                  context.read<VideoControlsCubit>().onRewind();
+                },
+                onSkip: () {
+                  context.read<VideoControlsCubit>().onSkip();
+                },
+                onPlay: () {
+                  context.read<VideoControlsCubit>().play();
+                },
+                onPause: () {
+                  context.read<VideoControlsCubit>().pause();
+                },
+                onToggleFullScreen: () {
+                  context.read<VideoControlsCubit>().onToggleFullScreen();
+                },
+              ),
+            );
 
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
-    _chewieController.dispose();
+            return Chewie(controller: chewieController);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
   }
 }
