@@ -5,19 +5,25 @@ import '../../../../core/common/course_view/view/widgets/widgets.dart';
 import '../../../../core/utils/app_colors.dart';
 
 class QuestionProgress extends StatelessWidget {
+  final int currentQuestion;
+  final int totalQuestions;
+
   const QuestionProgress({
-    super.key,
-  });
+    Key? key,
+    required this.currentQuestion,
+    required this.totalQuestions,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double progress = (currentQuestion) / totalQuestions;
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "QUESTION 3 of 300",
+            "QUESTION ${currentQuestion} of $totalQuestions",
             style: TextStyle(
               color: AppColors.gray900,
               fontSize: 12.sp,
@@ -27,7 +33,7 @@ class QuestionProgress extends StatelessWidget {
           SizedBox(height: 12.h),
           LinearProgressIndicator(
             color: AppColors.primary,
-            value: 0.3,
+            value: progress,
             borderRadius: BorderRadius.circular(19.r),
             minHeight: 5.h,
           ),
