@@ -22,6 +22,7 @@ class PrimaryButton extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   // icon
   final bool haveIcon;
+  final bool iconToRight;
   final IconData? icon;
   final double? sizeBetweenIconAndText;
   final Color? iconColor;
@@ -45,6 +46,7 @@ class PrimaryButton extends StatelessWidget {
     this.iconColor,
     this.iconSize,
     this.sizeBetweenIconAndText,
+    this.iconToRight = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -62,31 +64,51 @@ class PrimaryButton extends StatelessWidget {
                 ? Border.all(color: borderColor ?? AppColors.primary)
                 : null),
         child: haveIcon
-            ? Text(
+            ? iconToRight
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        text,
+                        style: TextStyle(
+                            color: textColor ?? AppColors.white,
+                            fontSize: fontSize ?? 16.sp,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      SizedBox(width: sizeBetweenIconAndText ?? 5.w),
+                      Icon(
+                        icon,
+                        color: iconColor ?? AppColors.white,
+                        size: iconSize,
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icon,
+                        color: iconColor ?? AppColors.white,
+                        size: iconSize,
+                      ),
+                      SizedBox(width: sizeBetweenIconAndText ?? 5.w),
+                      Text(
+                        text,
+                        style: TextStyle(
+                            color: textColor ?? AppColors.primary,
+                            fontSize: fontSize ?? 16.sp,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  )
+            : Text(
                 text,
                 style: TextStyle(
-                    color: textColor ?? AppColors.primary,
+                    color: textColor ?? AppColors.white,
                     fontSize: fontSize ?? 16.sp,
                     fontWeight: FontWeight.normal),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    icon,
-                    color: iconColor ?? AppColors.white,
-                    size: iconSize,
-                  ),
-                  SizedBox(width: sizeBetweenIconAndText ?? 5.w),
-                  Text(
-                    text,
-                    style: TextStyle(
-                        color: textColor ?? AppColors.primary,
-                        fontSize: fontSize ?? 16.sp,
-                        fontWeight: FontWeight.normal),
-                  ),
-                ],
               ),
       ),
     );
