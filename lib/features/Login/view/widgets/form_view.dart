@@ -71,17 +71,20 @@ class FormView extends StatelessWidget {
                         check: LoginCubit.instance.check,
                         onChanged: LoginCubit.instance.changeCheck,
                       ),
-                      PrimaryButton(
-                        onTap: () {
-                          if (formSignInKey.currentState!.validate()) {
-                            LoginCubit.instance.login();
-                          }
-                        },
-                        text: 'Sign In',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14.sp,
-                        width: 327.w,
-                        height: 56.h,
+                      Padding(
+                        padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
+                        child: PrimaryButton(
+                          onTap: () {
+                            if (formSignInKey.currentState!.validate()) {
+                              LoginCubit.instance.login();
+                            }
+                          },
+                          text: 'Sign In',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                          width: 327.w,
+                          height: 56.h,
+                        ),
                       ),
                       const RowCreateAccount()
                     ],

@@ -27,6 +27,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   video_player: ^2.2.14
   chewie: ^1.7.5
+  syncfusion_flutter_gauges: ^24.2.8
+  percent_indicator: ^4.0.0
+  semicircle_indicator: ^1.1.1
 
 dev_dependencies:
   flutter_test:
