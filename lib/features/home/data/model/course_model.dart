@@ -23,16 +23,16 @@ class CourseModel {
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
-      id: json['data']['id'],
-      title: json['data']['title'],
-      price: json['data']['price'],
-      image: json['data']['image'],
-      rate: json['data']['rate'],
-      rateCount: json['data']['rate_count'],
-      inWishlist: json['data']['in_wishlist'],
-      type: json['data']['type'],
-      instructors: json['data']['instructors'] != null
-          ? List<InstructorModel>.from(json['data']['instructors'].map(
+      id: json['id'],
+      title: json['title'],
+      price: json['price'],
+      image: json['image'],
+      rate: json['rate'],
+      rateCount: json['rate_count'],
+      inWishlist: json['in_wishlist'],
+      type: json['type'],
+      instructors: json['instructors'] != null
+          ? List<InstructorModel>.from(json['instructors'].map(
               (instructor) => InstructorModel.fromJson(instructor),
             ))
           : [],

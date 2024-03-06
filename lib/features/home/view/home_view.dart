@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.adsState) {
                       case RequestState.loading:
-                        return const SizedBox.shrink();
+                        return Center(child: CircularProgressIndicator());
                       case RequestState.loaded:
                         return state.ads!.data.isNotEmpty
                             ? HomeAds(adsModel: state.ads)
@@ -39,10 +39,13 @@ class HomeView extends StatelessWidget {
                 ),
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
-                    if (state.coursesState == RequestState.loaded) {
-                      return PopularCourses(list: state.courses!);
-                    } else {
-                      return const SizedBox.shrink();
+                    switch (state.coursesState) {
+                      case RequestState.loading:
+                        return Center(child: CircularProgressIndicator());
+                      case RequestState.loaded:
+                        return PopularCourses(list: state.courses!);
+                      case RequestState.error:
+                        return Center(child: Text(state.coursesMessage));
                     }
                   },
                 ),

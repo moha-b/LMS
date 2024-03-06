@@ -1,6 +1,6 @@
 part of 'network.dart';
 
-String BASE_URL = "https://api.engineering-tracks.com/api";
+String BASE_URL = "https://coursafer.innoeg.com/api";
 
 class EndPoints {
   static const HOME_COURSES = "/homeCourses";

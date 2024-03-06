@@ -12,7 +12,7 @@ class HomeRepoImpl extends HomeRepository {
     try {
       var result =
           await NetworkHelper.instance.get(endPoint: EndPoints.HOME_COURSES);
-      var json = result.data as List;
+      var json = result.data['data'] as List;
       var data = json
           .map<CourseModel>((courseJson) => CourseModel.fromJson(courseJson))
           .toList();
