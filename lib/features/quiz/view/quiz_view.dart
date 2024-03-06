@@ -19,7 +19,7 @@ class QuizView extends StatelessWidget {
     return BlocBuilder<QuizCubit, QuizState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(title: 'Test Your Knowledge On User...'),
+          appBar: const CustomAppBar(title: 'Test Your Knowledge On User...'),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,7 +42,7 @@ class QuizView extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: QuizCubit.instance.pageController,
                   // onPageChanged: (value) => QuizCubit.instance.onPageChanged,
-                  itemBuilder: (context, index) => QuizPage(),
+                  itemBuilder: (context, index) => const QuizPage(),
                   itemCount: totalQuestions,
                 ),
               ),
