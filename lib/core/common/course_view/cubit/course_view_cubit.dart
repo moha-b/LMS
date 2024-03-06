@@ -1,36 +1,51 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:lms/core/common/course_view/data/models/course_model.dart';
 import 'package:lms/core/network/network.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../features/home/bloc/home_bloc.dart';
+import '../../../../features/home/data/model/course_model.dart';
+
 part 'course_view_state.dart';
 
 class CourseViewCubit extends Cubit<CourseViewState> {
-  CourseViewCubit() : super(CourseViewInitial());
+  CourseViewCubit() : super(const CourseViewState());
 
-  Future<Map<String, Course>?> fetchCoursesDetails(num id) async {
-    emit(CourseViewLoadingState());
+  void fetchCoursesDetails(int id) async {
+    emit(state.copyWith(courseState: RequestState.loading));
     try {
       var result = await NetworkHelper.instance
           .get(endPoint: EndPoints.courseDetails(id));
-      emit(CourseViewSuccessState(Course.fromJson(result.data)));
+      emit(state.copyWith(
+          courseData: Course.fromJson(result.data),
+          courseState: RequestState.loaded));
     } catch (e) {
-      emit(CourseViewFailedState(e.toString()));
+      emit(state.copyWith(error: toString()));
     }
-    return null;
   }
 
-  Future<Map<String, Course>?> fetchRelatedCoursesDetails(num id) async {
-    emit(CourseViewRelatedLoadingState());
-
+  void fetchRelatedCoursesDetails(int id) async {
     try {
-      var result = await NetworkHelper.instance
-          .get(endPoint: EndPoints.relatedCourses(id));
-      emit(CourseViewRelatedSuccessState(Course.fromJson(result.data)));
+      emit(state.copyWith(relatedCoursesState: RequestState.loading));
+      var result = await NetworkHelper.instance.get(
+        endPoint: EndPoints.relatedCourses,
+        params: {
+          "course_id": id,
+          "limit": "10",
+          "page": "1",
+          "lang": "en",
+        },
+      );
+      var json = result.data['data'] as List;
+      var data = json
+          .map<CourseModel>((courseJson) => CourseModel.fromJson(courseJson))
+          .toList();
+      emit(state.copyWith(
+          relatedCoursesData: data, relatedCoursesState: RequestState.loaded));
     } catch (e) {
-      print(e);
-      emit(CourseViewRelatedFailedState(e.toString()));
+      print("LOOK AT THIS SUCRM $e");
+      emit(state.copyWith(error: toString()));
     }
-    return null;
   }
 }

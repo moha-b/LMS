@@ -1,8 +1,8 @@
 part of 'widgets.dart';
 
 class VideoCourse extends StatefulWidget {
-  const VideoCourse({super.key});
-
+  const VideoCourse({super.key, required this.image});
+  final String image;
   @override
   _VideoCourseState createState() => _VideoCourseState();
 }
@@ -33,8 +33,8 @@ class _VideoCourseState extends State<VideoCourse> {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.r),
-                image: const DecorationImage(
-                  image: AssetImage(AppImages.banner),
+                image: DecorationImage(
+                  image: NetworkImage(widget.image),
                   fit: BoxFit.fill,
                 ),
               ),

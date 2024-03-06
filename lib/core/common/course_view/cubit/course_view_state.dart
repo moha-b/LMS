@@ -1,34 +1,43 @@
 part of 'course_view_cubit.dart';
 
 @immutable
-abstract class CourseViewState {}
+class CourseViewState extends Equatable {
+  final Course? courseData;
+  final List<CourseModel>? relatedCoursesData;
+  final String? error;
+  final RequestState courseState;
+  final RequestState relatedCoursesState;
 
-class CourseViewInitial extends CourseViewState {}
+  const CourseViewState({
+    this.courseData,
+    this.relatedCoursesData,
+    this.error,
+    this.courseState = RequestState.loading,
+    this.relatedCoursesState = RequestState.loading,
+  });
 
-class CourseViewLoadingState extends CourseViewState {}
+  CourseViewState copyWith({
+    Course? courseData,
+    List<CourseModel>? relatedCoursesData,
+    String? error,
+    RequestState? courseState,
+    RequestState? relatedCoursesState,
+  }) {
+    return CourseViewState(
+      courseData: courseData ?? this.courseData,
+      relatedCoursesData: relatedCoursesData ?? this.relatedCoursesData,
+      error: error ?? this.error,
+      courseState: courseState ?? this.courseState,
+      relatedCoursesState: relatedCoursesState ?? this.relatedCoursesState,
+    );
+  }
 
-class CourseViewSuccessState extends CourseViewState {
-  final Course data;
-
-  CourseViewSuccessState(this.data);
-}
-
-class CourseViewFailedState extends CourseViewState {
-  final String error;
-
-  CourseViewFailedState(this.error);
-}
-
-class CourseViewRelatedLoadingState extends CourseViewState {}
-
-class CourseViewRelatedSuccessState extends CourseViewState {
-  final Course data;
-
-  CourseViewRelatedSuccessState(this.data);
-}
-
-class CourseViewRelatedFailedState extends CourseViewState {
-  final String error;
-
-  CourseViewRelatedFailedState(this.error);
+  @override
+  List<Object?> get props => [
+        courseData,
+        relatedCoursesData,
+        error,
+        courseState,
+        relatedCoursesState,
+      ];
 }
