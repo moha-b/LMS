@@ -2,9 +2,12 @@ part of 'widgets.dart';
 
 class CourseWidget extends StatelessWidget {
   const CourseWidget({
-    Key? key,
-  }) : super(key: key);
-
+    super.key,
+    required this.course,
+    required this.title,
+  });
+  final CourseModel course;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,7 +17,7 @@ class CourseWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CourseImageWidget(),
+            CourseImageWidget(image: course.image!, track: title),
             Padding(
               padding: EdgeInsets.fromLTRB(7.w, 8.h, 7.w, 0),
               child: Column(
@@ -27,7 +30,7 @@ class CourseWidget extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Power BI advanced data analysis',
+                            course.title!,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.gray900,
@@ -49,7 +52,7 @@ class CourseWidget extends StatelessWidget {
                                 width: 4.w,
                               ),
                               Text(
-                                '5.5',
+                                course.rate!.toString(),
                                 style: TextStyle(
                                   fontSize: 11.sp,
                                   color: AppColors.black,
@@ -67,14 +70,14 @@ class CourseWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: const AssetImage(
-                            AppImages.instructor,
+                          backgroundImage: NetworkImage(
+                            course.instructors![0].image!,
                           ),
                           radius: 10.r,
                         ),
                         SizedBox(width: 4.w),
                         Text(
-                          'Heba, Ahmed, Moha..',
+                          course.instructors![0].name!,
                           style: TextStyle(
                             color: AppColors.gray600,
                             fontSize: 11.sp,
@@ -87,7 +90,7 @@ class CourseWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        r'$2500',
+                        '\$ ${course.price}',
                         style: TextStyle(
                           color: AppColors.primary,
                           fontSize: 14.sp,
@@ -95,15 +98,6 @@ class CourseWidget extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 4.w),
-                      Text(
-                        r'$2500',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 11.sp,
-                          color: AppColors.black,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
                     ],
                   ),
                 ],
