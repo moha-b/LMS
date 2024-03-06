@@ -35,7 +35,7 @@ class CoursesView extends StatelessWidget {
                                     onViewAllClicked: () =>
                                         NavigationHelper.navigateTo(
                                       AppRoute.VIEW_ALL_COURSES,
-                                      arguments: state.data[index].tracks,
+                                      arguments: state.data[index],
                                     ),
                                   ),
                         separatorBuilder: (context, index) =>

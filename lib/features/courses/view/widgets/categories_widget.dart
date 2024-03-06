@@ -1,15 +1,23 @@
 part of 'widgets.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
-
+  const Categories({Key? key, required this.tracks}) : super(key: key);
+  final List<Track> tracks;
   @override
   _CategoriesState createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<Categories> {
-  List<Color?> containerColors = List.generate(7, (index) => Colors.grey[100]);
-  List<bool> isSelectedList = List.generate(7, (index) => false);
+  List<bool>? isSelectedList;
+  List<Color?>? containerColors;
+
+  @override
+  void initState() {
+    super.initState();
+    isSelectedList = List.generate(widget.tracks.length, (index) => false);
+    containerColors =
+        List.generate(widget.tracks.length, (index) => Colors.grey[100]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +31,26 @@ class _CategoriesState extends State<Categories> {
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
               setState(() {
-                for (int i = 0; i < isSelectedList.length; i++) {
-                  isSelectedList[i] = false;
-                  containerColors[i] = Colors.grey[100];
+                for (int i = 0; i < isSelectedList!.length; i++) {
+                  isSelectedList![i] = false;
+                  containerColors![i] = Colors.grey[100];
                 }
-                isSelectedList[index] = true;
-                containerColors[index] = AppColors.primary;
+                isSelectedList![index] = true;
+                containerColors![index] = AppColors.primary;
               });
+              context
+                  .read<TracksBloc>()
+                  .add(SelectedTrack(widget.tracks[index].id));
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 20.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.r),
-                color: containerColors[index],
+                color: containerColors![index],
               ),
               child: Text(
-                'Soft Skills',
-                style: isSelectedList[index]
+                widget.tracks[index].title,
+                style: isSelectedList![index]
                     ? TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12.sp,
@@ -55,7 +66,7 @@ class _CategoriesState extends State<Categories> {
           ),
           separatorBuilder: (BuildContext context, int index) =>
               SizedBox(width: 8.w),
-          itemCount: 7,
+          itemCount: widget.tracks.length,
         ),
       ),
     );

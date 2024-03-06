@@ -9,6 +9,7 @@ class EndPoints {
   static const HOME_ADS = "/homeAds";
   static const GET_APP_TRACKS = "/homePackages";
   static const LOGIN = "/auth/login";
+  static const GET_COURSES_BY_PACKAGE_ID = "/getCoursesByPackageId";
 
   static String courseDetails(courseId) =>
       "/courseDetails?my_learning=1&course_id=$courseId";
