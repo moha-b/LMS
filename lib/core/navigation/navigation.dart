@@ -12,5 +12,7 @@ import 'package:lms/features/quiz/view/quiz_report_view.dart';
 import 'package:lms/features/quiz/view/quiz_view.dart';
 import 'package:lms/main.dart';
 
+import '../common/course_view/data/models/course_model.dart';
+
 part 'app_routes.dart';
 part 'navigation_helper.dart';

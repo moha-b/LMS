@@ -17,6 +17,7 @@ class CourseDetailsView extends StatefulWidget {
 class _CourseDetailsViewState extends State<CourseDetailsView> {
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     return BlocProvider(
       create: (context) => CourseViewCubit()
         ..fetchCoursesDetails(widget.id)

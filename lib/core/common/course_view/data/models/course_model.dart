@@ -76,6 +76,13 @@ class Course {
   }
 }
 
+class LessonDetailsArguments {
+  final int lessonId;
+  final List<Chapter> chapter;
+
+  LessonDetailsArguments(this.lessonId, this.chapter);
+}
+
 class Chapter {
   final int id;
   final String title;

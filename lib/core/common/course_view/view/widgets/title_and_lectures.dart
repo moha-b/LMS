@@ -124,7 +124,8 @@ class TitleAndLectures extends StatelessWidget {
                               ),
                               if (lecturesExpansionCubit.isExpandedList[index])
                                 LecturesDetails(
-                                    data: data.chapters[index].lessons),
+                                    lesson: data.chapters[index].lessons,
+                                    chapter: data.chapters),
                             ],
                           ),
                           separatorBuilder: (context, index) =>

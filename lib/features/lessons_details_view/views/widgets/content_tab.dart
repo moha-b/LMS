@@ -7,13 +7,15 @@ import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/lectures_details.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/line_separated.dart';
 
-class ContentTab extends StatelessWidget {
-  const ContentTab({super.key});
+import '../../../../core/common/course_view/data/models/course_model.dart';
 
+class ContentTab extends StatelessWidget {
+  const ContentTab({super.key, required this.chapters});
+  final List<Chapter> chapters;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LecturesExpansionCubit(10),
+      create: (context) => LecturesExpansionCubit(chapters.length),
       child: BlocBuilder<LecturesExpansionCubit, LecturesExpansionState>(
         builder: (context, state) {
           final lecturesExpansionCubit = context.read<LecturesExpansionCubit>();
@@ -28,7 +30,7 @@ class ContentTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Chapter ${index + 1} - 10 Lectures - 5h 55min 3sec',
+                        'Chapter ${index + 1} - ${chapters.length} Lectures - ${chapters[index].lessons.fold(0, (total, lesson) => total + lesson.totalMinutes)} Minutes',
                         style: TextStyle(
                           color: AppColors.gray900,
                           fontSize: 14.sp,
@@ -67,7 +69,7 @@ class ContentTab extends StatelessWidget {
               ],
             ),
             separatorBuilder: (context, index) => const LineSeparated(),
-            itemCount: 10,
+            itemCount: chapters.length,
           );
         },
       ),
