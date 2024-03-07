@@ -11,10 +11,11 @@ import '../../../core/common/course_view/data/models/course_model.dart';
 
 class LessonsDetailsView extends StatelessWidget {
   const LessonsDetailsView(
-      {super.key, required this.id, required this.chapter});
+      {super.key, required this.id, required this.chapter, this.url = ''});
 
   final int id;
   final List<Chapter> chapter;
+  final String url;
 
   @override
   Widget build(BuildContext context) {

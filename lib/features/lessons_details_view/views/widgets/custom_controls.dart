@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:video_player/video_player.dart';
@@ -113,7 +114,9 @@ class _CustomControlsState extends State<CustomControls> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    NavigationHelper.goBack();
+                  },
                   child: Container(
                     width: widget.isFullScreen ? 70.h : 28.w,
                     height: widget.isFullScreen ? 50.h : 30.h,

@@ -16,6 +16,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
         builder: (context, state) {
           if (state is LessonsSuccess) {
             return AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: AppColors.violet50,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.pin,

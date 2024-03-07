@@ -11,4 +11,9 @@ class LessonsSuccess extends LessonsState {
   LessonsSuccess(this.lesson);
 }
 
+class ChangeVideo extends LessonsState {
+  String id;
+  ChangeVideo(this.id);
+}
+
 class LessonsError extends LessonsState {}

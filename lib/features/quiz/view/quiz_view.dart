@@ -53,7 +53,9 @@ class QuizView extends StatelessWidget {
                   children: [
                     PrimaryButton(
                       onTap: () => QuizCubit.instance.previousPage(),
-                      text: 'Previous',
+                      text: context.read<QuizCubit>().currentPage == 0
+                          ? ''
+                          : 'Previous',
                       color: AppColors.white,
                       haveIcon: true,
                       icon: AppIcons.arrow_left,

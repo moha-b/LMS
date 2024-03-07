@@ -65,7 +65,8 @@ class ContentTab extends StatelessWidget {
                   ),
                 ),
                 if (lecturesExpansionCubit.isExpandedList[index])
-                  LessonsDetails(lessons: chapters[index].lessons),
+                  LessonsDetails(
+                      lessons: chapters[index].lessons, chapters: chapters),
               ],
             ),
             separatorBuilder: (context, index) => const LineSeparated(),
