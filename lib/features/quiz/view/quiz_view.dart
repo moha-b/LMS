@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/custom_app_bar.dart';
 import 'package:lms/core/common/primary_button.dart';
+import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
@@ -51,24 +52,34 @@ class QuizView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    PrimaryButton(
-                      onTap: () => QuizCubit.instance.previousPage(),
-                      text: context.read<QuizCubit>().currentPage == 0
-                          ? ''
-                          : 'Previous',
-                      color: AppColors.white,
-                      haveIcon: true,
-                      icon: AppIcons.arrow_left,
-                      iconColor: AppColors.primary,
-                    ),
-                    PrimaryButton(
-                      onTap: () => QuizCubit.instance.nextPage(),
-                      width: 108.w,
-                      text: 'Next',
-                      haveIcon: true,
-                      iconToRight: true,
-                      icon: AppIcons.arrow_right_1,
-                    ),
+                    context.read<QuizCubit>().currentPage != 1
+                        ? PrimaryButton(
+                            onTap: () => QuizCubit.instance.previousPage(),
+                            text: 'Previous',
+                            color: AppColors.white,
+                            haveIcon: true,
+                            icon: AppIcons.arrow_left,
+                            iconColor: AppColors.primary,
+                          )
+                        : const SizedBox.shrink(),
+                    context.read<QuizCubit>().currentPage != totalQuestions
+                        ? PrimaryButton(
+                            onTap: () => QuizCubit.instance.nextPage(),
+                            width: 108.w,
+                            text: 'Next',
+                            haveIcon: true,
+                            iconToRight: true,
+                            icon: AppIcons.arrow_right_1,
+                          )
+                        : PrimaryButton(
+                            onTap: () => NavigationHelper.navigateTo(
+                                AppRoute.QUIZ_REPORT),
+                            width: 150.w,
+                            text: 'View Report',
+                            haveIcon: true,
+                            iconToRight: true,
+                            icon: AppIcons.arrow_right_1,
+                          ),
                   ],
                 ),
               ),
