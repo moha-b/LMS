@@ -27,7 +27,8 @@ class NavigationHelper {
         return MaterialPageRoute(builder: (_) => const CoursesView());
       case AppRoute.COURSE_DETAILS:
         return MaterialPageRoute(
-            builder: (_) => CourseDetailsView(id: settings.arguments as int));
+            builder: (_) =>
+                CourseDetailsView(id: 6)); //settings.arguments as int
       case AppRoute.VIEW_ALL_COURSES:
         return MaterialPageRoute(
             builder: (_) =>

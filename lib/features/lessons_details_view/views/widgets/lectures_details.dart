@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/course_view/data/models/course_model.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 
 class LessonsDetails extends StatelessWidget {
-  LessonsDetails({super.key});
+  LessonsDetails({super.key, required this.lessons});
 
+  final List<Lesson> lessons;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,15 +28,18 @@ class LessonsDetails extends StatelessWidget {
                   height: 1.5.h,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-                child: Icon(
-                  // AppIcons.tick_circle5,
-                  Icons.check_circle_rounded,
-                  color: AppColors.primary,
-                  size: 16.sp,
-                ),
-              ),
+              lessons[index].isSeen == 1
+                  ? Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                      child: Icon(
+                        // AppIcons.tick_circle5,
+                        Icons.check_circle_rounded,
+                        color: AppColors.primary,
+                        size: 16.sp,
+                      ),
+                    )
+                  : SizedBox(width: 15.w),
               Expanded(
                 child: SizedBox(
                   width: 327.w,
@@ -43,7 +48,7 @@ class LessonsDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sales dashboard: Introduction to income statement',
+                        lessons[index].title,
                         style: TextStyle(
                           color: AppColors.gray700,
                           fontSize: 14.sp,
@@ -54,14 +59,18 @@ class LessonsDetails extends StatelessWidget {
                       Row(
                         children: [
                           Icon(
-                            AppIcons.play_circle,
+                            lessons[index].isQuiz == 1
+                                ? AppIcons.task
+                                : AppIcons.play_circle,
                             size: 14.sp,
                             color: AppColors.gray600,
                           ),
                           SizedBox(width: 4.w),
                           Expanded(
                             child: Text(
-                              'Video - 02:00',
+                              lessons[index].isQuiz == 1
+                                  ? 'Quiz'
+                                  : 'Video - ${lessons[index].totalMinutes} Minutes',
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
@@ -83,7 +92,7 @@ class LessonsDetails extends StatelessWidget {
             ],
           ),
           separatorBuilder: (context, index) => SizedBox(height: 20.h),
-          itemCount: 10,
+          itemCount: lessons.length,
         ),
       ),
     );

@@ -13,7 +13,7 @@ class EndPoints {
 
   static String courseDetails(courseId) =>
       "/courseDetails?my_learning=1&course_id=$courseId";
-  static String lessonDetails = "/courseDetails";
+  static String lessonDetails = "/lessonDetails";
   static String TYPES = "/types";
   static String relatedCourses = "/relatedCourses";
   static String courseResources(courseId) =>

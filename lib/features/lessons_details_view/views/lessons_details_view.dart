@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/course_view/cubit/lectures_expansion_cubit.dart';
 import 'package:lms/core/utils/app_colors.dart';
-import 'package:lms/features/lessons_details_view/cubit/lessons_cubit.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/app_bar_component.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/content_tab.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/more_tab.dart';
@@ -23,37 +22,26 @@ class LessonsDetailsView extends StatelessWidget {
       const Tab(child: Text('Content')),
       const Tab(child: Text('More')),
     ];
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => LecturesExpansionCubit(chapter.length),
-        ),
-        BlocProvider(
-          create: (context) => LessonsCubit()..fetchLessons(id),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => LecturesExpansionCubit(chapter.length),
       child: BlocBuilder<LecturesExpansionCubit, LecturesExpansionState>(
         builder: (context, state) {
           return SafeArea(
             child: DefaultTabController(
               length: 2,
               child: Scaffold(
-                appBar: const AppBarComponent(),
+                appBar: AppBarComponent(id: id),
                 body: Column(
                   children: [
-                    BlocBuilder<LessonsCubit, LessonsState>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.gray900,
-                            ),
-                          ),
-                        );
-                      },
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
+                      child: Text(
+                        chapter[0].lessons[0].description,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.gray900,
+                        ),
+                      ),
                     ),
                     TabBar(
                       unselectedLabelStyle: TextStyle(

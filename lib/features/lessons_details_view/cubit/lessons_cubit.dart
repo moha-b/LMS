@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:lms/core/network/network.dart';
+import 'package:lms/features/lessons_details_view/data/lesson_model.dart';
 import 'package:meta/meta.dart';
 
 part 'lessons_state.dart';
@@ -13,11 +14,13 @@ class LessonsCubit extends Cubit<LessonsState> {
       var result = await NetworkHelper.instance.get(
         endPoint: EndPoints.lessonDetails,
         params: {
-          "course_id": "$lessonId",
+          "lesson_id": "$lessonId",
         },
       );
-      print(result);
-      emit(LessonsSuccess());
+      var data = result.data['data'];
+      var lesson = LessonModel.fromJson(data);
+      print(lesson);
+      emit(LessonsSuccess(lesson));
     } catch (e) {
       print(e.toString());
       emit(LessonsError());
