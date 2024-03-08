@@ -9,10 +9,10 @@ class QuestionProgress extends StatelessWidget {
   final int totalQuestions;
 
   const QuestionProgress({
-    Key? key,
+    super.key,
     required this.currentQuestion,
     required this.totalQuestions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class QuestionProgress extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "QUESTION ${currentQuestion} of $totalQuestions",
+            "QUESTION $currentQuestion of $totalQuestions",
             style: TextStyle(
               color: AppColors.gray900,
               fontSize: 12.sp,
@@ -37,7 +37,7 @@ class QuestionProgress extends StatelessWidget {
             borderRadius: BorderRadius.circular(19.r),
             minHeight: 5.h,
           ),
-          LineSeparated(),
+          const LineSeparated(),
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:lms/core/common/primary_button.dart';
 import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
+import 'package:lms/features/quiz/bloc/quiz_buttons_cubit.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
@@ -20,8 +21,15 @@ class QuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     int totalQuestions = 10;
 
-    return BlocProvider(
-      create: (context) => QuizCubit()..fetchQuizQuestions(id),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => QuizCubit()..fetchQuizQuestions(id),
+        ),
+        BlocProvider(
+          create: (context) => QuizButtonsCubit(),
+        ),
+      ],
       child: BlocBuilder<QuizCubit, QuizState>(
         builder: (context, state) {
           if (state is QuestionSuccess) {
@@ -32,17 +40,18 @@ class QuizView extends StatelessWidget {
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BlocBuilder<QuizCubit, QuizState>(
+                  BlocBuilder<QuizButtonsCubit, QuizButtonsState>(
                     builder: (context, state) {
                       if (state is QuizNextPage || state is QuizPreviousPage) {
-                        print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
                         return QuestionProgress(
-                          currentQuestion: QuizCubit.instance.currentPage,
+                          currentQuestion:
+                              context.read<QuizButtonsCubit>().currentPage,
                           totalQuestions: question.length,
                         );
                       }
                       return QuestionProgress(
-                        currentQuestion: QuizCubit.instance.currentPage,
+                        currentQuestion:
+                            context.read<QuizButtonsCubit>().currentPage,
                         totalQuestions: question.length,
                       );
                     },
@@ -58,42 +67,50 @@ class QuizView extends StatelessWidget {
                       itemCount: question.length,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        context.read<QuizCubit>().currentPage != 1
-                            ? PrimaryButton(
-                                onTap: () => QuizCubit.instance.previousPage(),
-                                text: 'Previous',
-                                color: AppColors.white,
-                                haveIcon: true,
-                                icon: AppIcons.arrow_left,
-                                iconColor: AppColors.primary,
-                              )
-                            : const SizedBox.shrink(),
-                        context.read<QuizCubit>().currentPage != question.length
-                            ? PrimaryButton(
-                                onTap: () => QuizCubit.instance
-                                    .nextPage(question.length),
-                                width: 108.w,
-                                text: 'Next',
-                                haveIcon: true,
-                                iconToRight: true,
-                                icon: AppIcons.arrow_right_1,
-                              )
-                            : PrimaryButton(
-                                onTap: () => NavigationHelper.navigateTo(
-                                    AppRoute.QUIZ_REPORT),
-                                width: 150.w,
-                                text: 'View Report',
-                                haveIcon: true,
-                                iconToRight: true,
-                                icon: AppIcons.arrow_right_1,
-                              ),
-                      ],
-                    ),
+                  BlocBuilder<QuizButtonsCubit, QuizButtonsState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            context.read<QuizButtonsCubit>().currentPage != 1
+                                ? PrimaryButton(
+                                    onTap: () => context
+                                        .read<QuizButtonsCubit>()
+                                        .previousPage(),
+                                    text: 'Previous',
+                                    color: AppColors.white,
+                                    haveIcon: true,
+                                    icon: AppIcons.arrow_left,
+                                    iconColor: AppColors.primary,
+                                  )
+                                : const SizedBox.shrink(),
+                            context.read<QuizButtonsCubit>().currentPage !=
+                                    question.length
+                                ? PrimaryButton(
+                                    onTap: () => context
+                                        .read<QuizButtonsCubit>()
+                                        .nextPage(question.length),
+                                    width: 108.w,
+                                    text: 'Next',
+                                    haveIcon: true,
+                                    iconToRight: true,
+                                    icon: AppIcons.arrow_right_1,
+                                  )
+                                : PrimaryButton(
+                                    onTap: () => NavigationHelper.navigateTo(
+                                        AppRoute.QUIZ_REPORT),
+                                    width: 150.w,
+                                    text: 'View Report',
+                                    haveIcon: true,
+                                    iconToRight: true,
+                                    icon: AppIcons.arrow_right_1,
+                                  ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

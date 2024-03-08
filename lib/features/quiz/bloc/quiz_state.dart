@@ -5,10 +5,6 @@ abstract class QuizState {}
 
 class QuizInitial extends QuizState {}
 
-class QuizNextPage extends QuizState {}
-
-class QuizPreviousPage extends QuizState {}
-
 class QuizSuccess extends QuizState {
   Quiz quiz;
 

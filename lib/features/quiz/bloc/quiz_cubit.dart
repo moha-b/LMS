@@ -10,16 +10,16 @@ part 'quiz_state.dart';
 
 class QuizCubit extends Cubit<QuizState> {
   final PageController pageController = PageController();
-  int currentPage = 1;
+  // int currentPage = 1;
 
   static QuizCubit get instance =>
       BlocProvider.of(NavigationHelper.navigatorKey.currentContext!);
 
   QuizCubit() : super(QuizInitial());
 
-  void onPageChanged(int value) {
-    currentPage = value;
-  }
+  // void onPageChanged(int value) {
+  //   currentPage = value;
+  // }
 
   void fetchQuiz(quizId) async {
     emit(QuizInitial());
@@ -59,27 +59,27 @@ class QuizCubit extends Cubit<QuizState> {
     }
   }
 
-  void nextPage(max) {
-    if (currentPage < max) {
-      currentPage++;
-      emit(QuizNextPage());
-      pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-    print(currentPage);
-  }
-
-  void previousPage() {
-    if (currentPage > 1) {
-      currentPage--;
-      emit(QuizPreviousPage());
-      pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-    print(currentPage);
-  }
+  // void nextPage(max) {
+  //   if (currentPage < max) {
+  //     currentPage++;
+  //     emit(QuizNextPage());
+  //     pageController.nextPage(
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  //   print(currentPage);
+  // }
+  //
+  // void previousPage() {
+  //   if (currentPage > 1) {
+  //     currentPage--;
+  //     emit(QuizPreviousPage());
+  //     pageController.previousPage(
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  //   print(currentPage);
+  // }
 }
