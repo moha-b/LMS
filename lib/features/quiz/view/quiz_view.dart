@@ -100,7 +100,7 @@ class QuizView extends StatelessWidget {
                                   )
                                 : PrimaryButton(
                                     onTap: () => NavigationHelper.navigateTo(
-                                        AppRoute.QUIZ_REPORT),
+                                        AppRoute.QUIZ_REPORT,arguments:8),
                                     width: 150.w,
                                     text: 'View Report',
                                     haveIcon: true,

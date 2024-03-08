@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationHelper.navigatorKey,
             onGenerateRoute: NavigationHelper.generateRoute,
-            initialRoute: AppRoute.QUIZ_INFO,
+            initialRoute: AppRoute.QUIZ_REPORT,
             theme: AppTheme.light,
             home: child,
           );

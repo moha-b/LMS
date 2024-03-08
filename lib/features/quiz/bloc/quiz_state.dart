@@ -11,6 +11,12 @@ class QuizSuccess extends QuizState {
   QuizSuccess(this.quiz);
 }
 
+class QuizReoprtSuccess extends QuizState {
+  QuizReport quizReport;
+
+  QuizReoprtSuccess(this.quizReport);
+}
+
 class QuestionSuccess extends QuizState {
   List<Question> question;
 
