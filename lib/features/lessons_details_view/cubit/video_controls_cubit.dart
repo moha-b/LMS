@@ -12,7 +12,7 @@ class VideoControlsCubit extends Cubit<VideoPlayerController?> {
   late ChewieController chewieController;
 
   void initializeController(String videoUrl) {
-    final controller = VideoPlayerController.asset(videoUrl);
+    final controller = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
     emit(controller);
   }
 

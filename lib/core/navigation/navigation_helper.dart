@@ -27,7 +27,8 @@ class NavigationHelper {
         return MaterialPageRoute(builder: (_) => const CoursesView());
       case AppRoute.COURSE_DETAILS:
         return MaterialPageRoute(
-            builder: (_) => CourseDetailsView(id: settings.arguments as int));
+            builder: (_) =>
+                CourseDetailsView(id: 6)); //settings.arguments as int
       case AppRoute.VIEW_ALL_COURSES:
         return MaterialPageRoute(
             builder: (_) =>
@@ -36,9 +37,15 @@ class NavigationHelper {
       case AppRoute.QUIZ_INFO:
         return MaterialPageRoute(builder: (_) => const QuizInfoView());
       case AppRoute.QUIZ:
-        return MaterialPageRoute(builder: (_) => const QuizView());
+        return MaterialPageRoute(
+            builder: (_) => QuizView(
+                  id: settings.arguments as int,
+                ));
       case AppRoute.QUIZ_REPORT:
-        return MaterialPageRoute(builder: (_) => const QuizReportView());
+        return MaterialPageRoute(
+            builder: (_) => QuizReportView(
+                  totalQuestions: 8,
+                ));
       case AppRoute.FULL_DESCRIPTION:
         return MaterialPageRoute(
             builder: (_) => FullDescription(

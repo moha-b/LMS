@@ -110,11 +110,12 @@ class Lesson {
   final int chapterId;
   final String title;
   final String description;
-  final bool isSeen;
+  final int isSeen;
   final int totalMinutes;
-  final bool isQuiz;
+  final int isQuiz;
   final dynamic quizId;
   final int questionsCount;
+  final List<Attachment> attachments;
 
   Lesson({
     required this.id,
@@ -126,19 +127,54 @@ class Lesson {
     required this.isQuiz,
     required this.quizId,
     required this.questionsCount,
+    required this.attachments,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
+    List<Attachment> attachments = [];
+    if (json['attachments'] != null) {
+      json['attachments'].forEach((attachmentJson) {
+        attachments.add(Attachment.fromJson(attachmentJson));
+      });
+    }
+
     return Lesson(
       id: json['id'],
       chapterId: json['chapter_id'],
       title: json['title'],
       description: json['description'],
-      isSeen: json['is_seen'] == 1,
+      isSeen: json['is_seen'],
       totalMinutes: json['total_minutes'],
-      isQuiz: json['is_quiz'] == 1,
+      isQuiz: json['is_quiz'],
       quizId: json['quiz_id'],
       questionsCount: json['questions_count'],
+      attachments: attachments,
+    );
+  }
+}
+
+class Attachment {
+  final int id;
+  final String title;
+  final String url;
+  final String type;
+  final int isDownload;
+
+  Attachment({
+    required this.id,
+    required this.title,
+    required this.url,
+    required this.type,
+    required this.isDownload,
+  });
+
+  factory Attachment.fromJson(Map<String, dynamic> json) {
+    return Attachment(
+      id: json['id'] ?? "",
+      title: json['title'] ?? " ",
+      url: json['url'] ?? "",
+      type: json['type'] ?? "",
+      isDownload: json['is_download'] ?? "",
     );
   }
 }

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lms/core/utils/app_functions.dart';
 import 'package:lms/core/utils/app_icons.dart';
-import 'package:lms/core/utils/app_images.dart';
-import 'package:number_to_words_english/number_to_words_english.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../data/question.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({
-    Key? key,
-  }) : super(key: key);
+  QuizPage({Key? key, required this.question}) : super(key: key);
 
+  Question question;
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
@@ -22,12 +19,11 @@ class _QuizPageState extends State<QuizPage> {
   String? selectedAnswer;
   Set<String> selectedMultiChoiceAnswers = {};
 
-  List<String> quizImages = [
-    AppImages.quizImage,
-    '',
-    AppImages.quizImage2,
-    '',
-  ];
+  @override
+  void initState() {
+    super.initState();
+    isMultiChoice = widget.question.multiple == 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +33,7 @@ class _QuizPageState extends State<QuizPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Why People about skills required to be an Effective manager?",
+            widget.question.title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 16.sp,
@@ -50,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Stack(
               children: [
                 Center(
-                  child: isImageVisible
+                  child: widget.question.attachment.url != ''
                       ? Container(
                           height: 146.h,
                           decoration: BoxDecoration(
@@ -59,10 +55,9 @@ class _QuizPageState extends State<QuizPage> {
                               width: 1,
                               color: AppColors.gray200,
                             ),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                AppImages.dummyImage2,
-                              ),
+                            image: DecorationImage(
+                              image:
+                                  NetworkImage(widget.question.attachment.url),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -120,15 +115,26 @@ class _QuizPageState extends State<QuizPage> {
             height: 533.h,
             child: ListView.separated(
               itemBuilder: (context, index) => Container(
-                height: quizImages[index] == '' ? 56.h : 250.h,
+                height: widget.question.options[index].attachment == null
+                    ? 56.h
+                    : 250.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(width: 1, color: AppColors.gray200),
+                  border: Border.all(
+                    width: 1,
+                    color: selectedAnswer == (index + 1).toString() ||
+                            selectedMultiChoiceAnswers
+                                .contains((index + 1).toString())
+                        ? AppColors.primary
+                        : AppColors.gray200,
+                  ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 13.w,
-                    vertical: quizImages[index] == '' ? 0 : 20.h,
+                    vertical: widget.question.options[index].attachment == null
+                        ? 0
+                        : 20.h,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -164,17 +170,17 @@ class _QuizPageState extends State<QuizPage> {
                                 color: isMultiChoice
                                     ? selectedMultiChoiceAnswers
                                             .contains((index + 1).toString())
-                                        ? Colors.black
+                                        ? AppColors.primary
                                         : null
                                     : selectedAnswer == (index + 1).toString()
-                                        ? Colors.black
+                                        ? AppColors.primary
                                         : null,
                               ),
                             ),
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                            'Option ${capitalize(NumberToWordsEnglish.convert(index + 1))}',
+                            widget.question.options[index].title,
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -184,12 +190,12 @@ class _QuizPageState extends State<QuizPage> {
                         ],
                       ),
                       SizedBox(height: 16.h),
-                      if (quizImages[index] != '')
+                      if (widget.question.options[index].attachment != null)
                         Expanded(
                           child: SizedBox(
                             width: 299.w,
-                            child: Image.asset(
-                              quizImages[index],
+                            child: Image.network(
+                              widget.question.options[index].attachment,
                             ),
                           ),
                         ),
@@ -198,7 +204,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               separatorBuilder: (context, index) => SizedBox(height: 10.h),
-              itemCount: quizImages.length,
+              itemCount: widget.question.options.length,
             ),
           ),
         ],

@@ -29,6 +29,7 @@ dependencies:
   chewie: ^1.7.5
   semicircle_indicator: ^1.1.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

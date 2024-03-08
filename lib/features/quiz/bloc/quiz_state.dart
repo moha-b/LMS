@@ -5,6 +5,26 @@ abstract class QuizState {}
 
 class QuizInitial extends QuizState {}
 
-class QuizNextPage extends QuizState {}
+class QuizSuccess extends QuizState {
+  Quiz quiz;
 
-class QuizPreviousPage extends QuizState {}
+  QuizSuccess(this.quiz);
+}
+
+class QuizReoprtSuccess extends QuizState {
+  QuizReport quizReport;
+
+  QuizReoprtSuccess(this.quizReport);
+}
+
+class QuestionSuccess extends QuizState {
+  List<Question> question;
+
+  QuestionSuccess(this.question);
+}
+
+class QuizError extends QuizState {
+  String error;
+
+  QuizError(this.error);
+}
