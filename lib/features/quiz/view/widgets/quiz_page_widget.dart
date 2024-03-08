@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lms/core/utils/app_functions.dart';
 import 'package:lms/core/utils/app_icons.dart';
-import 'package:lms/core/utils/app_images.dart';
-import 'package:number_to_words_english/number_to_words_english.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../data/question.dart';
 
 class QuizPage extends StatefulWidget {
-   QuizPage({
-    Key? key,
-    required this.question
-  }) : super(key: key);
+  QuizPage({Key? key, required this.question}) : super(key: key);
 
   Question question;
   @override
@@ -24,6 +18,13 @@ class _QuizPageState extends State<QuizPage> {
   bool isMultiChoice = false;
   String? selectedAnswer;
   Set<String> selectedMultiChoiceAnswers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    isMultiChoice = widget.question.multiple == 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -45,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Stack(
               children: [
                 Center(
-                  child: widget.question.attachment.url!=''
+                  child: widget.question.attachment.url != ''
                       ? Container(
                           height: 146.h,
                           decoration: BoxDecoration(
@@ -54,8 +55,9 @@ class _QuizPageState extends State<QuizPage> {
                               width: 1,
                               color: AppColors.gray200,
                             ),
-                            image:  DecorationImage(
-                              image: NetworkImage(widget.question.attachment.url),
+                            image: DecorationImage(
+                              image:
+                                  NetworkImage(widget.question.attachment.url),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -113,15 +115,26 @@ class _QuizPageState extends State<QuizPage> {
             height: 533.h,
             child: ListView.separated(
               itemBuilder: (context, index) => Container(
-                height: widget.question.options[index].attachment == null ? 56.h : 250.h,
+                height: widget.question.options[index].attachment == null
+                    ? 56.h
+                    : 250.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(width: 1, color: AppColors.gray200),
+                  border: Border.all(
+                    width: 1,
+                    color: selectedAnswer == (index + 1).toString() ||
+                            selectedMultiChoiceAnswers
+                                .contains((index + 1).toString())
+                        ? AppColors.primary
+                        : AppColors.gray200,
+                  ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 13.w,
-                    vertical: widget.question.options[index].attachment == null ? 0 : 20.h,
+                    vertical: widget.question.options[index].attachment == null
+                        ? 0
+                        : 20.h,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -131,7 +144,7 @@ class _QuizPageState extends State<QuizPage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                if (widget.question.multiple==1) {
+                                if (isMultiChoice) {
                                   if (selectedMultiChoiceAnswers
                                       .contains((index + 1).toString())) {
                                     selectedMultiChoiceAnswers
@@ -157,17 +170,17 @@ class _QuizPageState extends State<QuizPage> {
                                 color: isMultiChoice
                                     ? selectedMultiChoiceAnswers
                                             .contains((index + 1).toString())
-                                        ? Colors.black
+                                        ? AppColors.primary
                                         : null
                                     : selectedAnswer == (index + 1).toString()
-                                        ? Colors.black
+                                        ? AppColors.primary
                                         : null,
                               ),
                             ),
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                           widget.question.options[index].title,
+                            widget.question.options[index].title,
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,

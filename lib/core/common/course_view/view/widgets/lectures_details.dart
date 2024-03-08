@@ -49,38 +49,65 @@ class LecturesDetails extends StatelessWidget {
                         SizedBox(height: 3.h),
                         Row(
                           children: [
-                            Icon(
-                              AppIcons.play_circle,
-                              size: 15.sp,
-                              color: AppColors.gray400,
-                            ),
-                            SizedBox(width: 4.w),
-                            Expanded(
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    fontSize: 11.sp,
-                                  ),
+                            Row(
+                              children: [
+                                Icon(
+                                  lesson[index].isQuiz == 1
+                                      ? AppIcons.task
+                                      : AppIcons.play_circle,
+                                  size: 14.sp,
+                                  color: AppColors.gray400,
+                                ),
+                                SizedBox(width: 4.w),
+                                Row(
                                   children: [
-                                    TextSpan(
-                                      text:
-                                          'Video - ${lesson[index].totalMinutes} - ',
-                                      style: const TextStyle(
+                                    Text(
+                                      lesson[index].isQuiz == 1
+                                          ? 'Quiz'
+                                          : 'Video - ${lesson[index].totalMinutes} Minutes',
+                                      style: TextStyle(
+                                        fontSize: 11.sp,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.gray400,
                                       ),
                                     ),
-                                    const TextSpan(
-                                      text: 'Free',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.success900,
-                                      ),
-                                    ),
+                                    SizedBox(width: 4.w),
+                                    lesson[index].attachments.isEmpty
+                                        ? const SizedBox.shrink()
+                                        : GestureDetector(
+                                            onTap: () {},
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  AppIcons.document_text,
+                                                  size: 14.sp,
+                                                  color: AppColors.gray400,
+                                                ),
+                                                SizedBox(width: 4.w),
+                                                Text(
+                                                  'Pdf',
+                                                  style: TextStyle(
+                                                    fontSize: 11.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.gray400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
+                            SizedBox(width: 6.w),
+                            Text(
+                              'Free',
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.success900,
+                              ),
+                            )
                           ],
                         ),
                       ],

@@ -40,7 +40,6 @@ class LessonsDetails extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 5.w, vertical: 2.h),
                         child: Icon(
-                          // AppIcons.tick_circle5,
                           Icons.check_circle_rounded,
                           color: AppColors.primary,
                           size: 16.sp,
@@ -73,17 +72,43 @@ class LessonsDetails extends StatelessWidget {
                               color: AppColors.gray600,
                             ),
                             SizedBox(width: 4.w),
-                            Expanded(
-                              child: Text(
-                                lessons[index].isQuiz == 1
-                                    ? 'Quiz'
-                                    : 'Video - ${lessons[index].totalMinutes} Minutes',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.gray600,
+                            Row(
+                              children: [
+                                Text(
+                                  lessons[index].isQuiz == 1
+                                      ? 'Quiz'
+                                      : 'Video - ${lessons[index].totalMinutes} Minutes',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.gray600,
+                                  ),
                                 ),
-                              ),
+                                SizedBox(width: 8.w),
+                                lessons[index].attachments.isEmpty
+                                    ? const SizedBox.shrink()
+                                    : GestureDetector(
+                                        onTap: () {},
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              AppIcons.document_text,
+                                              size: 14.sp,
+                                              color: AppColors.gray600,
+                                            ),
+                                            SizedBox(width: 5.w),
+                                            Text(
+                                              'Pdf',
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.gray600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                              ],
                             ),
                           ],
                         ),

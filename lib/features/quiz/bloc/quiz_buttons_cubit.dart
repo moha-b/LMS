@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lms/core/navigation/navigation.dart';
 
 part 'quiz_buttons_state.dart';
 
@@ -9,9 +8,6 @@ class QuizButtonsCubit extends Cubit<QuizButtonsState> {
 
   final PageController pageController = PageController();
   int currentPage = 1;
-
-  static QuizButtonsCubit get instance =>
-      BlocProvider.of(NavigationHelper.navigatorKey.currentContext!);
 
   void onPageChanged(int value) {
     currentPage = value;

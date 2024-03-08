@@ -59,7 +59,8 @@ class QuizView extends StatelessWidget {
                   Expanded(
                     child: PageView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      controller: QuizCubit.instance.pageController,
+                      controller:
+                          context.read<QuizButtonsCubit>().pageController,
                       // onPageChanged: (value) => QuizCubit.instance.onPageChanged,
                       itemBuilder: (context, index) => QuizPage(
                         question: question[index],
@@ -100,7 +101,8 @@ class QuizView extends StatelessWidget {
                                   )
                                 : PrimaryButton(
                                     onTap: () => NavigationHelper.navigateTo(
-                                        AppRoute.QUIZ_REPORT,arguments:8),
+                                        AppRoute.QUIZ_REPORT,
+                                        arguments: 8),
                                     width: 150.w,
                                     text: 'View Report',
                                     haveIcon: true,
