@@ -37,7 +37,10 @@ class NavigationHelper {
       case AppRoute.QUIZ_INFO:
         return MaterialPageRoute(builder: (_) => const QuizInfoView());
       case AppRoute.QUIZ:
-        return MaterialPageRoute(builder: (_) => const QuizView());
+        return MaterialPageRoute(
+            builder: (_) => QuizView(
+                  id: settings.arguments as int,
+                ));
       case AppRoute.QUIZ_REPORT:
         return MaterialPageRoute(builder: (_) => const QuizReportView());
       case AppRoute.FULL_DESCRIPTION:

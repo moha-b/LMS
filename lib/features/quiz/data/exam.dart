@@ -1,4 +1,4 @@
-class Exam {
+class Quiz {
   final int id;
   final String title;
   final String description;
@@ -14,10 +14,9 @@ class Exam {
   final int desc;
   final int questionsCount;
   final int previousAttempts;
-  final List<ExamBreak> breaks;
   final bool breakExists;
 
-  Exam({
+  Quiz({
     required this.id,
     required this.title,
     required this.description,
@@ -33,25 +32,19 @@ class Exam {
     required this.desc,
     required this.questionsCount,
     required this.previousAttempts,
-    required this.breaks,
     required this.breakExists,
   });
 
-  factory Exam.fromJson(Map<String, dynamic> json) {
-    List<ExamBreak> breaks = [];
-    if (json['breaks'] != null) {
-      breaks = List<ExamBreak>.from(
-        json['breaks'].map((breakJson) => ExamBreak.fromJson(breakJson)),
-      );
-    }
+  factory Quiz.fromJson(Map<String, dynamic> json) {
 
-    return Exam(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      image: json['image'],
+
+    return Quiz(
+      id: json['id']??'',
+      title: json['title']??'',
+      description: json['description']??'',
+      image: json['image']??'',
       examTime: json['exam_time'],
-      examPackage: json['exam_package'],
+      examPackage: json['exam_package']??'',
       examPackageId: json['exam_package_id'],
       allowedAttempts: json['allowed_attempts'],
       allowBack: json['allow_back'],
@@ -61,28 +54,10 @@ class Exam {
       desc: json['desc'],
       questionsCount: json['questions_count'],
       previousAttempts: json['previous_attempts'],
-      breaks: breaks,
       breakExists: json['breakExists'],
     );
   }
 }
 
-class ExamBreak {
-  final int time;
-  final int question;
-  final String message;
 
-  ExamBreak({
-    required this.time,
-    required this.question,
-    required this.message,
-  });
 
-  factory ExamBreak.fromJson(Map<String, dynamic> json) {
-    return ExamBreak(
-      time: json['time'],
-      question: json['question'],
-      message: json['message'],
-    );
-  }
-}

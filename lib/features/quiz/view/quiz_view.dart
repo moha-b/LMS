@@ -10,83 +10,98 @@ import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
 
+import '../data/question.dart';
+
 class QuizView extends StatelessWidget {
-  const QuizView({Key? key}) : super(key: key);
+  QuizView({Key? key, required this.id}) : super(key: key);
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     int totalQuestions = 10;
 
-    return BlocBuilder<QuizCubit, QuizState>(
-      builder: (context, state) {
-        return Scaffold(
-          appBar: const CustomAppBar(title: 'Test Your Knowledge On User...'),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BlocBuilder<QuizCubit, QuizState>(
-                builder: (context, state) {
-                  if (state is QuizNextPage || state is QuizPreviousPage) {
-                    return QuestionProgress(
-                      currentQuestion: QuizCubit.instance.currentPage,
-                      totalQuestions: totalQuestions,
-                    );
-                  }
-                  return QuestionProgress(
-                    currentQuestion: QuizCubit.instance.currentPage,
-                    totalQuestions: totalQuestions,
-                  );
-                },
+    return BlocProvider(
+      create: (context) => QuizCubit()..fetchQuizQuestions(id),
+      child: BlocBuilder<QuizCubit, QuizState>(
+        builder: (context, state) {
+          if (state is QuestionSuccess) {
+            List<Question> question = state.question;
+            return Scaffold(
+              appBar:
+                  const CustomAppBar(title: 'Test Your Knowledge On User...'),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BlocBuilder<QuizCubit, QuizState>(
+                    builder: (context, state) {
+                      if (state is QuizNextPage || state is QuizPreviousPage) {
+                        print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+                        return QuestionProgress(
+                          currentQuestion: QuizCubit.instance.currentPage,
+                          totalQuestions: question.length,
+                        );
+                      }
+                      return QuestionProgress(
+                        currentQuestion: QuizCubit.instance.currentPage,
+                        totalQuestions: question.length,
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: PageView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: QuizCubit.instance.pageController,
+                      // onPageChanged: (value) => QuizCubit.instance.onPageChanged,
+                      itemBuilder: (context, index) => QuizPage(
+                        question: question[index],
+                      ),
+                      itemCount: question.length,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        context.read<QuizCubit>().currentPage != 1
+                            ? PrimaryButton(
+                                onTap: () => QuizCubit.instance.previousPage(),
+                                text: 'Previous',
+                                color: AppColors.white,
+                                haveIcon: true,
+                                icon: AppIcons.arrow_left,
+                                iconColor: AppColors.primary,
+                              )
+                            : const SizedBox.shrink(),
+                        context.read<QuizCubit>().currentPage != question.length
+                            ? PrimaryButton(
+                                onTap: () => QuizCubit.instance
+                                    .nextPage(question.length),
+                                width: 108.w,
+                                text: 'Next',
+                                haveIcon: true,
+                                iconToRight: true,
+                                icon: AppIcons.arrow_right_1,
+                              )
+                            : PrimaryButton(
+                                onTap: () => NavigationHelper.navigateTo(
+                                    AppRoute.QUIZ_REPORT),
+                                width: 150.w,
+                                text: 'View Report',
+                                haveIcon: true,
+                                iconToRight: true,
+                                icon: AppIcons.arrow_right_1,
+                              ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: PageView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: QuizCubit.instance.pageController,
-                  // onPageChanged: (value) => QuizCubit.instance.onPageChanged,
-                  itemBuilder: (context, index) => const QuizPage(),
-                  itemCount: totalQuestions,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    context.read<QuizCubit>().currentPage != 1
-                        ? PrimaryButton(
-                            onTap: () => QuizCubit.instance.previousPage(),
-                            text: 'Previous',
-                            color: AppColors.white,
-                            haveIcon: true,
-                            icon: AppIcons.arrow_left,
-                            iconColor: AppColors.primary,
-                          )
-                        : const SizedBox.shrink(),
-                    context.read<QuizCubit>().currentPage != totalQuestions
-                        ? PrimaryButton(
-                            onTap: () => QuizCubit.instance.nextPage(),
-                            width: 108.w,
-                            text: 'Next',
-                            haveIcon: true,
-                            iconToRight: true,
-                            icon: AppIcons.arrow_right_1,
-                          )
-                        : PrimaryButton(
-                            onTap: () => NavigationHelper.navigateTo(
-                                AppRoute.QUIZ_REPORT),
-                            width: 150.w,
-                            text: 'View Report',
-                            haveIcon: true,
-                            iconToRight: true,
-                            icon: AppIcons.arrow_right_1,
-                          ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+            );
+          } else
+            return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
