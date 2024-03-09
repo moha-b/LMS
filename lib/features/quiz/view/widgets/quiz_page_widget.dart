@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/utils/app_icons.dart';
@@ -46,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Stack(
               children: [
                 Center(
-                  child: widget.question.attachment?.url != ''
+                  child: isImageVisible
                       ? Container(
                           height: 146.h,
                           decoration: BoxDecoration(
@@ -55,11 +56,13 @@ class _QuizPageState extends State<QuizPage> {
                               width: 1,
                               color: AppColors.gray200,
                             ),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  widget.question.attachment?.url ?? ''),
-                              fit: BoxFit.fill,
-                            ),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.question.attachment!.url,
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Center(child: Icon(Icons.error)),
                           ),
                         )
                       : const SizedBox(),
@@ -112,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => Container(
               height: widget.question.options?[index].attachment == null
@@ -194,8 +197,22 @@ class _QuizPageState extends State<QuizPage> {
                       Expanded(
                         child: SizedBox(
                           width: 299.w,
-                          child: Image.network(
-                            widget.question.attachment!.url,
+                          child: Container(
+                            height: 146.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.r),
+                              border: Border.all(
+                                width: 1,
+                                color: AppColors.gray200,
+                              ),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: widget.question.attachment!.url,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Center(child: Icon(Icons.error)),
+                            ),
                           ),
                         ),
                       ),
