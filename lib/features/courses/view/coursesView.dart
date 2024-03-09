@@ -34,9 +34,13 @@ class CoursesView extends StatelessWidget {
                                     sectionTitle: state.data[index].title,
                                     onViewAllClicked: () =>
                                         NavigationHelper.navigateTo(
-                                      AppRoute.VIEW_ALL_COURSES,
-                                      arguments: state.data[index],
-                                    ),
+                                            AppRoute.VIEW_ALL_COURSES,
+                                            arguments: {
+                                          'data': state.data[index].tracks,
+                                          'id': state.data[index].tracks[0].id,
+                                          'title': state
+                                              .data[index].tracks[index].title,
+                                        }),
                                   ),
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 12.h),

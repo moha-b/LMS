@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.adsState) {
                       case RequestState.loading:
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       case RequestState.loaded:
                         return state.ads!.data.isNotEmpty
                             ? HomeAds(adsModel: state.ads)
@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.coursesState) {
                       case RequestState.loading:
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       case RequestState.loaded:
                         return PopularCourses(list: state.courses!);
                       case RequestState.error:

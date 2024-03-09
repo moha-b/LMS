@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class Categories extends StatefulWidget {
   const Categories({Key? key, required this.tracks}) : super(key: key);
-  final List<Track> tracks;
+  final List<AllTracksModel> tracks;
   @override
   _CategoriesState createState() => _CategoriesState();
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lms/core/caching/caching_key.dart';
+import 'package:lms/core/caching/shared_helper.dart';
 import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 
@@ -16,7 +18,9 @@ class SplashView extends StatefulWidget {
 class _SplashScreenState extends State<SplashView> {
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
-      NavigationHelper.navigateToReplacement(AppRoute.LOGIN);
+      SharedHelper.instance!.readBoolean(CachingKey.IS_LOGIN)
+          ? NavigationHelper.navigateToReplacement(AppRoute.HOME)
+          : NavigationHelper.navigateToReplacement(AppRoute.LOGIN);
     });
     super.initState();
   }

@@ -30,9 +30,10 @@ class NavigationHelper {
             builder: (_) =>
                 CourseDetailsView(id: 6)); //settings.arguments as int
       case AppRoute.VIEW_ALL_COURSES:
+        var args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (_) =>
-                ViewAllCoursesView(data: settings.arguments as DataModel));
+            builder: (_) => ViewAllCoursesView(
+                data: args['data'], id: args['id'], title: args['title']));
       // Quiz
       case AppRoute.QUIZ_INFO:
         return MaterialPageRoute(builder: (_) => const QuizInfoView());
