@@ -6,24 +6,29 @@ import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/features/courses/bloc/tracks_bloc.dart';
 import 'package:lms/features/courses/view/widgets/widgets.dart';
+import 'package:lms/features/home/data/model/all_tracks_model.dart';
 
 import '../../../core/common/custom_app_bar.dart';
 import '../../../core/utils/app_icons.dart';
-import '../data/model.dart';
 
 class ViewAllCoursesView extends StatelessWidget {
-  const ViewAllCoursesView({super.key, required this.data});
-  final DataModel data;
+  const ViewAllCoursesView(
+      {super.key, required this.data, required this.id, required this.title});
+
+  final List<AllTracksModel> data;
+  final int id;
+  final String title;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TracksBloc()..add(SelectedTrack(data.tracks[0].id)),
+      create: (context) => TracksBloc()..add(SelectedTrack(id)),
       child: Scaffold(
-        appBar: CustomAppBar(title: data.title),
+        appBar: const CustomAppBar(title: 'Tracks'),
         body: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(child: LineSeparated()),
-            SliverToBoxAdapter(child: Categories(tracks: data.tracks)),
+            SliverToBoxAdapter(child: Categories(tracks: data)),
             SliverToBoxAdapter(
               child: BlocBuilder<TracksBloc, TracksState>(
                 builder: (context, state) {
@@ -41,7 +46,7 @@ class ViewAllCoursesView extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                 },
               ),

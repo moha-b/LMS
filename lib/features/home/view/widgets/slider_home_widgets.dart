@@ -19,6 +19,7 @@ class _SliderState extends State<HomeAds> {
           child: Container(
             height: 175.h,
             width: 327.w,
+            clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r),
             ),
@@ -30,7 +31,10 @@ class _SliderState extends State<HomeAds> {
                 //                     fit: BoxFit.fill,
                 //                     imageUrl: widget.adsModel!.data[index].image,
                 //                   ),
-                return Image.asset(AppImages.banner);
+                return Image.asset(
+                  AppImages.banner,
+                  fit: BoxFit.cover,
+                );
               },
               onPageChanged: (index) {
                 setState(() {
