@@ -36,8 +36,8 @@ class Question extends Exam {
     return Question(
       id: json['id'],
       title: json['title'],
-      titleAr: json['title_ar'],
-      type: json['type'],
+      titleAr: json['title_ar'] ?? '',
+      type: json['type'] ?? '',
       illustration: Illustration.fromJson(json['illistraton']),
       attachment: Attachment.fromJson(json['attachment']),
       multiple: json['multiple'],
@@ -102,11 +102,11 @@ class Option {
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
-      key: json['key'],
-      title: json['title'],
-      titleAr: json['title_ar'],
-      isCorrect: json['is_correct'],
-      isSelected: json['is_selected'],
+      key: json['key'] ?? '',
+      title: json['title'] ?? '',
+      titleAr: json['title_ar'] ?? '',
+      isCorrect: json['is_correct'] ?? -1,
+      isSelected: json['is_selected'] ?? -1,
       attachment: json['attachment'],
     );
   }

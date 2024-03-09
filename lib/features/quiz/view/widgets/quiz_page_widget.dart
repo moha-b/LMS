@@ -56,8 +56,8 @@ class _QuizPageState extends State<QuizPage> {
                               color: AppColors.gray200,
                             ),
                             image: DecorationImage(
-                              image:
-                                  NetworkImage(widget.question.attachment?.url??''),
+                              image: NetworkImage(
+                                  widget.question.attachment?.url ?? ''),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -111,101 +111,100 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 533.h,
-            child: ListView.separated(
-              itemBuilder: (context, index) => Container(
-                height: widget.question.options?[index].attachment == null
-                    ? 56.h
-                    : 250.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    width: 1,
-                    color: selectedAnswer == (index + 1).toString() ||
-                            selectedMultiChoiceAnswers
-                                .contains((index + 1).toString())
-                        ? AppColors.primary
-                        : AppColors.gray200,
-                  ),
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => Container(
+              height: widget.question.options?[index].attachment == null
+                  ? 56.h
+                  : 250.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  width: 1,
+                  color: selectedAnswer == (index + 1).toString() ||
+                          selectedMultiChoiceAnswers
+                              .contains((index + 1).toString())
+                      ? AppColors.primary
+                      : AppColors.gray200,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 13.w,
-                    vertical: widget.question.options?[index].attachment == null
-                        ? 0
-                        : 20.h,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (isMultiChoice) {
-                                  if (selectedMultiChoiceAnswers
-                                      .contains((index + 1).toString())) {
-                                    selectedMultiChoiceAnswers
-                                        .remove((index + 1).toString());
-                                  } else {
-                                    selectedMultiChoiceAnswers
-                                        .add((index + 1).toString());
-                                  }
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 13.w,
+                  vertical: widget.question.options?[index].attachment == null
+                      ? 0
+                      : 20.h,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (isMultiChoice) {
+                                if (selectedMultiChoiceAnswers
+                                    .contains((index + 1).toString())) {
+                                  selectedMultiChoiceAnswers
+                                      .remove((index + 1).toString());
                                 } else {
-                                  selectedAnswer = (index + 1).toString();
+                                  selectedMultiChoiceAnswers
+                                      .add((index + 1).toString());
                                 }
-                              });
-                            },
-                            child: Container(
-                              width: 20.w,
-                              height: 20.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 2,
-                                  color: AppColors.gray100,
-                                ),
-                                color: isMultiChoice
-                                    ? selectedMultiChoiceAnswers
-                                            .contains((index + 1).toString())
-                                        ? AppColors.primary
-                                        : null
-                                    : selectedAnswer == (index + 1).toString()
-                                        ? AppColors.primary
-                                        : null,
+                              } else {
+                                selectedAnswer = (index + 1).toString();
+                              }
+                            });
+                          },
+                          child: Container(
+                            width: 20.w,
+                            height: 20.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColors.gray100,
                               ),
-                            ),
-                          ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            widget.question.options?[index].title??'',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.gray800,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16.h),
-                      if (widget.question.options?[index].attachment != null)
-                        Expanded(
-                          child: SizedBox(
-                            width: 299.w,
-                            child: Image.network(
-                              widget.question.options?[index].attachment,
+                              color: isMultiChoice
+                                  ? selectedMultiChoiceAnswers
+                                          .contains((index + 1).toString())
+                                      ? AppColors.primary
+                                      : null
+                                  : selectedAnswer == (index + 1).toString()
+                                      ? AppColors.primary
+                                      : null,
                             ),
                           ),
                         ),
-                    ],
-                  ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          widget.question.options?[index].title ?? '',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.gray800,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.h),
+                    if (widget.question.options?[index].attachment != null)
+                      Expanded(
+                        child: SizedBox(
+                          width: 299.w,
+                          child: Image.network(
+                            widget.question.attachment!.url,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
-              separatorBuilder: (context, index) => SizedBox(height: 10.h),
-              itemCount: widget.question.options?.length??0,
             ),
+            separatorBuilder: (context, index) => SizedBox(height: 10.h),
+            itemCount: widget.question.options?.length ?? 0,
           ),
         ],
       ),

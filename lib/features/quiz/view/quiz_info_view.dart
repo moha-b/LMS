@@ -7,6 +7,7 @@ import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_info_widget.dart';
+
 import '../../../core/utils/app_icons.dart';
 import '../data/model/quiz.dart';
 
@@ -28,6 +29,7 @@ class QuizInfoView extends StatelessWidget {
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 25.h),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       quiz.title,

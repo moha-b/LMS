@@ -5,7 +5,6 @@ import '../../../../core/network/network.dart';
 import '../model/submit_exam.dart';
 
 class QuizRepo {
-
   static Future<void> postExam(SubmitExam exam) async {
     try {
       await NetworkHelper.instance.post(
@@ -38,8 +37,6 @@ class QuizRepo {
     }
   }
 
-
-
   static dynamic fetchData(
       int id, String nameId, String endPoint, Exam exm) async {
     var result = await _fatch(id, nameId, endPoint);
@@ -49,6 +46,8 @@ class QuizRepo {
   static Future<List<dynamic>?> fetchListOfQuestions(
       int id, String nameId, String endPoint) async {
     var result = await _fatch(id, nameId, endPoint);
-    return result is String ? [result] : Question.fromJsonList(result);
+    return result is String
+        ? [result]
+        : Question.fromJsonList(result.data['data']);
   }
 }
