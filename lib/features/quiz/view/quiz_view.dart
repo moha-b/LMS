@@ -11,7 +11,7 @@ import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
 
-import '../data/question.dart';
+import '../data/model/question.dart';
 
 class QuizView extends StatelessWidget {
   QuizView({Key? key, required this.id}) : super(key: key);
@@ -24,7 +24,7 @@ class QuizView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => QuizCubit()..fetchQuizQuestions(id),
+          create: (context) => QuizCubit()..fetchQuizQuestions(23),
         ),
         BlocProvider(
           create: (context) => QuizButtonsCubit(),

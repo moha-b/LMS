@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/utils/app_icons.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../data/question.dart';
+import '../../data/model/question.dart';
 
 class QuizPage extends StatefulWidget {
   QuizPage({Key? key, required this.question}) : super(key: key);
@@ -46,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Stack(
               children: [
                 Center(
-                  child: widget.question.attachment.url != ''
+                  child: widget.question.attachment?.url != ''
                       ? Container(
                           height: 146.h,
                           decoration: BoxDecoration(
@@ -57,7 +57,7 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                             image: DecorationImage(
                               image:
-                                  NetworkImage(widget.question.attachment.url),
+                                  NetworkImage(widget.question.attachment?.url??''),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -115,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
             height: 533.h,
             child: ListView.separated(
               itemBuilder: (context, index) => Container(
-                height: widget.question.options[index].attachment == null
+                height: widget.question.options?[index].attachment == null
                     ? 56.h
                     : 250.h,
                 decoration: BoxDecoration(
@@ -132,7 +132,7 @@ class _QuizPageState extends State<QuizPage> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 13.w,
-                    vertical: widget.question.options[index].attachment == null
+                    vertical: widget.question.options?[index].attachment == null
                         ? 0
                         : 20.h,
                   ),
@@ -180,7 +180,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                            widget.question.options[index].title,
+                            widget.question.options?[index].title??'',
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -190,12 +190,12 @@ class _QuizPageState extends State<QuizPage> {
                         ],
                       ),
                       SizedBox(height: 16.h),
-                      if (widget.question.options[index].attachment != null)
+                      if (widget.question.options?[index].attachment != null)
                         Expanded(
                           child: SizedBox(
                             width: 299.w,
                             child: Image.network(
-                              widget.question.options[index].attachment,
+                              widget.question.options?[index].attachment,
                             ),
                           ),
                         ),
@@ -204,7 +204,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               separatorBuilder: (context, index) => SizedBox(height: 10.h),
-              itemCount: widget.question.options.length,
+              itemCount: widget.question.options?.length??0,
             ),
           ),
         ],

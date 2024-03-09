@@ -12,6 +12,7 @@ class EndPoints {
   static const Questions = "/examQuestions";
   static const LOGIN = "/auth/login";
   static const QuizReport = "/examReport";
+  static const SubmitExam = "/submitExam";
   static const GET_COURSES_BY_PACKAGE_ID = "/getCoursesByPackageId";
 
   static String courseDetails(courseId) =>

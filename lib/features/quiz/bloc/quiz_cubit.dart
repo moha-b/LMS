@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lms/features/quiz/data/question.dart';
-import 'package:lms/features/quiz/data/quiz_report.dart';
+import 'package:lms/features/quiz/data/model/question.dart';
+import 'package:lms/features/quiz/data/model/quiz_report.dart';
+import 'package:lms/features/quiz/data/model/submit_exam.dart';
+import 'package:lms/features/quiz/data/repo/quiz_repo.dart';
 
 import '../../../core/navigation/navigation.dart';
 import '../../../core/network/network.dart';
-import '../data/exam.dart';
+import '../data/model/quiz.dart';
 
 part 'quiz_state.dart';
 
@@ -19,58 +21,28 @@ class QuizCubit extends Cubit<QuizState> {
 
   void fetchQuiz(quizId) async {
     emit(QuizInitial());
-    try {
-      var result = await NetworkHelper.instance.get(
-        endPoint: EndPoints.Quiz,
-        params: {
-          "id": "$quizId",
-        },
-      );
-      var data = result.data['data'];
-      Quiz quiz = Quiz.fromJson(data);
-      print('${quiz.title} qqqqqqqqqqqqqqqqqqqqqqqqqq');
-      emit(QuizSuccess(quiz));
-    } catch (e) {
-      print(e.toString());
-      emit(QuizError(e.toString()));
-    }
+    dynamic data =
+        await QuizRepo.fetchData(quizId, "id", EndPoints.Quiz, Quiz());
+    data is String ? emit(QuizError(data)) : emit(QuizSuccess(data));
   }
 
   void fetchQuizQuestions(quizId) async {
     emit(QuizInitial());
-    try {
-      var result = await NetworkHelper.instance.get(
-        endPoint: EndPoints.Questions,
-        params: {
-          "exam_id": "$quizId",
-        },
-      );
-      var data = result.data['data'];
-      List<Question> question = Question.fromJsonList(data);
-      print('${question[0].title} qqqqqqqqqqqqqqqqqqqqqqqqqq');
-      emit(QuestionSuccess(question));
-    } catch (e) {
-      print(e.toString());
-      emit(QuizError(e.toString()));
-    }
+    List<dynamic>? data = await QuizRepo.fetchListOfQuestions(
+        quizId, "exam_id", EndPoints.Questions);
+    data is String
+        ? emit(QuizError(data?[0]))
+        : emit(QuestionSuccess(data as List<Question>));
   }
 
   void fetchQuizReportQuestions(studentExamId) async {
     emit(QuizInitial());
-    try {
-      var result = await NetworkHelper.instance.get(
-        endPoint: EndPoints.QuizReport,
-        params: {
-          "student_exam_id": "$studentExamId",
-        },
-      );
-      print('wwwwwwwwwwwwwwwwwwwwwwwwwwww');
-      var data = result.data['data'];
-      QuizReport quizReport = QuizReport.fromJson(data);
-      emit(QuizReoprtSuccess(quizReport));
-    } catch (e) {
-      print(e.toString());
-      emit(QuizError(e.toString()));
-    }
+    dynamic data = await QuizRepo.fetchData(
+        studentExamId, "student_exam_id", EndPoints.QuizReport, QuizReport());
+    data is String ? emit(QuizError(data)) : emit(QuizReoprtSuccess(data));
+  }
+
+  void postExam(SubmitExam exam) async {
+    await QuizRepo.postExam(exam);
   }
 }

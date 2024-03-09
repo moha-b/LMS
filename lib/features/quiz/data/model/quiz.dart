@@ -1,6 +1,6 @@
-class Quiz {
-  final int id;
-  final String title;
+import 'exam.dart';
+
+class Quiz extends Exam {
   final String description;
   final String image;
   final int examTime;
@@ -8,7 +8,7 @@ class Quiz {
   final int examPackageId;
   final int allowedAttempts;
   final int allowBack;
-  final DateTime startTime;
+  final DateTime? startTime;
   final int minScore;
   final int showAnswer;
   final int desc;
@@ -17,34 +17,33 @@ class Quiz {
   final bool breakExists;
 
   Quiz({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.image,
-    required this.examTime,
-    required this.examPackage,
-    required this.examPackageId,
-    required this.allowedAttempts,
-    required this.allowBack,
-    required this.startTime,
-    required this.minScore,
-    required this.showAnswer,
-    required this.desc,
-    required this.questionsCount,
-    required this.previousAttempts,
-    required this.breakExists,
+     super.id=0,
+     super.title='',
+     this.description='',
+     this.image='',
+     this.examTime=0,
+     this.examPackage='',
+     this.examPackageId=0,
+     this.allowedAttempts=0,
+     this.allowBack=0,
+     this.startTime,
+     this.minScore=0,
+     this.showAnswer=0,
+     this.desc=0,
+     this.questionsCount=0,
+     this.previousAttempts=0,
+    this.breakExists=false,
   });
 
-  factory Quiz.fromJson(Map<String, dynamic> json) {
-
-
+  @override
+  Quiz fromJson(Map<String, dynamic> json) {
     return Quiz(
-      id: json['id']??'',
-      title: json['title']??'',
-      description: json['description']??'',
-      image: json['image']??'',
+      id: json['id'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      image: json['image'] ?? '',
       examTime: json['exam_time'],
-      examPackage: json['exam_package']??'',
+      examPackage: json['exam_package'] ?? '',
       examPackageId: json['exam_package_id'],
       allowedAttempts: json['allowed_attempts'],
       allowBack: json['allow_back'],
@@ -58,6 +57,3 @@ class Quiz {
     );
   }
 }
-
-
-

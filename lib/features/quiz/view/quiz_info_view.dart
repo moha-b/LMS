@@ -7,9 +7,8 @@ import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_info_widget.dart';
-
 import '../../../core/utils/app_icons.dart';
-import '../data/exam.dart';
+import '../data/model/quiz.dart';
 
 class QuizInfoView extends StatelessWidget {
   const QuizInfoView({super.key});
@@ -74,27 +73,27 @@ class QuizInfoView extends StatelessWidget {
                 height: 155.h,
                 child: Column(
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text(
-                    //       "Your grade",
-                    //       style: TextStyle(
-                    //         color: AppColors.gray900,
-                    //         fontSize: 14.sp,
-                    //         fontWeight: FontWeight.w600,
-                    //       ),
-                    //     ),
-                    //     Text(
-                    //       "---",
-                    //       style: TextStyle(
-                    //         color: AppColors.gray900,
-                    //         fontSize: 14.sp,
-                    //         fontWeight: FontWeight.w600,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Your grade",
+                          style: TextStyle(
+                            color: AppColors.gray900,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          "---",
+                          style: TextStyle(
+                            color: AppColors.gray900,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 24.h),
                     PrimaryButton(
                       onTap: () {
