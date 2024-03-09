@@ -9,18 +9,19 @@ import 'package:lms/features/quiz/view/widgets/failure_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_statistics_widget.dart';
 import 'package:lms/features/quiz/view/widgets/success_widget.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
-
 import '../../../core/utils/app_icons.dart';
 
 class QuizReportView extends StatelessWidget {
-  QuizReportView({super.key, required this.totalQuestions});
+  QuizReportView(
+      {super.key, required this.totalQuestions, required this.codeData});
 
   final int totalQuestions;
+  final int codeData;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => QuizCubit()..fetchQuizReportQuestions(164187),
+      create: (context) => QuizCubit()..fetchQuizReportQuestions(codeData),
       child: BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
         if (state is QuizReoprtSuccess) {
           return Scaffold(

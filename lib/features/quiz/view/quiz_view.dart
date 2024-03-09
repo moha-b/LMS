@@ -10,21 +10,19 @@ import 'package:lms/features/quiz/bloc/quiz_buttons_cubit.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
-
 import '../data/model/question.dart';
 
 class QuizView extends StatelessWidget {
   QuizView({Key? key, required this.id}) : super(key: key);
   final int id;
-
+   int? codeData;
   @override
   Widget build(BuildContext context) {
-    int totalQuestions = 10;
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => QuizCubit()..fetchQuizQuestions(23),
+          create: (context) => QuizCubit()..fetchQuizQuestions(id),
         ),
         BlocProvider(
           create: (context) => QuizButtonsCubit(),
@@ -102,7 +100,7 @@ class QuizView extends StatelessWidget {
                                 : PrimaryButton(
                                     onTap: () => NavigationHelper.navigateTo(
                                         AppRoute.QUIZ_REPORT,
-                                        arguments: 8),
+                                        arguments: {'questionLength': question.length, 'codeData': codeData ?? 0}),
                                     width: 150.w,
                                     text: 'View Report',
                                     haveIcon: true,

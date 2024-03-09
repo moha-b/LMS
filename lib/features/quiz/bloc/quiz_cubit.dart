@@ -22,14 +22,14 @@ class QuizCubit extends Cubit<QuizState> {
   void fetchQuiz(quizId) async {
     emit(QuizInitial());
     dynamic data =
-        await QuizRepo.fetchData(quizId, "id", EndPoints.Quiz, Quiz());
+        await QuizRepo.fetchData(quizId, "id", EndPoints.QUIZ, Quiz());
     data is String ? emit(QuizError(data)) : emit(QuizSuccess(data));
   }
 
   void fetchQuizQuestions(quizId) async {
     emit(QuizInitial());
     List<dynamic>? data = await QuizRepo.fetchListOfQuestions(
-        quizId, "exam_id", EndPoints.Questions);
+        quizId, "exam_id", EndPoints.QUESTIONS);
     data is String
         ? emit(QuizError(data?[0]))
         : emit(QuestionSuccess(data as List<Question>));
@@ -38,7 +38,7 @@ class QuizCubit extends Cubit<QuizState> {
   void fetchQuizReportQuestions(studentExamId) async {
     emit(QuizInitial());
     dynamic data = await QuizRepo.fetchData(
-        studentExamId, "student_exam_id", EndPoints.QuizReport, QuizReport());
+        studentExamId, "student_exam_id", EndPoints.QUIZREPORT, QuizReport());
     data is String ? emit(QuizError(data)) : emit(QuizReoprtSuccess(data));
   }
 

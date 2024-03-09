@@ -35,17 +35,21 @@ class NavigationHelper {
                 ViewAllCoursesView(data: settings.arguments as DataModel));
       // Quiz
       case AppRoute.QUIZ_INFO:
-        return MaterialPageRoute(builder: (_) => const QuizInfoView());
+        return MaterialPageRoute(
+            builder: (_) => QuizInfoView(id: settings.arguments as int));
       case AppRoute.QUIZ:
         return MaterialPageRoute(
             builder: (_) => QuizView(
                   id: settings.arguments as int,
                 ));
       case AppRoute.QUIZ_REPORT:
-        return MaterialPageRoute(
-            builder: (_) => QuizReportView(
-                  totalQuestions: 8,
-                ));
+        return MaterialPageRoute(builder: (_) {
+          final arguments = settings.arguments as Map<String, dynamic>;
+          return QuizReportView(
+            totalQuestions: arguments['questionLength'],
+            codeData: arguments['codeData'],
+          );
+        });
       case AppRoute.FULL_DESCRIPTION:
         return MaterialPageRoute(
             builder: (_) => FullDescription(

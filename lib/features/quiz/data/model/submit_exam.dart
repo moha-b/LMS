@@ -1,8 +1,8 @@
 class SubmitExam {
   final int id;
   final Map options;
-  final DateTime startDate;
-  final DateTime endDate;
+  final String startDate;
+  final String endDate;
 
   SubmitExam(
       {required this.id,

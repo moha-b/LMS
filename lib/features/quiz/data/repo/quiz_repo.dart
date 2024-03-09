@@ -9,7 +9,7 @@ class QuizRepo {
   static Future<void> postExam(SubmitExam exam) async {
     try {
       await NetworkHelper.instance.post(
-        endPoint: EndPoints.SubmitExam,
+        endPoint: EndPoints.SUBMITEXAM,
         params: {
           'exam_id': exam.id,
           'student_answers': exam.options,
