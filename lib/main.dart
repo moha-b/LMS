@@ -1,38 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/caching/shared_helper.dart';
+import 'package:lms/core/theme/theme.dart';
 
-void main() => runApp(const MyApp());
+import 'core/navigation/navigation.dart';
+import 'features/Login/cubit/login_cubit.dart';
+import 'features/quiz/bloc/quiz_cubit.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // SharedHelper();
+  await SharedHelper.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(360, 690),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuizCubit(),
+        ),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'First Method',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
-            ),
-            home: child,
+            navigatorKey: NavigationHelper.navigatorKey,
+            onGenerateRoute: NavigationHelper.generateRoute,
+            initialRoute: AppRoute.SPLASH,
+            theme: AppTheme.light,
           );
         },
-        child: const Dummy() // TODO: replace with your widget,
-        );
-  }
-}
-
-class Dummy extends StatelessWidget {
-  const Dummy({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+      ),
+    );
   }
 }
