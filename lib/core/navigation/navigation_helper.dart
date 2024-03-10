@@ -36,7 +36,8 @@ class NavigationHelper {
       // Quiz
       case AppRoute.QUIZ_INFO:
         // 23 not working anymore
-        return MaterialPageRoute(builder: (_) => QuizInfoView(id: 22));
+        return MaterialPageRoute(
+            builder: (_) => QuizInfoView(id: settings.arguments as int));
       case AppRoute.QUIZ:
         return MaterialPageRoute(
             builder: (_) => QuizView(

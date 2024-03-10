@@ -101,6 +101,7 @@ class BottomSheetRating extends StatelessWidget {
                 PrimaryButton(
                   onTap: () {
                     //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    NavigationHelper.goBack();
                   },
                   text: 'Send',
                   fontWeight: FontWeight.w600,
@@ -108,6 +109,7 @@ class BottomSheetRating extends StatelessWidget {
                   width: 327.w,
                   height: 56.h,
                   haveIcon: true,
+                  textColor: AppColors.white,
                   icon: AppIcons.send_25,
                   iconSize: 24.sp,
                   sizeBetweenIconAndText: 16.w,

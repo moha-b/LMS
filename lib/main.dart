@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/caching/shared_helper.dart';
 import 'package:lms/core/theme/theme.dart';
-
 import 'core/navigation/navigation.dart';
 import 'features/Login/cubit/login_cubit.dart';
 import 'features/quiz/bloc/quiz_cubit.dart';
@@ -12,7 +11,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // SharedHelper();
   await SharedHelper.init();
-
   runApp(const MyApp());
 }
 
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationHelper.navigatorKey,
             onGenerateRoute: NavigationHelper.generateRoute,
-            initialRoute: AppRoute.QUIZ_INFO,
+            initialRoute: AppRoute.SPLASH,
             theme: AppTheme.light,
             home: child,
           );

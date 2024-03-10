@@ -23,6 +23,11 @@ class QuestionSuccess extends QuizState {
   QuestionSuccess(this.question);
 }
 
+class SubmitExamSuccess extends QuizState {
+  final int dataCode;
+  SubmitExamSuccess(this.dataCode);
+}
+
 class QuizError extends QuizState {
   String error;
 

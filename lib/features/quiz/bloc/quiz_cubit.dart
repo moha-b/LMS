@@ -42,7 +42,14 @@ class QuizCubit extends Cubit<QuizState> {
     data is String ? emit(QuizError(data)) : emit(QuizReoprtSuccess(data));
   }
 
-  void postExam(SubmitExam exam) async {
-    await QuizRepo.postExam(exam);
+  dynamic postExam(SubmitExam exam) async {
+    var data = await QuizRepo.postExam(exam);
+    if (data['status_code'] == 200) {
+      emit(SubmitExamSuccess(data['data']));
+      return data['data'];
+    } else {
+      emit(QuizError(data));
+      return null;
+    }
   }
 }
