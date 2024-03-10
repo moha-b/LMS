@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icon_snackbar/flutter_icon_snackbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lms/core/common/course_view/cubit/course_view_cubit.dart';
 import 'package:lms/core/common/course_view/cubit/lectures_expansion_cubit.dart';
 import 'package:lms/core/common/course_view/data/models/course_model.dart';
 import 'package:lms/core/navigation/navigation.dart';
+import 'package:lms/core/network/network.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
-import 'package:lms/core/utils/app_images.dart';
 import 'package:lms/features/home/bloc/home_bloc.dart';
+import 'package:lms/features/lessons_details_view/views/widgets/lesson_details_data.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
 
 import '../../../custom_app_bar.dart';

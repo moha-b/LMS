@@ -62,4 +62,17 @@ class NetworkHelper {
     }
     return options;
   }
+
+  Future<void> downloadFile({
+    required String fileUrl,
+    required String savePath,
+    bool withToken = true,
+  }) async {
+    try {
+      Options options = await _configureOptions(withToken);
+      await _dio.download(fileUrl, savePath, options: options);
+    } catch (error) {
+      print('Download error: $error');
+    }
+  }
 }

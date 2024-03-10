@@ -25,7 +25,7 @@ class ContentTab extends StatelessWidget {
               children: [
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 24.w),
+                      EdgeInsets.symmetric(vertical: 4.h, horizontal: 15.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
