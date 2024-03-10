@@ -3,8 +3,11 @@ part of 'widgets.dart';
 class CourseImageWidget extends StatelessWidget {
   const CourseImageWidget({
     super.key,
+    required this.image,
+    required this.track,
   });
-
+  final String image;
+  final String track;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,8 +16,8 @@ class CourseImageWidget extends StatelessWidget {
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.r),
-        image: const DecorationImage(
-          image: AssetImage(AppImages.dummyImage1),
+        image: DecorationImage(
+          image: NetworkImage(image),
           fit: BoxFit.cover,
         ),
       ),
@@ -50,7 +53,9 @@ class CourseImageWidget extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Soft Skills',
+                  track,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 10.sp,

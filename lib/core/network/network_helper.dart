@@ -53,7 +53,7 @@ class NetworkHelper {
   Future<Options> _configureOptions(bool withToken) async {
     Options options = Options();
     if (withToken) {
-      var token = "18|fOww1AdIwHuXQ0qKXHtJMQUU4v8TMJNz41nb56IC";
+      var token = SharedHelper.instance?.readString(CachingKey.TOKEN);
       options.headers = {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',

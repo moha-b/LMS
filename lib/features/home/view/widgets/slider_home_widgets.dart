@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class HomeAds extends StatefulWidget {
   const HomeAds({super.key, required this.adsModel});
-  final AdsModel? adsModel;
+  final DartModel? adsModel;
   @override
   State<HomeAds> createState() => _SliderState();
 }
@@ -19,6 +19,7 @@ class _SliderState extends State<HomeAds> {
           child: Container(
             height: 175.h,
             width: 327.w,
+            clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r),
             ),
@@ -26,12 +27,13 @@ class _SliderState extends State<HomeAds> {
               controller: _pageController,
               itemCount: widget.adsModel?.data.length ?? 1,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(right: 8.w),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    imageUrl: widget.adsModel!.data[index].image,
-                  ),
+                //CachedNetworkImage(
+                //                     fit: BoxFit.fill,
+                //                     imageUrl: widget.adsModel!.data[index].image,
+                //                   ),
+                return Image.asset(
+                  AppImages.banner,
+                  fit: BoxFit.cover,
                 );
               },
               onPageChanged: (index) {

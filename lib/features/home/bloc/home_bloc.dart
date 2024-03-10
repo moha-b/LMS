@@ -21,12 +21,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           (failure) => emit(state.copyWith(
               coursesState: RequestState.error,
               coursesMessage: failure?.message)),
-          (data) => emit(
-              state.copyWith(coursesState: RequestState.loaded, courses: data)),
+          (courses) {
+            emit(state.copyWith(
+                coursesState: RequestState.loaded, courses: courses));
+          },
         );
       } catch (e) {
         print(e);
-        emit(state.copyWith(coursesState: RequestState.error));
+        emit(state.copyWith(
+            coursesState: RequestState.error, coursesMessage: e.toString()));
       }
     });
 
@@ -42,7 +45,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       } catch (e) {
         print(e);
-        emit(state.copyWith(adsState: RequestState.error));
+        emit(state.copyWith(
+            adsState: RequestState.error, adsMessage: e.toString()));
       }
     });
 
@@ -60,7 +64,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       } catch (e) {
         print(e);
-        emit(state.copyWith(allTracksState: RequestState.error));
+        emit(state.copyWith(
+            allTracksState: RequestState.error,
+            allTracksMessage: e.toString()));
       }
     });
   }

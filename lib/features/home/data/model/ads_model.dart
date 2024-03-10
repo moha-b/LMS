@@ -1,24 +1,24 @@
-class AdsModel {
-  List<DataItem> data;
+class DartModel {
+  List<AdsModel> data;
 
-  AdsModel({required this.data});
+  DartModel({required this.data});
 
-  factory AdsModel.fromJson(Map<String, dynamic> json) {
-    return AdsModel(
-      data: List<DataItem>.from(
-          json['data'].map((ads) => DataItem.fromJson(ads))),
+  factory DartModel.fromJson(Map<String, dynamic> json) {
+    return DartModel(
+      data: List<AdsModel>.from(
+          json['data'].map((ads) => AdsModel.fromJson(ads))),
     );
   }
 }
 
-class DataItem {
+class AdsModel {
   int id;
   String title;
   int courseId;
   String image;
   int price;
 
-  DataItem({
+  AdsModel({
     required this.id,
     required this.title,
     required this.courseId,
@@ -26,8 +26,8 @@ class DataItem {
     required this.price,
   });
 
-  factory DataItem.fromJson(Map<String, dynamic> json) {
-    return DataItem(
+  factory AdsModel.fromJson(Map<String, dynamic> json) {
+    return AdsModel(
       id: json['id'],
       title: json['title'],
       courseId: json['course_id'],

@@ -7,9 +7,9 @@ enum RequestState {
 }
 
 class HomeState extends Equatable {
-  final CoursesModel? courses;
-  final AdsModel? ads;
-  final AllTracksModel? allTracks;
+  final List<CourseModel>? courses;
+  final DartModel? ads;
+  final AllTrack? allTracks;
   final RequestState coursesState;
   final RequestState adsState;
   final RequestState allTracksState;
@@ -30,9 +30,9 @@ class HomeState extends Equatable {
   });
 
   HomeState copyWith({
-    CoursesModel? courses,
-    AdsModel? ads,
-    AllTracksModel? allTracks,
+    List<CourseModel>? courses,
+    DartModel? ads,
+    AllTrack? allTracks,
     RequestState? coursesState,
     RequestState? adsState,
     RequestState? allTracksState,

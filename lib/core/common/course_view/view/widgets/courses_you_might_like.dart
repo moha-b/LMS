@@ -1,39 +1,41 @@
 part of 'widgets.dart';
 
 class CoursesYouMightLike extends StatelessWidget {
-  const CoursesYouMightLike({super.key});
+  const CoursesYouMightLike({super.key, required this.id});
 
+  final int id;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          CourseViewRelatedCubit()..fetchRelatedCoursesDetails(),
-      child: BlocBuilder<CourseViewRelatedCubit, CourseViewRelatedState>(
-        builder: (context, state) {
-          if (state is CourseViewRelatedSuccessState) {
-            return Padding(
-              padding: EdgeInsets.fromLTRB(0.w, 24.h, 0, 50.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16.w),
-                    child: Text(
-                      'Courses you might like',
-                      style: TextStyle(
-                        color: AppColors.gray900,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+    return BlocBuilder<CourseViewCubit, CourseViewState>(
+      builder: (context, state) {
+        if (state.relatedCoursesState == RequestState.loaded) {
+          return Padding(
+            padding: EdgeInsets.fromLTRB(0.w, 24.h, 0, 50.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.w),
+                  child: Text(
+                    'Courses you might like',
+                    style: TextStyle(
+                      color: AppColors.gray900,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 16.h),
-                  SizedBox(
-                    height: 231.h,
-                    child: ListView.separated(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Column(
+                ),
+                SizedBox(height: 16.h),
+                SizedBox(
+                  height: 231.h,
+                  child: ListView.separated(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => NavigationHelper.navigateTo(
+                                AppRoute.COURSE_DETAILS,
+                                arguments: state.relatedCoursesData![index].id),
+                            child: Column(
                               children: [
                                 Container(
                                   width: 207.w,
@@ -44,9 +46,9 @@ class CoursesYouMightLike extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(12.r),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.dummyImage1,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        state.relatedCoursesData![index].image!,
                                       ),
                                       fit: BoxFit.fill,
                                     ),
@@ -73,7 +75,8 @@ class CoursesYouMightLike extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              'Power BI advanced data analysis',
+                                              state.relatedCoursesData![index]
+                                                  .title!,
                                               style: TextStyle(
                                                 fontSize: 14.sp,
                                                 color: AppColors.gray900,
@@ -98,7 +101,11 @@ class CoursesYouMightLike extends StatelessWidget {
                                                   width: 4.w,
                                                 ),
                                                 Text(
-                                                  '5.5',
+                                                  state
+                                                      .relatedCoursesData![
+                                                          index]
+                                                      .rate!
+                                                      .toString(),
                                                   style: TextStyle(
                                                     fontSize: 11.sp,
                                                     color: AppColors.black,
@@ -111,31 +118,43 @@ class CoursesYouMightLike extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 8.h),
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: const AssetImage(
-                                              AppImages.instructor,
+                                    state.relatedCoursesData![index]
+                                                .instructors !=
+                                            []
+                                        ? Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8.h),
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                    state
+                                                        .relatedCoursesData![
+                                                            index]
+                                                        .instructors![0]
+                                                        .image!,
+                                                  ),
+                                                  radius: 10.r,
+                                                ),
+                                                SizedBox(width: 4.w),
+                                                Text(
+                                                  state
+                                                      .relatedCoursesData![
+                                                          index]
+                                                      .instructors![0]
+                                                      .name!,
+                                                  style: TextStyle(
+                                                    color: AppColors.gray600,
+                                                    fontSize: 11.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            radius: 10.r,
-                                          ),
-                                          SizedBox(width: 4.w),
-                                          Text(
-                                            'Heba Abd Elsahafi',
-                                            style: TextStyle(
-                                              color: AppColors.gray600,
-                                              fontSize: 11.sp,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                          )
+                                        : const SizedBox.shrink(),
                                     Text(
-                                      r'$2500',
+                                      '\$${state.relatedCoursesData![index].price}',
                                       style: TextStyle(
                                         color: AppColors.primary,
                                         fontSize: 14.sp,
@@ -146,25 +165,25 @@ class CoursesYouMightLike extends StatelessWidget {
                                 ),
                               ],
                             ),
-                        separatorBuilder: (context, index) => SizedBox(
-                              width: 12.w,
-                            ),
-                        itemCount: 3),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is CourseViewRelatedInitial) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return const Center(
-              child: Text('Error loading data'),
-            );
-          }
-        },
-      ),
+                          ),
+                      separatorBuilder: (context, index) => SizedBox(
+                            width: 12.w,
+                          ),
+                      itemCount: state.relatedCoursesData!.length),
+                ),
+              ],
+            ),
+          );
+        } else if (state.relatedCoursesState == RequestState.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return const Center(
+            child: Text('Error loading data'),
+          );
+        }
+      },
     );
   }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lms/core/common/course_view/cubit/course_view_cubit.dart';
 import 'package:lms/core/common/course_view/view/widgets/widgets.dart';
-import 'package:lms/features/course_view/cubit/course_view_cubit.dart';
 
+import '../../../../features/home/bloc/home_bloc.dart';
 import '../../../utils/app_colors.dart';
 
 class CourseDetailsView extends StatefulWidget {
   const CourseDetailsView({super.key, required this.id});
-  final num id;
+  final int id;
   @override
   State<CourseDetailsView> createState() => _CourseDetailsViewState();
 }
@@ -16,8 +17,11 @@ class CourseDetailsView extends StatefulWidget {
 class _CourseDetailsViewState extends State<CourseDetailsView> {
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     return BlocProvider(
-      create: (context) => CourseViewCubit()..fetchCoursesDetails(widget.id),
+      create: (context) => CourseViewCubit()
+        ..fetchCoursesDetails(widget.id)
+        ..fetchRelatedCoursesDetails(widget.id),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -31,26 +35,28 @@ class _CourseDetailsViewState extends State<CourseDetailsView> {
         ),
         body: BlocBuilder<CourseViewCubit, CourseViewState>(
           builder: (context, state) {
-            if (state is CourseViewSuccessState) {
+            if (state.courseState == RequestState.loaded) {
               return CustomScrollView(
                 slivers: [
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        const VideoCourse(),
+                        VideoCourse(image: state.courseData!.image),
                         CourseDataSection(
-                          data: state.data,
+                          data: state.courseData!,
                         ),
                         TitleAndLectures(
-                          data: state.data,
+                          data: state.courseData!,
                         ),
-                        const CoursesYouMightLike(),
+                        CoursesYouMightLike(
+                          id: state.courseData!.id,
+                        ),
                       ],
                     ),
                   ),
                 ],
               );
-            } else if (state is CourseViewInitial) {
+            } else if (state.courseState == RequestState.loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CourseStatusModel {
   String title;
-  String description;
+  String? description;
   IconData icon;
   CourseStatusModel(
-      {required this.title, required this.description, required this.icon});
+      {required this.title, this.description, required this.icon});
 }

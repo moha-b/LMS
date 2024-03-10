@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/caching/shared_helper.dart';
 import 'package:lms/core/theme/theme.dart';
-import 'package:lms/features/resoursesAndInfo/resourseAndInfo.dart';
-
 import 'core/navigation/navigation.dart';
 import 'features/Login/cubit/login_cubit.dart';
-import 'features/resoursesAndInfo/widgets/bottomSheet.dart';
+import 'features/quiz/bloc/quiz_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +19,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuizCubit(),
+        ),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationHelper.navigatorKey,
             onGenerateRoute: NavigationHelper.generateRoute,
-            // initialRoute: AppRoute.LOGIN,
+            initialRoute: AppRoute.SPLASH,
             theme: AppTheme.light,
             home: LectureAbout(),
           );
