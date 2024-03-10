@@ -5,18 +5,19 @@ import 'package:lms/core/utils/app_icons.dart';
 
 import '../../../core/common/course_view/view/widgets/widgets.dart';
 
-class Resourses extends StatefulWidget {
-  const Resourses({super.key});
+class Resources extends StatefulWidget {
+  const Resources({super.key});
 
   @override
-  State<Resourses> createState() => _ResoursesState();
+  State<Resources> createState() => _ResourcesState();
 }
 
-class _ResoursesState extends State<Resourses> {
+class _ResourcesState extends State<Resources> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: 24.w,right: 24.w,top: 24.h,bottom:16.h),
+      padding:
+          EdgeInsets.only(left: 24.w, right: 24.w, top: 24.h, bottom: 16.h),
       child: Column(
         children: [
           Row(
@@ -40,7 +41,7 @@ class _ResoursesState extends State<Resourses> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        'File name.Docx',
+                      'File name.Docx',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: AppColors.gray900,
@@ -186,7 +187,6 @@ class _ResoursesState extends State<Resourses> {
               ),
             ],
           ),
-
         ],
       ),
     );

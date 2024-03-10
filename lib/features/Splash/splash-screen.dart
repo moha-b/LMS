@@ -33,7 +33,12 @@ class _SplashScreenState extends State<SplashView> {
       body: Padding(
         padding: EdgeInsets.only(bottom: 20.h),
         child: Stack(children: [
-          SvgPicture.asset(AppImages.splashShape),
+          Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: SvgPicture.asset(AppImages.splashShape,
+                  fit: BoxFit.fitWidth)),
           Column(
             children: [
               Expanded(

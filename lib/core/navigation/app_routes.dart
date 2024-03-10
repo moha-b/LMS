@@ -12,4 +12,5 @@ class AppRoute {
   static const String QUIZ_INFO = "QUIZ_INFO";
   static const String QUIZ = "QUIZ";
   static const String QUIZ_REPORT = "QUIZ_REPORT";
+  static const String RESOURCES = "RESOURCES";
 }

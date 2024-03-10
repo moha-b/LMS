@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/course_view/data/models/course/course_status_model.dart';
+import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/features/lessons_details_view/views/widgets/bottomSheet_rating.dart';
+import 'package:lms/features/resoursesAndInfo/widgets/bottomSheet.dart';
 
 class MoreTab extends StatelessWidget {
   const MoreTab({super.key});
@@ -41,7 +43,16 @@ class MoreTab extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         if (index == 0) {
+                          showModalBottomSheet(
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(24.r),
+                                    topLeft: Radius.circular(24.r)),
+                              ),
+                              builder: (context) => const CourseDetailsSheet());
                         } else if (index == 1) {
+                          NavigationHelper.navigateTo(AppRoute.RESOURCES);
                         } else {
                           showModalBottomSheet(
                             context: context,
