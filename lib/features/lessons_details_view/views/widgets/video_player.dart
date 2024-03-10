@@ -15,7 +15,8 @@ class VideoPlayerWidget extends StatelessWidget {
       child: BlocBuilder<VideoControlsCubit, VideoPlayerController?>(
         builder: (context, videoPlayerController) {
           if (videoPlayerController != null) {
-            final chewieController = ChewieController(
+            context.read<VideoControlsCubit>().chewieController =
+                ChewieController(
               videoPlayerController: videoPlayerController,
               autoInitialize: true,
               aspectRatio: 16 / 9,
@@ -43,7 +44,9 @@ class VideoPlayerWidget extends StatelessWidget {
               ),
             );
 
-            return Chewie(controller: chewieController);
+            return Chewie(
+                controller:
+                    context.read<VideoControlsCubit>().chewieController);
           } else {
             return const Center(
               child: CircularProgressIndicator(),

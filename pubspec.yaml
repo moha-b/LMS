@@ -28,6 +28,8 @@ dependencies:
   video_player: ^2.2.14
   chewie: ^1.7.5
   semicircle_indicator: ^1.1.1
+  flutter_icon_snackbar: ^1.1.4
+
 
 
 dev_dependencies:

@@ -67,10 +67,10 @@ class LessonsDetailsView extends StatelessWidget {
                           width: 359.w,
                           height: 724.h,
                           child: TabBarView(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             children: [
                               ContentTab(chapters: chapter),
-                              MoreTab(),
+                              const MoreTab(),
                             ],
                           ),
                         ),

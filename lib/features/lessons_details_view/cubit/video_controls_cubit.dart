@@ -39,8 +39,8 @@ class VideoControlsCubit extends Cubit<VideoPlayerController?> {
   }
 
   void onToggleFullScreen() {
-    isFullScreen = !isFullScreen;
     chewieController.toggleFullScreen();
+    isFullScreen = !isFullScreen;
     emit(state);
   }
 

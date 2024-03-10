@@ -117,19 +117,21 @@ class _CustomControlsState extends State<CustomControls> {
                   onTap: () {
                     NavigationHelper.goBack();
                   },
-                  child: Container(
-                    width: widget.isFullScreen ? 70.h : 28.w,
-                    height: widget.isFullScreen ? 50.h : 30.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.violet50,
-                      borderRadius: BorderRadius.circular(13.r),
-                    ),
-                    child: Icon(
-                      AppIcons.arrow_left,
-                      size: 19.sp,
-                      color: AppColors.primary,
-                    ),
-                  ),
+                  child: widget.isFullScreen
+                      ? const SizedBox.shrink()
+                      : Container(
+                          width: 28.w,
+                          height: 30.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.violet50,
+                            borderRadius: BorderRadius.circular(13.r),
+                          ),
+                          child: Icon(
+                            AppIcons.arrow_left,
+                            size: 19.sp,
+                            color: AppColors.primary,
+                          ),
+                        ),
                 ),
                 PopupMenuButton<double>(
                   icon: Icon(
