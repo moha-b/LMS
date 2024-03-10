@@ -1,33 +1,34 @@
-class Question {
-  final int id;
-  final String title;
+import 'exam.dart';
+
+class Question extends Exam {
   final String titleAr;
   final String type;
-  final Illustration illustration;
-  final Attachment attachment;
+  final Illustration? illustration;
+  final Attachment? attachment;
   final int multiple;
-  final List<Option> options;
+  final List<Option>? options;
   final dynamic answeredCorrect;
   final dynamic isFlagged;
   final dynamic studentAnswer;
-  final List<dynamic> answers;
+  final List<dynamic>? answers;
 
   Question({
-    required this.id,
-    required this.title,
-    required this.titleAr,
-    required this.type,
-    required this.illustration,
-    required this.attachment,
-    required this.multiple,
-    required this.options,
-    required this.answeredCorrect,
-    required this.isFlagged,
-    required this.studentAnswer,
-    required this.answers,
+    super.id = 0,
+    super.title = '',
+    this.titleAr = '',
+    this.type = '',
+    this.illustration,
+    this.attachment,
+    this.multiple = 0,
+    this.options,
+    this.answeredCorrect,
+    this.isFlagged,
+    this.studentAnswer,
+    this.answers,
   });
 
-  factory Question.fromJson(Map<String, dynamic> json) {
+  @override
+  Question fromJson(Map<String, dynamic> json) {
     List<Option> options = (json['options'] as List)
         .map((optionJson) => Option.fromJson(optionJson))
         .toList();
@@ -35,8 +36,8 @@ class Question {
     return Question(
       id: json['id'],
       title: json['title'],
-      titleAr: json['title_ar'],
-      type: json['type'],
+      titleAr: json['title_ar'] ?? '',
+      type: json['type'] ?? '',
       illustration: Illustration.fromJson(json['illistraton']),
       attachment: Attachment.fromJson(json['attachment']),
       multiple: json['multiple'],
@@ -48,9 +49,10 @@ class Question {
     );
   }
 
-
   static List<Question> fromJsonList(List<dynamic> json) {
-    List<Question> questions = json.map((questionJson) => Question.fromJson(questionJson)).toList();
+    Question question = Question();
+    List<Question> questions =
+        json.map((questionJson) => question.fromJson(questionJson)).toList();
     return questions;
   }
 }
@@ -100,11 +102,11 @@ class Option {
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
-      key: json['key'],
-      title: json['title'],
-      titleAr: json['title_ar'],
-      isCorrect: json['is_correct'],
-      isSelected: json['is_selected'],
+      key: json['key'] ?? '',
+      title: json['title'] ?? '',
+      titleAr: json['title_ar'] ?? '',
+      isCorrect: json['is_correct'] ?? -1,
+      isSelected: json['is_selected'] ?? -1,
       attachment: json['attachment'],
     );
   }

@@ -2,8 +2,10 @@ part of 'widgets.dart';
 
 class LecturesDetails extends StatelessWidget {
   LecturesDetails({super.key, required this.lesson, required this.chapter});
+
   final List<Lesson> lesson;
   final List<Chapter> chapter;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,68 +49,77 @@ class LecturesDetails extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 3.h),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  lesson[index].isQuiz == 1
-                                      ? AppIcons.task
-                                      : AppIcons.play_circle,
-                                  size: 14.sp,
-                                  color: AppColors.gray400,
-                                ),
-                                SizedBox(width: 4.w),
-                                Row(
-                                  children: [
-                                    Text(
-                                      lesson[index].isQuiz == 1
-                                          ? 'Quiz'
-                                          : 'Video - ${lesson[index].totalMinutes} Minutes',
-                                      style: TextStyle(
-                                        fontSize: 11.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.gray400,
+                        GestureDetector(
+                          onTap: () {
+                            if (lesson[index].isQuiz == 1) {
+                              NavigationHelper.navigateTo(AppRoute.QUIZ_INFO,
+                                  arguments: lesson[index].quizId);
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    lesson[index].isQuiz == 1
+                                        ? AppIcons.task
+                                        : AppIcons.play_circle,
+                                    size: 14.sp,
+                                    color: AppColors.gray400,
+                                  ),
+                                  SizedBox(width: 4.w),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        lesson[index].isQuiz == 1
+                                            ? 'Quiz'
+                                            : 'Video - ${lesson[index].totalMinutes} Minutes',
+                                        style: TextStyle(
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.gray400,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 4.w),
-                                    lesson[index].attachments.isEmpty
-                                        ? const SizedBox.shrink()
-                                        : GestureDetector(
-                                            onTap: () {},
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  AppIcons.document_text,
-                                                  size: 14.sp,
-                                                  color: AppColors.gray400,
-                                                ),
-                                                SizedBox(width: 4.w),
-                                                Text(
-                                                  'Pdf',
-                                                  style: TextStyle(
-                                                    fontSize: 11.sp,
-                                                    fontWeight: FontWeight.w400,
+                                      SizedBox(width: 4.w),
+                                      lesson[index].attachments.isEmpty
+                                          ? const SizedBox.shrink()
+                                          : GestureDetector(
+                                              onTap: () {},
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    AppIcons.document_text,
+                                                    size: 14.sp,
                                                     color: AppColors.gray400,
                                                   ),
-                                                ),
-                                              ],
+                                                  SizedBox(width: 4.w),
+                                                  Text(
+                                                    'Pdf',
+                                                    style: TextStyle(
+                                                      fontSize: 11.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: AppColors.gray400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: 6.w),
-                            Text(
-                              'Free',
-                              style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.success900,
+                                    ],
+                                  ),
+                                ],
                               ),
-                            )
-                          ],
+                              SizedBox(width: 6.w),
+                              Text(
+                                'Free',
+                                style: TextStyle(
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.success900,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

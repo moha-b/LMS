@@ -10,17 +10,19 @@ import 'package:lms/features/quiz/bloc/quiz_buttons_cubit.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
-
-import '../data/question.dart';
+import '../data/model/question.dart';
+import '../data/model/submit_exam.dart';
 
 class QuizView extends StatelessWidget {
   QuizView({Key? key, required this.id}) : super(key: key);
   final int id;
+  int? codeData;
+  Map options = Map();
+  DateTime startTime = DateTime.now();
+  int Index = 0;
 
   @override
   Widget build(BuildContext context) {
-    int totalQuestions = 10;
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -62,9 +64,13 @@ class QuizView extends StatelessWidget {
                       controller:
                           context.read<QuizButtonsCubit>().pageController,
                       // onPageChanged: (value) => QuizCubit.instance.onPageChanged,
-                      itemBuilder: (context, index) => QuizPage(
-                        question: question[index],
-                      ),
+                      itemBuilder: (context, index) {
+                        Index = index;
+                        return QuizPage(
+                          question: question[index],
+                          options: options!,
+                        );
+                      },
                       itemCount: question.length,
                     ),
                   ),
@@ -90,9 +96,15 @@ class QuizView extends StatelessWidget {
                             context.read<QuizButtonsCubit>().currentPage !=
                                     question.length
                                 ? PrimaryButton(
-                                    onTap: () => context
-                                        .read<QuizButtonsCubit>()
-                                        .nextPage(question.length),
+                                    onTap: () {
+                                      context
+                                          .read<QuizButtonsCubit>()
+                                          .nextPage(question.length);
+                                      print(
+                                          '${question[Index].id} qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqyyyyyyyyy');
+                                      print(
+                                          '${options![question[Index].id.toString()]} qqqqqqqqqqqqkkkk');
+                                    },
                                     width: 108.w,
                                     text: 'Next',
                                     haveIcon: true,
@@ -100,9 +112,24 @@ class QuizView extends StatelessWidget {
                                     icon: AppIcons.arrow_right_1,
                                   )
                                 : PrimaryButton(
-                                    onTap: () => NavigationHelper.navigateTo(
-                                        AppRoute.QUIZ_REPORT,
-                                        arguments: 8),
+                                    onTap: () {
+                                      SubmitExam exam = SubmitExam(
+                                          id: id,
+                                          startDate: startTime.toString(),
+                                          endDate: DateTime.now().toString(),
+                                          options: options!);
+
+                                      codeData = context
+                                              .read<QuizCubit>()
+                                              .postExam(exam) ??
+                                          0;
+                                      NavigationHelper.navigateTo(
+                                          AppRoute.QUIZ_REPORT,
+                                          arguments: {
+                                            'questionLength': question.length,
+                                            'codeData': codeData ?? 0
+                                          });
+                                    },
                                     width: 150.w,
                                     text: 'View Report',
                                     haveIcon: true,

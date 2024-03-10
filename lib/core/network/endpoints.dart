@@ -8,10 +8,11 @@ class EndPoints {
   static const GET_ALL_TRACKS = "/homePackages";
   static const HOME_ADS = "/homeAds";
   static const GET_APP_TRACKS = "/homePackages";
-  static const Quiz = "/examDetails";
-  static const Questions = "/examQuestions";
+  static const QUIZ = "/examDetails";
+  static const QUESTIONS = "/examQuestions";
   static const LOGIN = "/auth/login";
-  static const QuizReport = "/examReport";
+  static const QUIZREPORT = "/examReport";
+  static const SUBMITEXAM = "/submitExam";
   static const GET_COURSES_BY_PACKAGE_ID = "/getCoursesByPackageId";
 
   static String courseDetails(courseId) =>
@@ -19,6 +20,7 @@ class EndPoints {
   static String lessonDetails = "/lessonDetails";
   static String TYPES = "/types";
   static String relatedCourses = "/relatedCourses";
+
   static String courseResources(courseId) =>
       "/courseResources?course_id=$courseId";
 }

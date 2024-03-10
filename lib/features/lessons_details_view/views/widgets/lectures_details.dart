@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/course_view/data/models/course_model.dart';
@@ -10,6 +11,7 @@ class LessonsDetails extends StatelessWidget {
 
   final List<Lesson> lessons;
   final List<Chapter> chapters;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,55 +64,63 @@ class LessonsDetails extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 8.h),
-                        Row(
-                          children: [
-                            Icon(
-                              lessons[index].isQuiz == 1
-                                  ? AppIcons.task
-                                  : AppIcons.play_circle,
-                              size: 14.sp,
-                              color: AppColors.gray600,
-                            ),
-                            SizedBox(width: 4.w),
-                            Row(
-                              children: [
-                                Text(
-                                  lessons[index].isQuiz == 1
-                                      ? 'Quiz'
-                                      : 'Video - ${lessons[index].totalMinutes} Minutes',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.gray600,
+                        GestureDetector(
+                          onTap: () {
+                            if (lessons[index].isQuiz == 1) {
+                              NavigationHelper.navigateTo(AppRoute.QUIZ_INFO,
+                                  arguments: lessons[index].quizId);
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                lessons[index].isQuiz == 1
+                                    ? AppIcons.task
+                                    : AppIcons.play_circle,
+                                size: 14.sp,
+                                color: AppColors.gray600,
+                              ),
+                              SizedBox(width: 4.w),
+                              Row(
+                                children: [
+                                  Text(
+                                    lessons[index].isQuiz == 1
+                                        ? 'Quiz'
+                                        : 'Video - ${lessons[index].totalMinutes} Minutes',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.gray600,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 8.w),
-                                lessons[index].attachments.isEmpty
-                                    ? const SizedBox.shrink()
-                                    : GestureDetector(
-                                        onTap: () {},
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              AppIcons.document_text,
-                                              size: 14.sp,
-                                              color: AppColors.gray600,
-                                            ),
-                                            SizedBox(width: 5.w),
-                                            Text(
-                                              'Pdf',
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
+                                  SizedBox(width: 8.w),
+                                  lessons[index].attachments.isEmpty
+                                      ? const SizedBox.shrink()
+                                      : GestureDetector(
+                                          onTap: () {},
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                AppIcons.document_text,
+                                                size: 14.sp,
                                                 color: AppColors.gray600,
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(width: 5.w),
+                                              Text(
+                                                'Pdf',
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.gray600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
