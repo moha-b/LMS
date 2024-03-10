@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: NavigationHelper.generateRoute,
             initialRoute: AppRoute.SPLASH,
             theme: AppTheme.light,
-            home: child,
+            home: LectureAbout(),
           );
         },
       ),
