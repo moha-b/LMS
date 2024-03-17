@@ -64,13 +64,13 @@ class _QuizPageState extends State<QuizPage> {
                               color: AppColors.gray200,
                             ),
                           ),
-                          child: CachedNetworkImage(
+                          child:widget.question.attachment != null ? CachedNetworkImage(
                             imageUrl: widget.question.attachment!.url,
                             placeholder: (context, url) => const Center(
                                 child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) =>
                                 const Center(child: Icon(Icons.error)),
-                          ),
+                          ) : Container(),
                         )
                       : const SizedBox(),
                 ),

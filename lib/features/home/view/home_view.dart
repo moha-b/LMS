@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
                             ? HomeAds(adsModel: state.ads)
                             : const Center(child: Text('Not Found'));
                       case RequestState.error:
-                        return const Center(child: Text('Error'));
+                        return  Container();
                     }
                   },
                 ),
@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
                       case RequestState.loaded:
                         return PopularCourses(list: state.courses!);
                       case RequestState.error:
-                        return Center(child: Text(state.coursesMessage));
+                        return  Container();
                     }
                   },
                 ),
@@ -59,7 +59,7 @@ class HomeView extends StatelessWidget {
                             ? MainTracks(list: state.allTracks)
                             : const Center(child: Text('Not Found'));
                       case RequestState.error:
-                        return const Center(child: Text('Error'));
+                        return  Container();
                     }
                   },
                 ),
