@@ -24,7 +24,7 @@ class _CategoriesState extends State<Categories> {
     return Padding(
       padding: EdgeInsets.only(top: 16.h),
       child: SizedBox(
-        height: 40.h,
+        height: 45.h,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.only(left: 24.w),

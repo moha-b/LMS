@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/utils/app_icons.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../bloc/quiz_cubit.dart';
 import '../../data/model/question.dart';
 import '../../data/model/submit_exam.dart';
 
@@ -52,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
           SizedBox(height: 16.h),
           SizedBox(
-            height: 202.h,
+            height: isImageVisible ? 202.h : 50.h,
             child: Stack(
               children: [
                 Center(
@@ -77,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
                       : const SizedBox(),
                 ),
                 Positioned(
-                  bottom: 150.h,
+                  bottom: isImageVisible ? 150.h : 0.h,
                   left: 270.w,
                   child: Container(
                     decoration: BoxDecoration(
@@ -126,41 +124,40 @@ class _QuizPageState extends State<QuizPage> {
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemBuilder: (context, index) => Container(
-              height: widget.question.options?[index].attachment == null
-                  ? 56.h
-                  : 250.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  width: 1,
-                  color: selectedAnswer == (index + 1).toString() ||
-                          selectedMultiChoiceAnswers
-                              .contains(widget.question.options![index].title)
-                      ? AppColors.primary
-                      : AppColors.gray200,
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                setState(() {
+                  setData(widget.question.options![index].title, index);
+                });
+              },
+              child: Container(
+                height: widget.question.options?[index].attachment == null
+                    ? 56.h
+                    : 250.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    width: 1,
+                    color: selectedAnswer == (index + 1).toString() ||
+                            selectedMultiChoiceAnswers
+                                .contains(widget.question.options![index].title)
+                        ? AppColors.primary
+                        : AppColors.gray200,
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 13.w,
-                  vertical: widget.question.options?[index].attachment == null
-                      ? 0
-                      : 20.h,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              setData(
-                                  widget.question.options![index].title, index);
-                            });
-                          },
-                          child: Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 13.w,
+                    vertical: widget.question.options?[index].attachment == null
+                        ? 0
+                        : 20.h,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
                             width: 20.w,
                             height: 20.h,
                             decoration: BoxDecoration(
@@ -179,43 +176,43 @@ class _QuizPageState extends State<QuizPage> {
                                       : null,
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10.w),
-                        Text(
-                          widget.question.options?[index].title ?? '',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.gray800,
+                          SizedBox(width: 10.w),
+                          Text(
+                            widget.question.options?[index].title ?? '',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.gray800,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16.h),
-                    if (widget.question.options?[index].attachment != null)
-                      widget.question.attachment != null ?  Expanded(
-                        child: SizedBox(
-                          width: 299.w,
-                          child: Container(
-                            height: 146.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.r),
-                              border: Border.all(
-                                width: 1,
-                                color: AppColors.gray200,
+                        ],
+                      ),
+                      SizedBox(height: 16.h),
+                      if (widget.question.options?[index].attachment != null)
+                        Expanded(
+                          child: SizedBox(
+                            width: 299.w,
+                            child: Container(
+                              height: 146.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                  width: 1,
+                                  color: AppColors.gray200,
+                                ),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.question.attachment!.url,
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    const Center(child: Icon(Icons.error)),
                               ),
                             ),
-                            child:CachedNetworkImage(
-                              imageUrl: widget.question.options?[index].attachment.url,
-                              placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) =>
-                                  const Center(child: Icon(Icons.error)),
-                            ),
                           ),
                         ),
-                      ) : Container(),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
