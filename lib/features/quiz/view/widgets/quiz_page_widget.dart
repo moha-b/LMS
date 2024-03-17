@@ -66,13 +66,13 @@ class _QuizPageState extends State<QuizPage> {
                               color: AppColors.gray200,
                             ),
                           ),
-                          child: CachedNetworkImage(
+                          child:widget.question.attachment != null ? CachedNetworkImage(
                             imageUrl: widget.question.attachment!.url,
                             placeholder: (context, url) => const Center(
                                 child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) =>
                                 const Center(child: Icon(Icons.error)),
-                          ),
+                          ) : Container(),
                         )
                       : const SizedBox(),
                 ),
@@ -193,7 +193,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     SizedBox(height: 16.h),
                     if (widget.question.options?[index].attachment != null)
-                      Expanded(
+                      widget.question.attachment != null ?  Expanded(
                         child: SizedBox(
                           width: 299.w,
                           child: Container(
@@ -205,8 +205,8 @@ class _QuizPageState extends State<QuizPage> {
                                 color: AppColors.gray200,
                               ),
                             ),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.question.attachment!.url,
+                            child:CachedNetworkImage(
+                              imageUrl: widget.question.options?[index].attachment.url,
                               placeholder: (context, url) => const Center(
                                   child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
@@ -214,7 +214,7 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                           ),
                         ),
-                      ),
+                      ) : Container(),
                   ],
                 ),
               ),

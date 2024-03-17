@@ -39,7 +39,7 @@ class PopularCourses extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           SizedBox(
-            height: 231.h,
+            height: 232.h,
             child: ListView.separated(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 scrollDirection: Axis.horizontal,

@@ -7,7 +7,7 @@ class MainTracksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 38.h,
+      height: 50.h,
       child: ListView.separated(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         itemCount: tracks.length,
