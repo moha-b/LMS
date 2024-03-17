@@ -51,7 +51,7 @@ class PopularCourses extends StatelessWidget {
                               arguments: list[index].id),
                           child: Container(
                             width: 207.w,
-                            height: 122.h,
+                            height: 120.h,
                             alignment: Alignment.topLeft,
                             padding: EdgeInsets.only(top: 12.h, left: 12.w),
                             decoration: BoxDecoration(

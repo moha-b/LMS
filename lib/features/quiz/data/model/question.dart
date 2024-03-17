@@ -75,10 +75,13 @@ class Attachment {
 
   Attachment({required this.type, required this.url});
 
-  factory Attachment.fromJson(Map<String, dynamic> json) {
+  factory Attachment.fromJson(Map<String, dynamic>? json) {
+    if (json == null || json.isEmpty) {
+      return Attachment(type: '', url: '');
+    }
     return Attachment(
-      type: json['type'],
-      url: json['url'],
+      type: json['type'] ?? '',
+      url: json['url'] ?? '',
     );
   }
 }
