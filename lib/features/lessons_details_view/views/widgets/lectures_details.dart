@@ -85,7 +85,7 @@ class LessonsDetails extends StatelessWidget {
                               onTap: () {
                                 NavigationHelper.navigateTo(
                                   AppRoute.QUIZ_INFO,
-                                  arguments: lessons[index].quizId,
+                                  arguments: 24,
                                 );
                               },
                               text: 'Quiz',

@@ -18,12 +18,9 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
             return AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: AppColors.violet50,
-              flexibleSpace: Expanded(
-                child: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  background:
-                      VideoPlayerWidget(videoUrl: state.lesson.videoUrl),
-                ),
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.pin,
+                background: VideoPlayerWidget(videoUrl: state.lesson.videoUrl),
               ),
             );
           } else if (state is LessonsInitial) {

@@ -18,53 +18,30 @@ class HomeView extends StatelessWidget {
         ..add(FetchAllTracks()),
       child: Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const WelcomeText(),
-                BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    switch (state.adsState) {
-                      case RequestState.loading:
-                        return const Center(child: CircularProgressIndicator());
-                      case RequestState.loaded:
-                        return state.ads!.data.isNotEmpty
-                            ? HomeAds(adsModel: state.ads)
-                            : const Center(child: Text('Not Found'));
-                      case RequestState.error:
-                        return const Center(child: Text('Error'));
-                    }
-                  },
-                ),
-                BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    switch (state.coursesState) {
-                      case RequestState.loading:
-                        return const Center(child: CircularProgressIndicator());
-                      case RequestState.loaded:
-                        return PopularCourses(list: state.courses!);
-                      case RequestState.error:
-                        return Center(child: Text(state.coursesMessage));
-                    }
-                  },
-                ),
-                BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    switch (state.allTracksState) {
-                      case RequestState.loading:
-                        return const Center(child: CircularProgressIndicator());
-                      case RequestState.loaded:
-                        return state.allTracks!.tracks.isNotEmpty
-                            ? MainTracks(list: state.allTracks)
-                            : const Center(child: Text('Not Found'));
-                      case RequestState.error:
-                        return const Center(child: Text('Error'));
-                    }
-                  },
-                ),
-              ],
-            ),
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state.coursesState == RequestState.loaded) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const WelcomeText(),
+                      HomeAds(adsModel: state.ads),
+                      // if (state.adsState == RequestState.loaded)
+                      //   HomeAds(adsModel: state.ads),
+                      if (state.coursesState == RequestState.loaded)
+                        PopularCourses(list: state.courses!),
+                      if (state.allTracksState == RequestState.loaded)
+                        MainTracks(list: state.allTracks),
+                    ],
+                  ),
+                );
+              } else if (state.coursesState == RequestState.loading) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return const Center(child: Text('Erorrrrrrrrrrrrrrrrr'));
+              }
+            },
           ),
         ),
         bottomNavigationBar: const BottomNavigationBarSection(),

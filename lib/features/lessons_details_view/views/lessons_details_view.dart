@@ -10,8 +10,12 @@ import 'package:lms/features/lessons_details_view/views/widgets/more_tab.dart';
 import '../../../core/common/course_view/data/models/course_model.dart';
 
 class LessonsDetailsView extends StatelessWidget {
-  const LessonsDetailsView(
-      {super.key, required this.id, required this.chapter, this.url = ''});
+  const LessonsDetailsView({
+    super.key,
+    required this.id,
+    required this.chapter,
+    this.url = '',
+  });
 
   final int id;
   final List<Chapter> chapter;
@@ -32,47 +36,47 @@ class LessonsDetailsView extends StatelessWidget {
               length: 2,
               child: Scaffold(
                 appBar: AppBarComponent(id: id),
-                body: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
-                      child: Text(
-                        chapter[0].lessons[0].description,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppColors.gray900,
+                body: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
+                        child: Text(
+                          chapter[0].lessons[0].description,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: AppColors.gray900,
+                          ),
                         ),
                       ),
                     ),
-                    TabBar(
-                      unselectedLabelStyle: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                    SliverToBoxAdapter(
+                      child: TabBar(
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        unselectedLabelColor: AppColors.gray500,
+                        indicatorColor: AppColors.primary,
+                        dividerColor: AppColors.gray100,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelColor: AppColors.primary,
+                        labelStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        tabs: myTabs,
                       ),
-                      unselectedLabelColor: AppColors.gray500,
-                      indicatorColor: AppColors.primary,
-                      dividerColor: AppColors.gray100,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: AppColors.primary,
-                      labelStyle: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      tabs: myTabs,
                     ),
-                    Expanded(
+                    SliverFillRemaining(
                       child: Padding(
                         padding: EdgeInsets.only(top: 24.h),
-                        child: SizedBox(
-                          width: 359.w,
-                          height: 724.h,
-                          child: TabBarView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              ContentTab(chapters: chapter),
-                              const MoreTab(),
-                            ],
-                          ),
+                        child: TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            ContentTab(chapters: chapter),
+                            const MoreTab(),
+                          ],
                         ),
                       ),
                     ),

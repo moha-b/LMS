@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/custom_app_bar.dart';
 import 'package:lms/core/common/primary_button.dart';
+import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/failure_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_statistics_widget.dart';
 import 'package:lms/features/quiz/view/widgets/success_widget.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
+
 import '../../../core/utils/app_icons.dart';
 
 class QuizReportView extends StatelessWidget {
@@ -25,12 +27,15 @@ class QuizReportView extends StatelessWidget {
       child: BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
         if (state is QuizReoprtSuccess) {
           return Scaffold(
-            appBar: const CustomAppBar(title: 'Quiz Report'),
+            appBar: CustomAppBar(
+              title: 'Quiz Report',
+              onPressed: () => NavigationHelper.navigateTo(AppRoute.HOME),
+            ),
             body: Column(
               children: [
                 state.quizReport.success == 1
-                    ? SuccessWidget()
-                    : FailureWidget(),
+                    ? const SuccessWidget()
+                    : const FailureWidget(),
                 SizedBox(height: 24.h),
                 Text(
                   "Your Score",
@@ -48,7 +53,7 @@ class QuizReportView extends StatelessWidget {
                         : AppColors.secondary,
                     bottomPadding: 13.5.h,
                     radius: 110.r,
-                    progress: 0.8,
+                    progress: state.quizReport.score / 100,
                     strokeWidth: 20.w,
                     strokeCap: StrokeCap.round,
                     child: Column(
@@ -107,7 +112,7 @@ class QuizReportView extends StatelessWidget {
                         onTap: () {},
                         icon: AppIcons.clipboard_close,
                         total: (totalQuestions -
-                                state.quizReport!.correctAnswersCount!)
+                                state.quizReport.correctAnswersCount)
                             .toString(),
                         description: 'Wrong Answers',
                       )),
@@ -132,7 +137,7 @@ class QuizReportView extends StatelessWidget {
             ),
           );
         } else
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
       }),
     );
   }

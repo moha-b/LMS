@@ -6,8 +6,13 @@ import '../utils/app_colors.dart';
 import '../utils/app_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.onPressed,
+  });
   final String title;
+  final Function()? onPressed;
   @override
   Size get preferredSize => Size.fromHeight(60.h);
 
@@ -20,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           backgroundColor: AppColors.violet50,
         ),
         icon: const Icon(AppIcons.arrow_left),
-        onPressed: () => NavigationHelper.goBack(),
+        onPressed: onPressed ?? () => NavigationHelper.goBack(),
       ),
     );
   }

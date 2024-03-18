@@ -42,10 +42,15 @@ class QuizCubit extends Cubit<QuizState> {
     data is String ? emit(QuizError(data)) : emit(QuizReoprtSuccess(data));
   }
 
-  dynamic postExam(SubmitExam exam) async {
+  dynamic postExam(SubmitExam exam, int length) async {
     var data = await QuizRepo.postExam(exam);
     if (data['status_code'] == 200) {
+      NavigationHelper.navigateTo(AppRoute.QUIZ_REPORT, arguments: {
+        'questionLength': length,
+        'codeData': data['data'],
+      });
       emit(SubmitExamSuccess(data['data']));
+      print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${data['data']}');
       return data['data'];
     } else {
       emit(QuizError(data));

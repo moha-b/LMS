@@ -27,10 +27,10 @@ class _SliderState extends State<HomeAds> {
               controller: _pageController,
               itemCount: widget.adsModel?.data.length ?? 1,
               itemBuilder: (context, index) {
-                //CachedNetworkImage(
-                //                     fit: BoxFit.fill,
-                //                     imageUrl: widget.adsModel!.data[index].image,
-                //                   ),
+                // return CachedNetworkImage(
+                //   fit: BoxFit.fill,
+                //   imageUrl: widget.adsModel!.data[index].image,
+                // );
                 return Image.asset(
                   AppImages.banner,
                   fit: BoxFit.cover,

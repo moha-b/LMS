@@ -101,7 +101,6 @@ class QuizInfoView extends StatelessWidget {
                     SizedBox(height: 24.h),
                     PrimaryButton(
                       onTap: () {
-                        print('${quiz.id} wwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
                         NavigationHelper.navigateToReplacement(AppRoute.QUIZ,
                             arguments: quiz.id);
                       },

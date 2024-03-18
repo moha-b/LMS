@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms/core/common/custom_app_bar.dart';
 import 'package:lms/core/common/primary_button.dart';
-import 'package:lms/core/navigation/navigation.dart';
 import 'package:lms/core/utils/app_colors.dart';
 import 'package:lms/core/utils/app_icons.dart';
 import 'package:lms/features/quiz/bloc/quiz_buttons_cubit.dart';
 import 'package:lms/features/quiz/bloc/quiz_cubit.dart';
 import 'package:lms/features/quiz/view/widgets/question_progress_widget.dart';
 import 'package:lms/features/quiz/view/widgets/quiz_page_widget.dart';
+
 import '../data/model/question.dart';
 import '../data/model/submit_exam.dart';
 
@@ -17,7 +17,7 @@ class QuizView extends StatelessWidget {
   QuizView({Key? key, required this.id}) : super(key: key);
   final int id;
   int? codeData;
-  Map options = Map();
+  Map<String, String> options = Map();
   DateTime startTime = DateTime.now();
   int Index = 0;
 
@@ -68,7 +68,7 @@ class QuizView extends StatelessWidget {
                         Index = index;
                         return QuizPage(
                           question: question[index],
-                          options: options!,
+                          options: options,
                         );
                       },
                       itemCount: question.length,
@@ -100,10 +100,6 @@ class QuizView extends StatelessWidget {
                                       context
                                           .read<QuizButtonsCubit>()
                                           .nextPage(question.length);
-                                      print(
-                                          '${question[Index].id} qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqyyyyyyyyy');
-                                      print(
-                                          '${options![question[Index].id.toString()]} qqqqqqqqqqqqkkkk');
                                     },
                                     width: 108.w,
                                     text: 'Next',
@@ -114,21 +110,14 @@ class QuizView extends StatelessWidget {
                                 : PrimaryButton(
                                     onTap: () {
                                       SubmitExam exam = SubmitExam(
-                                          id: id,
-                                          startDate: startTime.toString(),
-                                          endDate: DateTime.now().toString(),
-                                          options: options!);
-
-                                      codeData = context
-                                              .read<QuizCubit>()
-                                              .postExam(exam) ??
-                                          0;
-                                      NavigationHelper.navigateTo(
-                                          AppRoute.QUIZ_REPORT,
-                                          arguments: {
-                                            'questionLength': question.length,
-                                            'codeData': codeData ?? 0
-                                          });
+                                        id: id,
+                                        options: options,
+                                        startDate: startTime.toString(),
+                                        endDate: DateTime.now().toString(),
+                                      );
+                                      context
+                                          .read<QuizCubit>()
+                                          .postExam(exam, question.length);
                                     },
                                     width: 150.w,
                                     text: 'View Report',
