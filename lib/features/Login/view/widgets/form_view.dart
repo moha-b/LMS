@@ -12,12 +12,14 @@ import 'package:lms/features/Login/view/widgets/row_create_account.dart';
 import 'package:lms/features/Login/view/widgets/row_remember_and_froget.dart';
 
 class FormView extends StatelessWidget {
-  FormView({super.key});
+  FormView({Key? key}) : super(key: key);
 
   final formSignInKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final loginCubit = context.read<LoginCubit>();
+
     return Padding(
       padding: EdgeInsets.only(top: 175.h),
       child: Container(
@@ -37,55 +39,64 @@ class FormView extends StatelessWidget {
                   child: Column(
                     children: [
                       StreamBuilder<String?>(
-                          stream: LoginCubit.instance.emailStream,
-                          builder: (context, snapshot) {
-                            return CustomTextForm(
-                              hint: 'Enter Email Address',
-                              validator:
-                                  ValidationHelper.instance.validateEmail,
-                              textAuth: 'Email Address',
-                              keyboardType: TextInputType.emailAddress,
-                              onChanged: LoginCubit.instance.updateEmail,
-                            );
-                          }),
+                        stream: loginCubit.emailStream,
+                        builder: (context, snapshot) {
+                          return CustomTextForm(
+                            hint: 'Enter Email Address',
+                            validator: ValidationHelper.instance.validateEmail,
+                            textAuth: 'Email Address',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: loginCubit.updateEmail,
+                          );
+                        },
+                      ),
                       SizedBox(height: 16.h),
                       StreamBuilder<String?>(
-                          stream: LoginCubit.instance.passwordStream,
-                          builder: (context, snapshot) {
-                            return CustomTextForm(
-                              hint: 'Enter Password',
-                              onChanged: LoginCubit.instance.updatePassword,
-                              obscure: LoginCubit.instance.visibility,
-                              validator:
-                                  ValidationHelper.instance.validatePassword,
-                              icon: LoginCubit.instance.visibility
-                                  ? AppIcons.eye
-                                  : AppIcons.eye_slash,
-                              onPressed: () => LoginCubit.instance
-                                  .changePasswordVisibility(),
-                              textAuth: 'Password',
-                            );
-                          }),
+                        stream: loginCubit.passwordStream,
+                        builder: (context, snapshot) {
+                          return CustomTextForm(
+                            hint: 'Enter Password',
+                            onChanged: loginCubit.updatePassword,
+                            obscure: loginCubit.visibility,
+                            validator:
+                                ValidationHelper.instance.validatePassword,
+                            icon: loginCubit.visibility
+                                ? AppIcons.eye
+                                : AppIcons.eye_slash,
+                            onPressed: () =>
+                                loginCubit.changePasswordVisibility(),
+                            textAuth: 'Password',
+                          );
+                        },
+                      ),
                       SizedBox(height: 16.h),
                       RememberAndForget(
-                        check: LoginCubit.instance.check,
-                        onChanged: LoginCubit.instance.changeCheck,
+                        check: loginCubit.check,
+                        onChanged: loginCubit.changeCheck,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
-                        child: PrimaryButton(
-                          onTap: () {
-                            if (formSignInKey.currentState!.validate()) {
-                              LoginCubit.instance.login();
-                            }
-                          },
-                          text: 'Sign In',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                          width: 327.w,
-                          height: 56.h,
+                      if (state is LoadingState)
+                        Padding(
+                          padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
+                          child: const CircularProgressIndicator(
+                            color: AppColors.primary,
+                          ),
+                        )
+                      else
+                        Padding(
+                          padding: EdgeInsets.only(top: 48.h, bottom: 24.h),
+                          child: PrimaryButton(
+                            onTap: () {
+                              if (formSignInKey.currentState!.validate()) {
+                                loginCubit.login();
+                              }
+                            },
+                            text: 'Sign In',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            width: 327.w,
+                            height: 56.h,
+                          ),
                         ),
-                      ),
                       const RowCreateAccount()
                     ],
                   ),

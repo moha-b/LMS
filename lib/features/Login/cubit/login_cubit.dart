@@ -57,6 +57,7 @@ class LoginCubit extends Cubit<LoginStates> {
       return null;
     }
     try {
+      emit(LoadingState());
       var user = await LoginRepo.login(
         password: password.valueOrNull,
         username: email.valueOrNull,
