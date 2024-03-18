@@ -19,7 +19,6 @@ class QuizRepo {
       );
       print(result.data['data']);
       return result.data;
-
     } catch (e) {
       print(e);
       return e.toString();

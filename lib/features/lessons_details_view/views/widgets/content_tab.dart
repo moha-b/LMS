@@ -10,8 +10,10 @@ import 'package:lms/features/lessons_details_view/views/widgets/line_separated.d
 import '../../../../core/common/course_view/data/models/course_model.dart';
 
 class ContentTab extends StatelessWidget {
-  const ContentTab({super.key, required this.chapters});
+  const ContentTab({Key? key, required this.chapters}) : super(key: key);
+
   final List<Chapter> chapters;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -20,6 +22,8 @@ class ContentTab extends StatelessWidget {
         builder: (context, state) {
           final lecturesExpansionCubit = context.read<LecturesExpansionCubit>();
           return ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemBuilder: (context, index) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -66,7 +70,9 @@ class ContentTab extends StatelessWidget {
                 ),
                 if (lecturesExpansionCubit.isExpandedList[index])
                   LessonsDetails(
-                      lessons: chapters[index].lessons, chapters: chapters),
+                    lessons: chapters[index].lessons,
+                    chapters: chapters,
+                  ),
               ],
             ),
             separatorBuilder: (context, index) => const LineSeparated(),

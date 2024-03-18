@@ -14,7 +14,7 @@ class LecturesDetails extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () => NavigationHelper.navigateToReplacement(
+          onTap: () => NavigationHelper.navigateTo(
             AppRoute.LESSON_DETAILS,
             arguments: LessonDetailsArguments(lesson[index].id, chapter),
           ),
@@ -67,7 +67,7 @@ class LecturesDetails extends StatelessWidget {
                               onTap: () {
                                 NavigationHelper.navigateTo(
                                   AppRoute.QUIZ_INFO,
-                                  arguments: lesson[index].quizId,
+                                  arguments: 24,
                                 );
                               },
                               text: 'Quiz',
