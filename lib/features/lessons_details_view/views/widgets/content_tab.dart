@@ -22,8 +22,6 @@ class ContentTab extends StatelessWidget {
         builder: (context, state) {
           final lecturesExpansionCubit = context.read<LecturesExpansionCubit>();
           return ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
             itemBuilder: (context, index) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,16 +51,17 @@ class ContentTab extends StatelessWidget {
                             lecturesExpansionCubit
                                 .toggleExpandedLecturesDetails(index);
                           },
-                          child: Transform.rotate(
-                            angle: lecturesExpansionCubit.isExpandedList[index]
-                                ? 3.14
-                                : 0,
-                            child: Icon(
-                              AppIcons.arrow_down_1,
-                              size: 18.sp,
-                              color: AppColors.primary,
-                            ),
-                          ),
+                          child: lecturesExpansionCubit.isExpandedList[index]
+                              ? Icon(
+                                  AppIcons.arrow_up_2,
+                                  size: 18.sp,
+                                  color: AppColors.primary,
+                                )
+                              : Icon(
+                                  AppIcons.arrow_down_1,
+                                  size: 18.sp,
+                                  color: AppColors.primary,
+                                ),
                         ),
                       ),
                     ],
