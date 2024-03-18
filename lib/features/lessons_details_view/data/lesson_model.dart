@@ -5,7 +5,7 @@ class LessonModel {
   final int courseId;
   final String image;
   final String description;
-  final String videoUrl;
+  final String? videoUrl;
   final int isFree;
   final String zoomCode;
   final String zoomPassword;

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,12 +17,24 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
       child: BlocBuilder<LessonsCubit, LessonsState>(
         builder: (context, state) {
           if (state is LessonsSuccess) {
+            log(state.lesson.videoUrl.toString(), name: 'URL');
             return AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: AppColors.violet50,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.pin,
-                background: VideoPlayerWidget(videoUrl: state.lesson.videoUrl),
+                background: state.lesson.videoUrl!.isNotEmpty &&
+                        state.lesson.videoUrl != null
+                    ? VideoPlayerWidget(videoUrl: state.lesson.videoUrl!)
+                    : Center(
+                        child: Text(
+                        'Video Not Found',
+                        style: TextStyle(
+                          color: AppColors.error900,
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )),
               ),
             );
           } else if (state is LessonsInitial) {

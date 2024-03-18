@@ -123,10 +123,12 @@ class QuizReportView extends StatelessWidget {
               ],
             ),
             floatingActionButton: PrimaryButton(
-              onTap: () {},
+              onTap: () {
+                NavigationHelper.navigateTo(AppRoute.HOME);
+              },
               height: 45.h,
               width: 137.w,
-              text: 'Quiz Report',
+              text: 'Go To Home',
               fontWeight: FontWeight.w400,
               fontSize: 14.sp,
               borderRadius: 40.r,
@@ -136,8 +138,9 @@ class QuizReportView extends StatelessWidget {
               iconSize: 14.sp,
             ),
           );
-        } else
+        } else {
           return const Center(child: CircularProgressIndicator());
+        }
       }),
     );
   }
