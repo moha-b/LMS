@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,39 +37,35 @@ class LessonsDetailsView extends StatelessWidget {
               length: 2,
               child: Scaffold(
                 appBar: AppBarComponent(id: id),
-                body: CustomScrollView(
-                  slivers: <Widget>[
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
-                        child: Text(
-                          chapter[0].lessons[0].description,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.gray900,
-                          ),
+                body: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(24.w, 16.h, 16.w, 14.h),
+                      child: Text(
+                        chapter[0].lessons[0].description,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.gray900,
                         ),
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: TabBar(
-                        unselectedLabelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        unselectedLabelColor: AppColors.gray500,
-                        indicatorColor: AppColors.primary,
-                        dividerColor: AppColors.gray100,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelColor: AppColors.primary,
-                        labelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        tabs: myTabs,
+                    TabBar(
+                      unselectedLabelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
                       ),
+                      unselectedLabelColor: AppColors.gray500,
+                      indicatorColor: AppColors.primary,
+                      dividerColor: AppColors.gray100,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      labelColor: AppColors.primary,
+                      labelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      tabs: myTabs,
                     ),
-                    SliverFillRemaining(
+                    Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(top: 24.h),
                         child: TabBarView(
