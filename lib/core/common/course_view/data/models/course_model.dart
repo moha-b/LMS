@@ -16,7 +16,6 @@ class Course {
   final bool inWishlist;
   final List<Chapter> chapters;
   final List<Instructor> instructors;
-  final List<dynamic> extendsList;
   final int studentsCount;
   final String certificate;
   final List<int> trackId;
@@ -39,7 +38,6 @@ class Course {
     required this.inWishlist,
     required this.chapters,
     required this.instructors,
-    required this.extendsList,
     required this.studentsCount,
     required this.certificate,
     required this.trackId,
@@ -68,7 +66,6 @@ class Course {
       instructors: (json['data']['instructors'] as List<dynamic>)
           .map((instructorJson) => Instructor.fromJson(instructorJson))
           .toList(),
-      extendsList: json['data']['extends'],
       studentsCount: json['data']['students_count'],
       certificate: json['data']['certificate'],
       trackId: (json['data']['track_id'] as List<dynamic>).cast<int>(),
@@ -186,7 +183,7 @@ class Instructor {
   final String image;
   final String bio;
   final int studentCount;
-  final List<dynamic> courses;
+
   final int coursesCount;
 
   Instructor({
@@ -196,7 +193,6 @@ class Instructor {
     required this.image,
     required this.bio,
     required this.studentCount,
-    required this.courses,
     required this.coursesCount,
   });
 
@@ -208,7 +204,6 @@ class Instructor {
       image: json['image'],
       bio: json['bio'],
       studentCount: json['student_count'],
-      courses: json['courses'],
       coursesCount: json['courses_count'],
     );
   }
